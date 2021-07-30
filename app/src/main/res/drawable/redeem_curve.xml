@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape android:shape="rectangle">
+        <solid android:color="@color/pink_200" />
+    </shape>
+</item>
+<item>
+    // add android:right="5dp" and android:left="5dp" for border on left and right
+    <shape android:shape="rectangle">
+        <solid android:color="#FFFFFF" />
+<!--        <solid android:color="#FFFFFF" />-->
+<!--        <stroke-->
+<!--            android:width="1dip"-->
+<!--            android:color="#838383" />-->
+        <corners
+            android:topRightRadius="50dp"/>
+    </shape>
+</item>
+</layer-list>

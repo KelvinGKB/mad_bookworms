@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pink_200"
+        tools:context=".RedeemFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:background="@drawable/redeem_curve2"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/redeem_curve2"
+                android:fitsSystemWindows="true"
+                android:visibility="visible"
+                app:contentScrim="@color/pink_200"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:title="Premium">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="411dp"
+                    android:layout_height="192dp"
+                    android:background="@drawable/redeem_curve2"
+                    android:orientation="horizontal"
+                    android:paddingStart="30sp"
+                    android:paddingLeft="30sp"
+                    android:paddingTop="20sp"
+                    android:paddingEnd="20sp"
+                    android:paddingRight="20sp"
+                    android:paddingBottom="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="176dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/member_level"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dancing_script"
+                                    android:text="Platinum"
+                                    android:textColor="#0C0C0C"
+                                    android:textSize="40sp"
+                                    android:textStyle="bold|italic"
+                                    android:typeface="monospace" />
+
+                                <TextView
+                                    android:id="@+id/points"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="-10sp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:includeFontPadding="false"
+                                    android:paddingTop="12sp"
+                                    android:text="1386 points"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <Button
+                                    android:id="@+id/voucherBtn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal|center_vertical"
+                                    android:layout_marginLeft="20sp"
+                                    android:layout_marginTop="30sp"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:text="My Voucher"
+                                    android:textAllCaps="false"
+                                    android:textSize="14sp"
+                                    app:backgroundTint="@color/pink_700"
+                                    app:cornerRadius="50sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBar"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="240sp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progress="70"
+                                    android:theme="@style/ProgressBarStyle" />
+
+                                <TextView
+                                    android:id="@+id/member_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:text=" earn more 240 points to upgrade platinum"
+                                    android:textColor="#888888" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--            <androidx.appcompat.widget.Toolbar-->
+                <!--                android:id="@+id/toolbar"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="50sp"-->
+                <!--                app:layout_collapseMode="pin"/>-->
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/redeem_curve"
+                android:orientation="vertical"
+                android:padding="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/dancing_script"
+                        android:text="Platinum privilege"
+                        android:textAlignment="center"
+                        android:textColor="#020202"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100sp"
+                    android:orientation="horizontal"
+                    android:paddingTop="15sp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/circle"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_baseline_loyalty_24" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Discount"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/circle"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_baseline_local_shipping_24" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Free Shipping"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/circle"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_baseline_receipt_24" />
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Voucher"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Ways of Earning Points"
+                        android:textAlignment="center"
+                        android:textColor="#020202"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="20sp"
+                    android:paddingBottom="20sp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/pink_round_background"
+                        android:orientation="vertical"
+                        android:padding="20sp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="vertical"
+                            app:cardCornerRadius="50dp"
+                            app:cardElevation="2dp">
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="80sp"
+                                android:layout_height="80sp"
+                                android:background="@drawable/circle"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@mipmap/ic_cart" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:paddingTop="5sp"
+                            android:paddingBottom="5sp"
+                            android:text="Purcharse Items"
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="every purchase of the products will reward amount of points."
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20sp"
+                        android:background="#C4C4C4" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/pink_round_background"
+                        android:orientation="vertical"
+                        android:padding="20sp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="vertical"
+                            app:cardCornerRadius="50dp"
+                            app:cardElevation="2dp">
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="80sp"
+                                android:layout_height="80sp"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@mipmap/ic_share_round" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:paddingTop="5sp"
+                            android:paddingBottom="5sp"
+                            android:text="Refer a Friend"
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="register account with below referal code to earn more points."
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/copyIdbtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15sp"
+                                android:layout_marginBottom="5sp"
+                                android:layout_weight="1"
+                                android:drawableRight="@drawable/ic_baseline_content_18"
+                                android:includeFontPadding="false"
+                                android:text="B123456"
+                                android:textColor="#000000"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@color/pink_700"
+                                app:cornerRadius="10sp" />
+
+                            <Button
+                                android:id="@+id/copyLinkbtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:includeFontPadding="false"
+                                android:text="Copy Link"
+                                android:textColor="#000000"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@color/pink_700"
+                                app:cornerRadius="10sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!--                <LinearLayout-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="match_parent"-->
+                    <!--                    android:layout_margin="20sp"-->
+                    <!--                    android:layout_weight="0.1"-->
+                    <!--                    android:background="@drawable/divider"-->
+                    <!--                    android:divider="@drawable/divider"-->
+                    <!--                    android:orientation="vertical"></LinearLayout>-->
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+

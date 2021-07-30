@@ -1,0 +1,181 @@
+package com.mad.mad_bookworms
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+@Suppress("DEPRECATION")
+internal class MyAdapter(
+    var context: MyVoucherFragment,
+    fm: FragmentManager,
+    var totalTabs: Int
+) :
+    FragmentPagerAdapter(fm) {
+    override fun getItem(position: Int): Fragment {
+        return when (position) {
+            0 -> {
+                ActiveVoucherFragment()
+            }
+            1 -> {
+                BrowseVoucher()
+            }
+            else -> getItem(position)
+        }
+    }
+    override fun getCount(): Int {
+        return totalTabs
+    }
+
+}
+
+class CustomAdapter(
+    applicationContext: Context?,
+    countryList: Array<String>,
+    flags: IntArray
+) :
+    BaseAdapter() {
+    lateinit var context: Context
+    var countryList: Array<String>
+    var flags: IntArray
+    var inflter: LayoutInflater
+    override fun getCount(): Int {
+        return countryList.size
+    }
+
+    override fun getItem(i: Int): Any? {
+        return null
+    }
+
+    override fun getItemId(i: Int): Long {
+        return 0
+    }
+
+    override fun getView(
+        i: Int,
+        view: View,
+        viewGroup: ViewGroup
+    ): View {
+        var view = view
+        view = inflter.inflate(R.layout.setting_list, null)
+        val country = view.findViewById<View>(R.id.tv) as TextView
+        val icon =
+            view.findViewById<View>(R.id.icon) as ImageView
+        country.text = countryList[i]
+        icon.setImageResource(flags[i])
+        return view
+    }
+
+    init {
+        this.countryList = countryList
+        this.flags = flags
+        inflter = LayoutInflater.from(applicationContext)
+    }
+}
+
+class SettingListAdapter(context: Context):BaseAdapter(){
+
+    private val mContext :Context
+    private val listItem = context.getResources().getStringArray(R.array.array_profile)
+
+    init {
+        mContext =context
+    }
+
+    override fun getCount(): Int {
+        return listItem.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItem(position: Int): Any {
+        return "TEST STRING"
+    }
+
+    override fun getView(position: Int,convertView: View?,viewGroup: ViewGroup?): View{
+        val layoutInflater = LayoutInflater.from(mContext)
+        val row_main = layoutInflater.inflate(R.layout.setting_list,viewGroup,false)
+
+        val positionTextView = row_main.findViewById<TextView>(R.id.tv)
+        positionTextView.text = listItem.get(position)
+        return row_main
+    }
+}
+
+class VoucherListAdapter(context: Context):BaseAdapter(){
+
+    private val mContext :Context
+    private val listItem = context.getResources().getStringArray(R.array.array_profile)
+
+    init {
+        mContext =context
+    }
+
+    override fun getCount(): Int {
+        return 10
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItem(position: Int): Any {
+        return "TEST STRING"
+    }
+
+    override fun getView(position: Int,convertView: View?,viewGroup: ViewGroup?): View{
+        val layoutInflater = LayoutInflater.from(mContext)
+        val row_main = layoutInflater.inflate(R.layout.active_voucher_list,viewGroup,false)
+
+        val voucher = row_main.findViewById<TextView>(R.id.tvVoucher)
+        val expiry = row_main.findViewById<TextView>(R.id.tvDate)
+
+        voucher.text = "RM " + "5.00"
+        expiry.text = "Expired on " + "25/6/2020"
+
+        return row_main
+    }
+}
+
+
+class BrowseVoucherListAdapter(context: Context):BaseAdapter(){
+
+    private val mContext :Context
+    private val listItem = context.getResources().getStringArray(R.array.array_profile)
+
+    init {
+        mContext =context
+    }
+
+    override fun getCount(): Int {
+        return 10
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItem(position: Int): Any {
+        return "TEST STRING"
+    }
+
+    override fun getView(position: Int,convertView: View?,viewGroup: ViewGroup?): View{
+        val layoutInflater = LayoutInflater.from(mContext)
+        val row_main = layoutInflater.inflate(R.layout.browse_voucher_list,viewGroup,false)
+
+        val voucher = row_main.findViewById<TextView>(R.id.tvVoucher)
+        val expiry = row_main.findViewById<TextView>(R.id.tvDate)
+
+        voucher.text = "RM " + "5.00"
+        expiry.text = "Expired on " + "25/6/2020"
+
+        return row_main
+    }
+}
