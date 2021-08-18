@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.mad.mad_bookworms.Customer.Home.ExploreFragment
+import com.mad.mad_bookworms.customer.explore.ExploreFragment
 
 
 class MainActivity : AppCompatActivity() {
