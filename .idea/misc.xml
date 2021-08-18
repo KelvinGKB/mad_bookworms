@@ -3,14 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/drawable/pink_round_background.xml" value="0.290625" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/active_voucher_list.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/activity_main.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/browse_voucher_list.xml" value="0.23867753623188406" />
-        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/cardview_booklist.xml" value="0.72" />
+        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/cardview_booklist.xml" value="0.4" />
+        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/cardview_trending.xml" value="0.4" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_active_voucher.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_browse_voucher.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_cart.xml" value="0.23867753623188406" />
-        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_explore.xml" value="0.23867753623188406" />
+        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_explore.xml" value="0.264" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_my_voucher.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_profile.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_redeem.xml" value="0.23867753623188406" />
