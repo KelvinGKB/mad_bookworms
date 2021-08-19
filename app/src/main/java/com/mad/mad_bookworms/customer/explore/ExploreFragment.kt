@@ -28,6 +28,10 @@ class ExploreFragment : Fragment() {
         binding.rvBookList.adapter = adapter
         binding.rvBookList.setHasFixedSize(true)
 
+        val trendingAdapter = TrendingAdapter()
+        binding.rvBookTrending.adapter = trendingAdapter
+        binding.rvBookTrending.setHasFixedSize(true)
+
 
 
         return binding.root
