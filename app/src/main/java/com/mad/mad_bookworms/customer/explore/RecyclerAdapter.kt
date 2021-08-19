@@ -8,12 +8,9 @@ import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.mad.mad_bookworms.R
+import com.mad.mad_bookworms.customer.explore.classes.Book
 
-class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-
-    private var title = arrayOf("Book 1", "Book 2", "Book 3", "Book 4", "Book 5", "Book 6")
-    private  var author = arrayOf("Author 1","Author 2","Author 3","Author 4","Author 5","Author 6")
-    private val images = intArrayOf(R.drawable.book, R.drawable.book, R.drawable.book, R.drawable.book, R.drawable.book, R.drawable.book)
+class RecyclerAdapter(private val data: List<Book>): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
@@ -22,13 +19,13 @@ class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return title.size
+        return data.size
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
-        holder.itemTitle.text = title[position]
-        holder.itemAuthor.text = author[position]
-        holder.itemImage.setImageResource(images[position])
+        holder.itemTitle.text = data[position].bookTitle
+        holder.itemAuthor.text = data[position].bookAuthor
+        holder.itemImage.setImageResource(data[position].bookImage)
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

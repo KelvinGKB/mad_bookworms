@@ -7,13 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mad.mad_bookworms.R
+import com.mad.mad_bookworms.customer.explore.classes.Book
 
-class TrendingAdapter: RecyclerView.Adapter<TrendingAdapter.ViewHolder>() {
+class TrendingAdapter(private val data: List<Book>): RecyclerView.Adapter<TrendingAdapter.ViewHolder>() {
 
-    private var title = arrayOf("Book 1", "Book 2", "Book 3", "Book 4", "Book 5", "Book 6")
-    private  var author = arrayOf("Author 1","Author 2","Author 3","Author 4","Author 5","Author 6")
-    private val images = intArrayOf(R.drawable.book, R.drawable.book, R.drawable.book, R.drawable.book, R.drawable.book, R.drawable.book)
-    private var prices: Array<Double> = arrayOf(89.00, 89.00, 89.00, 89.00, 89.00, 89.00, 89.00)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingAdapter.ViewHolder {
@@ -22,14 +19,14 @@ class TrendingAdapter: RecyclerView.Adapter<TrendingAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TrendingAdapter.ViewHolder, position: Int) {
-        holder.itemTitle.text = title[position]
-        holder.itemAuthor.text = author[position]
-        holder.itemImage.setImageResource(images[position])
-        holder.itemPrice.text = "RM" + "%.2f".format(prices[position])
+        holder.itemTitle.text = data[position].bookTitle
+        holder.itemAuthor.text = data[position].bookAuthor
+        holder.itemImage.setImageResource(data[position].bookImage)
+        holder.itemPrice.text = "RM" + "%.2f".format(data[position].bookPrice)
     }
 
     override fun getItemCount(): Int {
-        return title.size
+        return data.size
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

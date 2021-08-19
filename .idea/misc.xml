@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/drawable/pink_round_background.xml" value="0.290625" />
+        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/drawable/searchview_background.xml" value="0.28425925925925927" />
+        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout-v21/fragment_explore.xml" value="0.14375" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/active_voucher_list.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/activity_main.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/browse_voucher_list.xml" value="0.23867753623188406" />

@@ -8,12 +8,26 @@
         android:layout_height="match_parent"
         tools:context=".customer.explore.ExploreFragment">
 
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/searchview_background"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@android:color/transparent"
+            android:queryHint="Search..."
+            app:layout_constraintBottom_toTopOf="@+id/rvBookList"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="65dp" />
+            app:layout_constraintGuide_begin="84dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvBookList"
