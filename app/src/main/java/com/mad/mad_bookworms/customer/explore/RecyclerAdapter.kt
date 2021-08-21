@@ -12,10 +12,21 @@ import com.mad.mad_bookworms.customer.explore.classes.Book
 
 class RecyclerAdapter(private val data: List<Book>): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
+    private lateinit var mListener : onItemClickListener
+
+    interface onItemClickListener{
+
+        fun onItemClick(position: Int)
+
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener ){
+        mListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.cardview_booklist,parent,false)
-        return ViewHolder(v)
+        return ViewHolder(v,mListener)
     }
 
     override fun getItemCount(): Int {
@@ -28,10 +39,18 @@ class RecyclerAdapter(private val data: List<Book>): RecyclerView.Adapter<Recycl
         holder.itemImage.setImageResource(data[position].bookImage)
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView){
         var itemImage: ImageView = itemView.findViewById(R.id.image_book)
         var itemTitle: TextView = itemView.findViewById(R.id.tvBookTitle)
         var itemAuthor: TextView = itemView.findViewById((R.id.tvBookAuthor))
+
+        init {
+            itemView.setOnClickListener {
+
+                listener.onItemClick(adapterPosition)
+
+            }
+        }
 
     }
 

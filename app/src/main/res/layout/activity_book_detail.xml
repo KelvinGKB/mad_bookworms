@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".customer.bookDetail.BookDetailActivity">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Book Detail"
+            android:textColor="#8B8A8A"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="180dp"
+            android:layout_height="234dp"
+            android:layout_marginBottom="23dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="3dp"
+            app:contentPadding="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_book"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/bookcover"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="53dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="336dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="409dp"
+            android:layout_height="395dp"
+            app:cardBackgroundColor="#F5F1F1"
+            app:cardCornerRadius="55dp"
+            app:cardElevation="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline7">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvBookPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="53dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#FF7759"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="RM XXX" />
+
+                <TextView
+                    android:id="@+id/tvBookTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="53dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#000000"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBookPrice"
+                    tools:text="BOOK TITLE" />
+
+                <TextView
+                    android:id="@+id/tvBookAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="53dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#666565"
+                    android:textSize="18dp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBookTitle"
+                    tools:text="BOOK AUTHOR" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="305dp"
+                    android:layout_height="69dp"
+                    android:layout_marginStart="58dp"
+                    android:layout_marginTop="6dp"
+                    app:cardBackgroundColor="#F6BDD2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBookAuthor">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Number of Pages"
+                            android:textColor="#575050"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="70dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Languages"
+                            android:textColor="#575050"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/textView20"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvBookPages"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="#000000"
+                            app:layout_constraintEnd_toEndOf="@+id/textView20"
+                            app:layout_constraintStart_toStartOf="@+id/textView20"
+                            app:layout_constraintTop_toBottomOf="@+id/textView20"
+                            tools:text="XXX Pages" />
+
+                        <TextView
+                            android:id="@+id/tvBookLanguage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="#000000"
+                            app:layout_constraintEnd_toEndOf="@+id/textView21"
+                            app:layout_constraintStart_toStartOf="@+id/textView21"
+                            app:layout_constraintTop_toBottomOf="@+id/textView21"
+                            tools:text="ENG" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvBookDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="53dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView"
+                    tools:text="BOOK Description" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="154dp"
+                    android:layout_height="49dp"
+                    android:layout_marginStart="53dp"
+                    android:layout_marginBottom="25dp"
+                    app:cardBackgroundColor="#F6BDD2"
+                    app:cardElevation="3dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="QTY"
+                            android:textColor="#666565"
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/btnMinus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_baseline_remove_24"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView23"
+                            app:layout_constraintStart_toEndOf="@+id/textView23"
+                            app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+                        <EditText
+                            android:id="@+id/edtQty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:inputType="number"
+                            android:text="1"
+                            android:textColor="#777777"
+                            android:textSize="24dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/btnMinus"
+                            app:layout_constraintStart_toEndOf="@+id/btnMinus"
+                            app:layout_constraintTop_toTopOf="@+id/btnMinus"
+                            app:layout_constraintEnd_toStartOf="@id/btnIncrease"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                        <ImageButton
+                            android:id="@+id/btnIncrease"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_baseline_add_24"
+                            app:layout_constraintBottom_toBottomOf="@+id/edtQty"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/edtQty"
+                            app:layout_constraintTop_toTopOf="@+id/edtQty" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btnAddToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="25dp"
+                    android:text="Add To Cart"
+                    app:backgroundTint="#FF7759"
+                    app:cornerRadius="15dp"
+                    app:icon="@drawable/ic_baseline_shopping_cart_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

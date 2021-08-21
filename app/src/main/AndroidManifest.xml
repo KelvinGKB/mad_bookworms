@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mad_bookworms">
-        <activity android:name=".ListView"></activity>
+        <activity
+            android:name=".customer.bookDetail.BookDetailActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ListView" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

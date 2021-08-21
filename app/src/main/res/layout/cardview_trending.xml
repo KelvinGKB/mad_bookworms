@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/image_book"
@@ -73,18 +73,21 @@
             android:id="@+id/btnShare"
             android:layout_width="87dp"
             android:layout_height="39dp"
-            android:layout_marginStart="92dp"
+            android:layout_marginStart="52dp"
             android:isScrollContainer="false"
             android:text="@string/share"
             android:textSize="8sp"
+            app:cornerRadius="10dp"
             app:icon="@drawable/ic_baseline_share_24"
             app:iconGravity="start"
             app:iconPadding="0dp"
             app:iconSize="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.728"
             app:layout_constraintStart_toEndOf="@+id/tvBookPrice"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.973"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="SmallSp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
