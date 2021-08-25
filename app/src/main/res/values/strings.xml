@@ -9,6 +9,23 @@
     <string name="bookcover">BookCover</string>
     <string name="share_this_book_to_gain_point">Share To Your Friend!</string>
     <string name="share">Share</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="have_an_account">Have an Account ?</string>
+    <string name="password_validation">* Invalid Password</string>
+    <string name="referral_code_optional">Referral Code (Optional)</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="start_your_journey">Start your journey !</string>
+    <string name="create_account">Create Account.</string>
+    <string name="the_worms_miss_you">the worms miss you !</string>
+    <string name="welcome_back">Welcome Back.</string>
+    <string name="don_t_have_an_account">Don\'t Have an Account ?</string>
+    <string name="send">Send</string>
+    <string name="confirmation_code">Confirmation Code</string>
+    <string name="verify">Verify</string>
 
     <string-array name="array_profile">
         <item>Purchase History</item>

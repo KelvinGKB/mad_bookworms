@@ -9,12 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mad_bookworms">
+        <activity android:name=".security.ForgotPasswordActivity"></activity>
+        <activity android:name=".security.VerifyActivity" />
+        <activity android:name=".security.RegisterActivity" />
         <activity
             android:name=".customer.bookDetail.BookDetailActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ListView" />
-        <activity android:name=".MainActivity">
+            android:parentActivityName=".MainActivity" />
+<!--        <activity android:name=".ListView" />-->
+        <activity android:name=".MainActivity" />
+        <activity android:name=".security.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
