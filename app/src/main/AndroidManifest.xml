@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mad_bookworms">
+
+        <!-- Security Package -->
         <activity android:name=".security.ForgotPasswordActivity"></activity>
         <activity android:name=".security.VerifyActivity" />
         <activity android:name=".security.RegisterActivity" />
