@@ -67,11 +67,6 @@ class RegisterActivity : AppCompatActivity() {
                 showText("Email is required !")
                 return@setOnClickListener
             }
-            if(conPassword == null || conPassword == "")
-            {
-                showText("Confirm Password is required !")
-                return@setOnClickListener
-            }
             if(password == null || password == "")
             {
                 showText("Password is required !")
@@ -80,6 +75,11 @@ class RegisterActivity : AppCompatActivity() {
             if(password.length < 6 )
             {
                 showText("Password must be at least 6 characters !")
+                return@setOnClickListener
+            }
+            if(conPassword == null || conPassword == "")
+            {
+                showText("Confirm Password is required !")
                 return@setOnClickListener
             }
             if(password != conPassword)

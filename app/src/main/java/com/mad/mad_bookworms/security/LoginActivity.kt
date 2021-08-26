@@ -55,6 +55,18 @@ class LoginActivity : AppCompatActivity() {
         {
             val email = binding.edtEmail.editText?.text.toString().trim()
             val password = binding.edtPassword.editText?.text.toString().trim()
+
+            if(email == null || email == "")
+            {
+                showText("Email is required !")
+                return@setOnClickListener
+            }
+            if(password == null || password == "")
+            {
+                showText("Password is required !")
+                return@setOnClickListener
+            }
+
             Signin(email,password)
         }
 
@@ -86,11 +98,15 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
+                    Toast.makeText(baseContext, "Password incorrect or Account does not exist.",
                         Toast.LENGTH_SHORT).show()
 //                    updateUI(null)
                 }
             }
+    }
+
+    fun showText(text : String ){
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 
 
