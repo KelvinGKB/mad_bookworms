@@ -109,14 +109,15 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/password_validation"
+                    android:id="@+id/tvResend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"
                     android:layout_marginBottom="5sp"
-                    android:text="@string/password_validation"
-                    android:textColor="#FF0000"
-                    android:visibility="invisible" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    tools:text="xxx" />
 
             </LinearLayout>
 

@@ -79,9 +79,11 @@
                     app:boxCornerRadiusTopStart="15dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtUsername2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
+                        android:inputType="text"
+                        android:maxLength="15"
                         android:maxLines="1"
                         android:singleLine="true" />
 
@@ -190,7 +192,7 @@
 
 
                 <TextView
-                    android:id="@+id/password_validation"
+                    android:id="@+id/validation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"
