@@ -22,8 +22,8 @@ class BookViewModel : ViewModel() {
 
     fun getAll() = books
 
-    fun getTrendingBooks(): Book? {
-        return books.value?.find { b -> b.isTrending }
+    fun getTrendingBooks(): List<Book>? {
+        return null
     }
 
     fun searchBookTitle(title:String): Book? {

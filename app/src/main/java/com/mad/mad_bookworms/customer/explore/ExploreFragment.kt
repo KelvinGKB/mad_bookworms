@@ -3,6 +3,7 @@ package com.mad.mad_bookworms.customer.explore
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import androidx.fragment.app.activityViewModels
 import com.mad.mad_bookworms.customer.bookDetail.BookDetailActivity
 import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.viewModels.BookViewModel
+import kotlinx.coroutines.awaitAll
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,7 +49,7 @@ class ExploreFragment : Fragment() {
         adapter = RecyclerAdapter(){ holder, book ->
             // Item click
             holder.root.setOnClickListener {
-                Toast.makeText(context, "${data}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${trendingBook}", Toast.LENGTH_SHORT).show()
 //                nav.navigate(R.id.updateFragment, bundleOf("id" to friend.id))
 
 
@@ -70,7 +72,28 @@ class ExploreFragment : Fragment() {
         binding.rvBookList.setHasFixedSize(true)
 
         //Recycler View for Trending list
-        trendingAdapter = TrendingAdapter(trendingBook)
+        trendingAdapter = TrendingAdapter(){ holder, book ->
+            // Item click
+            holder.root.setOnClickListener {
+
+//                nav.navigate(R.id.updateFragment, bundleOf("id" to friend.id))
+
+
+                val intent = Intent(requireContext(), BookDetailActivity::class.java)
+                intent.putExtra("bookID",book.id)
+//                intent.putExtra("bookTitle",data[position].bookTitle)
+//                intent.putExtra("bookAuthor", data[position].bookAuthor)
+//                intent.putExtra("bookDescription", data[position].bookDescription)
+//                intent.putExtra("bookPrice",data[position].bookPrice)
+//                intent.putExtra("requiredPoint",data[position].requiredPoint)
+//                intent.putExtra("category",data[position].category)
+//                intent.putExtra("language",data[position].language)
+//                intent.putExtra("pages",data[position].pages)
+//                intent.putExtra("bookImage",data[position].bookImage)
+
+                startActivity(intent)
+            }
+        }
         binding.rvBookTrending.adapter = trendingAdapter
         binding.rvBookTrending.setHasFixedSize(true)
 
@@ -78,13 +101,16 @@ class ExploreFragment : Fragment() {
         //load all the book data from the firebase
         vm.getAll().observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
-            data.addAll(list)
-            for (book in list) {
-                if (book.isTrending){
+            for(book in list) {
+                if (book.trending == true){
                     trendingBook.add(book)
                 }
             }
+            trendingAdapter.submitList(trendingBook)
         }
+
+
+
 
 
 
