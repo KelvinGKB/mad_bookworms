@@ -49,23 +49,13 @@ class ExploreFragment : Fragment() {
         adapter = RecyclerAdapter(){ holder, book ->
             // Item click
             holder.root.setOnClickListener {
-                Toast.makeText(context, "${trendingBook}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "${trendingBook}", Toast.LENGTH_SHORT).show()
 //                nav.navigate(R.id.updateFragment, bundleOf("id" to friend.id))
 
+                val intent = Intent(requireContext(), BookDetailActivity::class.java)
+                intent.putExtra("bookID",book.id)
 
-//                val intent = Intent(requireContext(), BookDetailActivity::class.java)
-//                intent.putExtra("bookID",data[position].bookID)
-//                intent.putExtra("bookTitle",data[position].bookTitle)
-//                intent.putExtra("bookAuthor", data[position].bookAuthor)
-//                intent.putExtra("bookDescription", data[position].bookDescription)
-//                intent.putExtra("bookPrice",data[position].bookPrice)
-//                intent.putExtra("requiredPoint",data[position].requiredPoint)
-//                intent.putExtra("category",data[position].category)
-//                intent.putExtra("language",data[position].language)
-//                intent.putExtra("pages",data[position].pages)
-//                intent.putExtra("bookImage",data[position].bookImage)
-
-//                startActivity(intent)
+                startActivity(intent)
             }
         }
         binding.rvBookList.adapter = adapter
@@ -81,15 +71,6 @@ class ExploreFragment : Fragment() {
 
                 val intent = Intent(requireContext(), BookDetailActivity::class.java)
                 intent.putExtra("bookID",book.id)
-//                intent.putExtra("bookTitle",data[position].bookTitle)
-//                intent.putExtra("bookAuthor", data[position].bookAuthor)
-//                intent.putExtra("bookDescription", data[position].bookDescription)
-//                intent.putExtra("bookPrice",data[position].bookPrice)
-//                intent.putExtra("requiredPoint",data[position].requiredPoint)
-//                intent.putExtra("category",data[position].category)
-//                intent.putExtra("language",data[position].language)
-//                intent.putExtra("pages",data[position].pages)
-//                intent.putExtra("bookImage",data[position].bookImage)
 
                 startActivity(intent)
             }
