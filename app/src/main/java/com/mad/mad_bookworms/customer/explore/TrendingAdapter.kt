@@ -7,7 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mad.mad_bookworms.R
-import com.mad.mad_bookworms.customer.explore.classes.Book
+import com.mad.mad_bookworms.data.Book
+import com.mad.mad_bookworms.toBitmap
 
 class TrendingAdapter(private val data: List<Book>): RecyclerView.Adapter<TrendingAdapter.ViewHolder>() {
 
@@ -19,10 +20,10 @@ class TrendingAdapter(private val data: List<Book>): RecyclerView.Adapter<Trendi
     }
 
     override fun onBindViewHolder(holder: TrendingAdapter.ViewHolder, position: Int) {
-        holder.itemTitle.text = data[position].bookTitle
-        holder.itemAuthor.text = data[position].bookAuthor
-        holder.itemImage.setImageResource(data[position].bookImage)
-        holder.itemPrice.text = "RM" + "%.2f".format(data[position].bookPrice)
+        holder.itemTitle.text = data[position].title
+        holder.itemAuthor.text = data[position].author
+        //holder.itemImage.setImageBitmap(data[position].image.toBitmap())
+        holder.itemPrice.text = "RM" + "%.2f".format(data[position].price)
     }
 
     override fun getItemCount(): Int {
