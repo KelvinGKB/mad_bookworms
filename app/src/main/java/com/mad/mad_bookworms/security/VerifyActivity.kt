@@ -1,26 +1,32 @@
 package com.mad.mad_bookworms.security
 
+import android.R
 import android.R.attr.password
 import android.content.ContentValues.TAG
+import androidx.fragment.app.activityViewModels
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.MainActivity
+import com.mad.mad_bookworms.data.User
+import com.mad.mad_bookworms.data.UserViewModel
 import com.mad.mad_bookworms.databinding.ActivityVerifyBinding
 import javax.mail.*
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
-
 
 class VerifyActivity : AppCompatActivity() {
     /// Hide Action Bar
@@ -37,12 +43,18 @@ class VerifyActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 //    private var mAuth: FirebaseAuth? = null
 
+    private val vm : UserViewModel by viewModels()
+
     private lateinit var binding: ActivityVerifyBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVerifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Animation
+        val animFadeIn: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
+        val animFadeOut: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_out)
 
         val username = intent.getStringExtra("username") ?: ""
         val email = intent.getStringExtra("email") ?: ""
@@ -54,18 +66,7 @@ class VerifyActivity : AppCompatActivity() {
 
         binding.btnSend.setOnClickListener()
         {
-//            try {
-//                val sender = GMailSender("username@gmail.com", "password")
-//                sender.sendMail(
-//                    "This is Subject",
-//                    "This is Body",
-//                    "user@gmail.com",
-//                    "user@yahoo.com"
-//                )
-//            } catch (e: Exception) {
-//                Log.e("SendMail", e.message, e)
-//            }
-//            Transport.send(plainMail())
+
             code = (10000..999999).random().toString()
             sendMail(email, code)
             binding.btnSend.isEnabled = false
@@ -78,6 +79,7 @@ class VerifyActivity : AppCompatActivity() {
                 }
 
                 override fun onFinish() {
+                    binding.tvResend.startAnimation(animFadeOut)
                     binding.tvResend.isVisible = false
                     binding.btnSend.isEnabled = true
                 }
@@ -85,9 +87,15 @@ class VerifyActivity : AppCompatActivity() {
 
         }
 
-        binding.btnVerify.setOnClickListener()
+        binding.btnVerify2.setOnClickListener()
         {
-            verification(code,email,password)
+            binding.tvButton.startAnimation(animFadeIn)
+            binding.tvButton.setText("Verifying...");
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                verification(code,email,password)
+            }, 2000)
+
         }
 
 
@@ -111,14 +119,23 @@ class VerifyActivity : AppCompatActivity() {
 
     fun verification(code : String,email: String,password:String)
     {
+        //Animation
+        val animFadeIn: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
+        val animFadeOut: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_out)
+
         val entered_code = binding.edtCode.editText?.text.toString().trim()
 
         if (entered_code == code)
         {
-            showText("Email verified.")
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.tvButton.startAnimation(animFadeIn)
+                binding.tvButton.setText("Verified");
+            }, 1000)
+
             Registration(email,password)
         }else{
-            showText("Incorrect Confirmation Code.")
+            binding.tvButton.startAnimation(animFadeIn)
+            binding.tvButton.setText("Incorrect Confirmation Code.");
         }
     }
 
@@ -150,17 +167,25 @@ class VerifyActivity : AppCompatActivity() {
         val user = auth.currentUser
 
         user?.let {
-            val email = user.email
+            val email = user.email?: ""
             val uid = user.uid
 
             val username = intent.getStringExtra("username") ?: ""
             val referral = intent.getStringExtra("referral") ?: ""
 
-            Toast.makeText(baseContext, email +","+uid+","+username+","+referral,Toast.LENGTH_SHORT).show()
+            val u = User(
+                id    = uid,
+                email = email,
+                username  = username,
+                referred_by  = referral
+            )
 
+            vm.set(u)
 
-            //        val intent = Intent(this, LoginActivity::class.java)
-//        startActivity(intent)
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }, 2000)
         }
 
 

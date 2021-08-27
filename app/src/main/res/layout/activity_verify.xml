@@ -127,12 +127,49 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnVerify2"
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:focusable="auto"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/pink_700"
+                    app:cardCornerRadius="50dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="sans-serif-medium"
+                            android:foregroundGravity="center_vertical"
+                            android:gravity="center"
+                            android:letterSpacing="0.1"
+                            android:text="@string/verify"
+                            android:textAppearance="@style/TextAppearanceTab"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            tools:textAllCaps="true" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
                 <Button
                     android:id="@+id/btnVerify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/curver_btn"
                     android:text="@string/verify"
+                    android:visibility="gone"
                     app:backgroundTint="@color/pink_700" />
             </LinearLayout>
         </LinearLayout>

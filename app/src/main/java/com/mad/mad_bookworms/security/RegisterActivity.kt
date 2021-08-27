@@ -62,11 +62,6 @@ class RegisterActivity : AppCompatActivity() {
                 showText("Invalid Email !")
                 return@setOnClickListener
             }
-            if(email == null || email == "")
-            {
-                showText("Email is required !")
-                return@setOnClickListener
-            }
             if(password == null || password == "")
             {
                 showText("Password is required !")

@@ -8,8 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.MainActivity
+import com.mad.mad_bookworms.data.User
 import com.mad.mad_bookworms.databinding.ActivityLoginBinding
 
 
@@ -46,13 +48,22 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnForgot.setOnClickListener()
         {
-//            val intent = Intent(this, ForgotPasswordActivity::class.java)
-//            startActivity(intent)
-            Firebase.auth.signOut()
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+//            Firebase.auth.signOut()
         }
 
         binding.btnSignIn.setOnClickListener()
         {
+//            // TODO
+//            val u = User("A004", "Diana", "kengboonogoh@gmail.com")
+//
+//            Firebase.firestore
+//                .collection("Users")
+//                .document(u.id)
+//                .set(u)
+//                .addOnSuccessListener {Toast.makeText(this, "Record inserted", Toast.LENGTH_LONG).show()}
+
             val email = binding.edtEmail.editText?.text.toString().trim()
             val password = binding.edtPassword.editText?.text.toString().trim()
 
