@@ -1,12 +1,17 @@
 package com.mad.mad_bookworms.security
 
+import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import com.mad.mad_bookworms.data.User
 import com.mad.mad_bookworms.databinding.ActivityLoginBinding
 import com.mad.mad_bookworms.databinding.ActivityRegisterBinding
+import com.mad.mad_bookworms.viewModels.UserViewModel
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -21,6 +26,7 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar!!.show()
     }
 
+    private val vm : UserViewModel by viewModels()
     private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,24 +50,39 @@ class RegisterActivity : AppCompatActivity() {
             val conPassword = binding.edtConPassword.editText?.text.toString()
             val password = binding.edtPassword.editText?.text.toString()
             val referral = binding.edtReferral.editText?.text.toString()
+            var referred_by = ""
 
-            if(username == null || username == "")
-            {
-//                validation.text = "Username cannot be empty !"
-//                validation.isVisible = true
-                showText("Username is required !")
-                return@setOnClickListener
+//            if(username == null || username == "")
+//            {
+////                validation.text = "Username cannot be empty !"
+////                validation.isVisible = true
+//                showText("Username is required !")
+//                return@setOnClickListener
+//
+//            }
+//            if(email == null || email == "")
+//            {
+//                showText("Email is required !")
+//                return@setOnClickListener
+//            }
+//            if (!email.matches(emailPattern.toRegex())) {
+//                showText("Invalid Email !")
+//                return@setOnClickListener
+//            }
 
-            }
-            if(email == null || email == "")
-            {
-                showText("Email is required !")
+            val u = User(
+                username  = username,
+                email   = email,
+                referral_code = referral,
+            )
+
+            val err = vm.validate(u)
+            if (err != "") {
+                showText(err)
+                Log.d(ContentValues.TAG, err)
                 return@setOnClickListener
             }
-            if (!email.matches(emailPattern.toRegex())) {
-                showText("Invalid Email !")
-                return@setOnClickListener
-            }
+
             if(password == null || password == "")
             {
                 showText("Password is required !")
@@ -82,16 +103,16 @@ class RegisterActivity : AppCompatActivity() {
                 showText("Confirm Password does not match Password !")
                 return@setOnClickListener
             }
-            if(referral != null || referral != "")
-            {
-                validateReferral(referral)
-            }
+
+            if(referral != "") { referred_by = vm.getReferrer(referral)?.id.toString() }
+
 
             val intent = Intent(this, VerifyActivity::class.java)
                 .putExtra("username",username)
                 .putExtra("email",email)
                 .putExtra("password",password)
                 .putExtra("referral",referral)
+                .putExtra("referred_by",referred_by)
 
             startActivity(intent)
 

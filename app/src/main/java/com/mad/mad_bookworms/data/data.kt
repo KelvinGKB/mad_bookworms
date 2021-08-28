@@ -1,8 +1,11 @@
 package com.mad.mad_bookworms.data
 
-import com.google.common.primitives.Booleans
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId
+import java.util.*
+
+// TODO: Specify document id
+// TODO: Add date and photo
 
 data class Book(
     @DocumentId
@@ -17,4 +20,35 @@ data class Book(
     var language: String = "",
     var pages: Int = 0,
     //var image: Blob = Blob.fromBytes(ByteArray(0)),
+)
+
+data class User(
+    @DocumentId
+    var id   : String = "",
+    var username : String = "",
+    var email : String = "",
+    var level : String = "Silver",
+    var role : String = "normal",
+    var earn_points  : Int = 0,
+    var usable_points  : Int = 0,
+    var referral_code : String = "",
+    var referred_by : String = "",
+    var photo: Blob = Blob.fromBytes(ByteArray(0)),
+)
+
+data class MyVoucher(
+    @DocumentId
+    var id   : String = "",
+    var uid : String = "",
+    var expiry_date : Date = Date(),
+    var type : String = "",
+    var status : String = "",
+)
+
+data class Voucher(
+    @DocumentId
+    var id   : String = "",
+    var level : String = "",
+    var type : String = "",
+    var requiredPoint : Int = 0,
 )

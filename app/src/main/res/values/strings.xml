@@ -33,5 +33,16 @@
         <item>Language</item>
         <item>Change Password</item>
         <item>Refer a Friend</item>
+        <item>Log Out</item>
+    </string-array>
+
+    <string-array name="admin_array_profile">
+        <item>Purchase History</item>
+        <item>My Favourites</item>
+        <item>Language</item>
+        <item>Change Password</item>
+        <item>Refer a Friend</item>
+        <item>Admin Panel</item>
+        <item>Log Out</item>
     </string-array>
 </resources>

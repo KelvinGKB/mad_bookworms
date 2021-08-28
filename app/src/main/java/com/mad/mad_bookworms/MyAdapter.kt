@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.mad.mad_bookworms.viewModels.UserViewModel
+
 @Suppress("DEPRECATION")
 internal class MyAdapter(
     var context: MyVoucherFragment,
@@ -78,10 +81,11 @@ class CustomAdapter(
     }
 }
 
-class SettingListAdapter(context: Context):BaseAdapter(){
+class SettingListAdapter(context: Context,listItem:Array<String>):BaseAdapter(){
 
     private val mContext :Context
-    private val listItem = context.getResources().getStringArray(R.array.array_profile)
+
+    val listItem = listItem
 
     init {
         mContext =context

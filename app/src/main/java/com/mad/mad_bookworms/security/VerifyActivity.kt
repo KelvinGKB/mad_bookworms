@@ -1,9 +1,7 @@
 package com.mad.mad_bookworms.security
 
 import android.R
-import android.R.attr.password
 import android.content.ContentValues.TAG
-import androidx.fragment.app.activityViewModels
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -17,13 +15,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.mad.mad_bookworms.MainActivity
 import com.mad.mad_bookworms.data.User
-import com.mad.mad_bookworms.data.UserViewModel
+import com.mad.mad_bookworms.viewModels.UserViewModel
 import com.mad.mad_bookworms.databinding.ActivityVerifyBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.mail.*
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
@@ -171,23 +171,36 @@ class VerifyActivity : AppCompatActivity() {
             val uid = user.uid
 
             val username = intent.getStringExtra("username") ?: ""
-            val referral = intent.getStringExtra("referral") ?: ""
+            val referral = "B" + (100000..999999).random().toString()
+            val referred_by = intent.getStringExtra("referred_by") ?: ""
 
             val u = User(
                 id    = uid,
                 email = email,
                 username  = username,
-                referred_by  = referral
+                referral_code  = referral,
+                referred_by  = referred_by
             )
 
             vm.set(u)
+
+            // Update Referrer Points
+            if(referred_by != "")
+            {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val current_earn_points = vm.get(referred_by)?.earn_points.toString().toIntOrNull() ?: 0
+                    val current_usable_points = vm.get(referred_by)?.usable_points.toString().toIntOrNull() ?: 0
+
+                    vm.updateEarnPoints(referred_by,current_earn_points,500)
+                    vm.updateUsablePoints(referred_by,current_usable_points,500)
+                }
+            }
 
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }, 2000)
         }
-
 
     }
 
@@ -196,37 +209,37 @@ class VerifyActivity : AppCompatActivity() {
     }
 
 
-    private fun plainMail(): MimeMessage {
-        val tos = arrayListOf("kengboongoh@gmail.com", "kengboonogoh@gmail.com") //Multiple recipients
-        val from = "kelvingkb@gmail.com" //Sender email
-
-        val properties = System.getProperties()
-
-        with (properties) {
-            put("mail.smtp.host", "smtp.gmail.com") //Configure smtp host
-            put("mail.smtp.port", "465") //Configure port
-            put("mail.smtp.starttls.enable", "true") //Enable TLS
-            put("mail.smtp.auth", "true") //Enable authentication
-        }
-
-        val auth = object: Authenticator() {
-            override fun getPasswordAuthentication() =
-                PasswordAuthentication(from, "kengboon1109") //Credentials of the sender email
-        }
-
-        val session = Session.getDefaultInstance(properties, auth)
-
-        val message = MimeMessage(session)
-
-        with (message) {
-            setFrom(InternetAddress(from))
-            for (to in tos) {
-                addRecipient(Message.RecipientType.TO, InternetAddress(to))
-                subject = "This is the long long long subject" //Email subject
-                setContent("<html><body><h1>This is the actual message</h1></body></html>", "text/html; charset=utf-8") //Sending html message, you may change to send text here.
-            }
-        }
-
-        return message
-    }
+//    private fun plainMail(): MimeMessage {
+//        val tos = arrayListOf("kengboongoh@gmail.com", "kengboonogoh@gmail.com") //Multiple recipients
+//        val from = "kelvingkb@gmail.com" //Sender email
+//
+//        val properties = System.getProperties()
+//
+//        with (properties) {
+//            put("mail.smtp.host", "smtp.gmail.com") //Configure smtp host
+//            put("mail.smtp.port", "465") //Configure port
+//            put("mail.smtp.starttls.enable", "true") //Enable TLS
+//            put("mail.smtp.auth", "true") //Enable authentication
+//        }
+//
+//        val auth = object: Authenticator() {
+//            override fun getPasswordAuthentication() =
+//                PasswordAuthentication(from, "kengboon1109") //Credentials of the sender email
+//        }
+//
+//        val session = Session.getDefaultInstance(properties, auth)
+//
+//        val message = MimeMessage(session)
+//
+//        with (message) {
+//            setFrom(InternetAddress(from))
+//            for (to in tos) {
+//                addRecipient(Message.RecipientType.TO, InternetAddress(to))
+//                subject = "This is the long long long subject" //Email subject
+//                setContent("<html><body><h1>This is the actual message</h1></body></html>", "text/html; charset=utf-8") //Sending html message, you may change to send text here.
+//            }
+//        }
+//
+//        return message
+//    }
 }
