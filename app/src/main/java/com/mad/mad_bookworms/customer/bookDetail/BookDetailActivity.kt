@@ -17,11 +17,20 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.StrictMode
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.fragment.app.activityViewModels
+import com.mad.mad_bookworms.viewModels.BookViewModel
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import com.mad.mad_bookworms.MainActivity
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -32,6 +41,8 @@ class BookDetailActivity : AppCompatActivity() {
     lateinit var drawable : Drawable
     lateinit var bookImage : ImageView
     lateinit var bitmap : Bitmap
+    private lateinit var binding : ActivityBookDetailBinding
+    private val vm: BookViewModel by viewModels()
 
     var permissions = arrayOf(
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -49,15 +60,20 @@ class BookDetailActivity : AppCompatActivity() {
         supportActionBar!!.show()
     }
 
-    private lateinit var binding : ActivityBookDetailBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //bind all the data
+        val bookID = intent.getStringExtra("bookID") ?: ""
+        load(bookID)
+
         bookImage = binding.imageBook
 
+        //button onclick event
         binding.btnMinus.setOnClickListener{ decreaseQty() }
         binding.btnIncrease.setOnClickListener{ increaseQty() }
 
@@ -66,7 +82,6 @@ class BookDetailActivity : AppCompatActivity() {
         }
 
         //binding data
-        val bookID = intent.getStringExtra("bookID") ?: ""
         val bookTitle = intent.getStringExtra("bookTitle") ?: ""
         val bookAuthor = intent.getStringExtra("bookAuthor") ?: ""
         val bookDescription = intent.getStringExtra("bookDescription") ?: ""
@@ -77,18 +92,36 @@ class BookDetailActivity : AppCompatActivity() {
         val pages = intent.getIntExtra("pages",0)
         val bookImage = intent.getIntExtra("bookImage",0)
 
-        with(binding){
-            tvBookTitle.text = bookTitle
-            tvBookAuthor.text = bookAuthor
-            tvBookDescription.text = bookDescription
-            tvBookPrice.text = "RM" + "%.2f".format(bookPrice)
-            tvBookLanguage.text = language
-            tvBookPages.text = pages.toString()
-            imageBook.setImageResource(bookImage)
-        }
+
     }
 
+    private fun load(bookID: String) {
+        lifecycleScope.launch {
+            val f = vm.get(bookID)
+            Log.d("TAG","${bookID}")
+            Log.d("TAG","${f}")
+            if (f!=null) {
+                with(binding){
+                    tvBookTitle.text = f.title
+                    tvBookAuthor.text = f.author
+                    tvBookDescription.text = f.description
+                    tvBookPrice.text = "RM" + "%.2f".format(f.price)
+                    tvBookLanguage.text = f.language
+                    tvBookPages.text = f.pages.toString()
+                    //imageBook.setImageResource(bookImage)
+                }
+            }
+        }
 
+
+//        if (f == null) {
+//            val intent = Intent(this, MainActivity::class.java)
+//
+//            startActivity(intent)
+//        }
+
+
+    }
 
 
     private fun share() {

@@ -3,19 +3,25 @@ package com.mad.mad_bookworms.customer.explore
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mad.mad_bookworms.R
-import com.mad.mad_bookworms.customer.explore.classes.Book
 import com.mad.mad_bookworms.databinding.FragmentExploreBinding
 import android.widget.Toolbar
+import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import com.mad.mad_bookworms.customer.bookDetail.BookDetailActivity
+import com.mad.mad_bookworms.data.Book
+import com.mad.mad_bookworms.viewModels.BookViewModel
+import kotlinx.coroutines.awaitAll
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -23,6 +29,10 @@ import kotlin.collections.ArrayList
 class ExploreFragment : Fragment() {
 
     private lateinit var binding: FragmentExploreBinding
+    private val vm: BookViewModel by activityViewModels()
+
+    private  lateinit var adapter: RecyclerAdapter
+    private  lateinit var trendingAdapter: TrendingAdapter
 
 //    private var layoutManager: RecyclerView.LayoutManager? = null
 //    private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder> ?= null
@@ -33,52 +43,57 @@ class ExploreFragment : Fragment() {
 
         val data: MutableList<Book> = ArrayList()
         val displayBook: MutableList<Book> = ArrayList()
-
-        for(i :Int in 1..10){
-            data.add(Book(
-                "ID $i",
-                "Title $i",
-                "Author $i" ,
-                "BOOK Description",
-                89.00,
-                200,
-                "Romance",
-                "ENG",
-                243,
-                bookImage = R.drawable.book))
-        }
-
-        displayBook.addAll(data)
+        val trendingBook: MutableList<Book> = ArrayList()
 
         //Recycler View for book list
-        val adapter = RecyclerAdapter(displayBook)
-        binding.rvBookList.adapter = adapter
-        adapter.setOnItemClickListener(object : RecyclerAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
+        adapter = RecyclerAdapter(){ holder, book ->
+            // Item click
+            holder.root.setOnClickListener {
+//                Toast.makeText(context, "${trendingBook}", Toast.LENGTH_SHORT).show()
+//                nav.navigate(R.id.updateFragment, bundleOf("id" to friend.id))
 
                 val intent = Intent(requireContext(), BookDetailActivity::class.java)
-                intent.putExtra("bookID",data[position].bookID)
-                intent.putExtra("bookTitle",data[position].bookTitle)
-                intent.putExtra("bookAuthor", data[position].bookAuthor)
-                intent.putExtra("bookDescription", data[position].bookDescription)
-                intent.putExtra("bookPrice",data[position].bookPrice)
-                intent.putExtra("requiredPoint",data[position].requiredPoint)
-                intent.putExtra("category",data[position].category)
-                intent.putExtra("language",data[position].language)
-                intent.putExtra("pages",data[position].pages)
-                intent.putExtra("bookImage",data[position].bookImage)
+                intent.putExtra("bookID",book.id)
 
                 startActivity(intent)
-
             }
-
-        })
+        }
+        binding.rvBookList.adapter = adapter
         binding.rvBookList.setHasFixedSize(true)
 
         //Recycler View for Trending list
-        val trendingAdapter = TrendingAdapter(data)
+        trendingAdapter = TrendingAdapter(){ holder, book ->
+            // Item click
+            holder.root.setOnClickListener {
+
+//                nav.navigate(R.id.updateFragment, bundleOf("id" to friend.id))
+
+
+                val intent = Intent(requireContext(), BookDetailActivity::class.java)
+                intent.putExtra("bookID",book.id)
+
+                startActivity(intent)
+            }
+        }
         binding.rvBookTrending.adapter = trendingAdapter
         binding.rvBookTrending.setHasFixedSize(true)
+
+
+        //load all the book data from the firebase
+        vm.getAll().observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list)
+            for(book in list) {
+                if (book.trending == true){
+                    trendingBook.add(book)
+                }
+            }
+            trendingAdapter.submitList(trendingBook)
+        }
+
+
+
+
+
 
         //search_bar
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
@@ -92,17 +107,18 @@ class ExploreFragment : Fragment() {
 
                 if(newText!!.isNotEmpty()){
                     displayBook.clear()
+
                     val search = newText.lowercase(Locale.getDefault())
 
                     for (book in data){
-                        if(book.bookTitle.lowercase(Locale.getDefault()).contains(search)){
+                        if(book.title.lowercase(Locale.getDefault()).contains(search)){
                             displayBook.add(book)
                         }
+                        adapter.submitList(displayBook)
                         binding.rvBookList.adapter!!.notifyDataSetChanged()
                     }
                 }else{
-                    displayBook.clear()
-                    displayBook.addAll(data)
+                    adapter.submitList(data)
                     binding.rvBookList.adapter!!.notifyDataSetChanged()
                 }
                 return true
