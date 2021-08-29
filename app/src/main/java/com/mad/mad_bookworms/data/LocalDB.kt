@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [User_Table::class],version = 1, exportSchema = false)
+@Database(entities = arrayOf(MyCartTable::class,User_Table::class),version = 1, exportSchema = false)
 abstract class LocalDB : RoomDatabase() {
 
-    abstract val LocalDao: LocalDao
+    abstract val LocalDao :  LocalDao
+    abstract val MyCartDao: MyCartDao
 
     companion object {
 

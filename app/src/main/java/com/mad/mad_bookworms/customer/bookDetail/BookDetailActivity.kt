@@ -30,6 +30,13 @@ import com.mad.mad_bookworms.viewModels.BookViewModel
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.mad.mad_bookworms.MainActivity
+import com.mad.mad_bookworms.data.Book
+import com.mad.mad_bookworms.data.LocalDB
+import com.mad.mad_bookworms.data.MyCartDao
+import com.mad.mad_bookworms.data.MyCartTable
+import com.mad.mad_bookworms.viewModels.CartOrderViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -43,6 +50,9 @@ class BookDetailActivity : AppCompatActivity() {
     lateinit var bitmap : Bitmap
     private lateinit var binding : ActivityBookDetailBinding
     private val vm: BookViewModel by viewModels()
+    private val cartVm: CartOrderViewModel by viewModels()
+    private lateinit var dao: MyCartDao
+    private lateinit var tempBook : Book
 
     var permissions = arrayOf(
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -67,6 +77,8 @@ class BookDetailActivity : AppCompatActivity() {
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        dao = LocalDB.getInstance(application).MyCartDao
+
         //bind all the data
         val bookID = intent.getStringExtra("bookID") ?: ""
         load(bookID)
@@ -76,23 +88,20 @@ class BookDetailActivity : AppCompatActivity() {
         //button onclick event
         binding.btnMinus.setOnClickListener{ decreaseQty() }
         binding.btnIncrease.setOnClickListener{ increaseQty() }
+        binding.btnAddToCart.setOnClickListener{ addToCart() }
 
         binding.btnShare.setOnClickListener{
             share()
         }
 
-        //binding data
-        val bookTitle = intent.getStringExtra("bookTitle") ?: ""
-        val bookAuthor = intent.getStringExtra("bookAuthor") ?: ""
-        val bookDescription = intent.getStringExtra("bookDescription") ?: ""
-        val bookPrice = intent.getDoubleExtra("bookPrice", 0.0)
-        val requiredPoint = intent.getIntExtra("requiredPoint",0)
-        val category = intent.getStringExtra("category") ?: ""
-        val language = intent.getStringExtra("language") ?: ""
-        val pages = intent.getIntExtra("pages",0)
-        val bookImage = intent.getIntExtra("bookImage",0)
 
 
+    }
+
+    private fun addToCart() {
+        val b = MyCartTable(bookId = tempBook.id,  quantity = binding.edtQty.text.toString().toInt())
+
+        cartVm.insert(b)
     }
 
     private fun load(bookID: String) {
@@ -102,6 +111,7 @@ class BookDetailActivity : AppCompatActivity() {
             Log.d("TAG","${f}")
             if (f!=null) {
                 with(binding){
+                    tempBook = f
                     tvBookTitle.text = f.title
                     tvBookAuthor.text = f.author
                     tvBookDescription.text = f.description

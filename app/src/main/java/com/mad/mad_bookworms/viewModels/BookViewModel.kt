@@ -12,7 +12,6 @@ import kotlinx.coroutines.tasks.await
 class BookViewModel : ViewModel() {
     private val col = Firebase.firestore.collection("books")
     private val books = MutableLiveData<List<Book>>()
-    private val trendingBook = MutableLiveData<List<Book>>()
 
     init {
         col.addSnapshotListener {snap, _ -> books.value = snap?.toObjects() }
@@ -28,11 +27,5 @@ class BookViewModel : ViewModel() {
 
     fun getAll() = books
 
-    fun getTrendingBooks(): List<Book>? {
-        return null
-    }
 
-    fun searchBookTitle(title:String): Book? {
-       return null
-    }
 }

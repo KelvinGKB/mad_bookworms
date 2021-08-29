@@ -1,5 +1,6 @@
 package com.mad.mad_bookworms.data
 
+import androidx.room.PrimaryKey
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId
 import java.util.*
@@ -21,6 +22,7 @@ data class Book(
     var pages: Int = 0,
     //var image: Blob = Blob.fromBytes(ByteArray(0)),
 )
+
 
 data class User(
     @DocumentId
@@ -52,3 +54,5 @@ data class Voucher(
     var type : String = "",
     var requiredPoint : Int = 0,
 )
+
+

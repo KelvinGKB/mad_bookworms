@@ -1,9 +1,7 @@
 package com.mad.mad_bookworms.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
 interface LocalDao {
@@ -28,4 +26,30 @@ interface LocalDao {
 //
 //    @Query("Select * From user_table Where price < :priceRange")
 //    fun getPriceLessThan(priceRange:Double) : List<Product>
+}
+
+@Dao
+interface MyCartDao {
+    @Query("SELECT * FROM MyCartTable")
+    fun getAll(): LiveData<List<MyCartTable>>
+
+    @Query("SELECT * FROM MyCartTable WHERE bookId = :bookId")
+    fun get(bookId: String): LiveData<MyCartTable>
+
+    @Query("UPDATE MyCartTable SET quantity = :qty WHERE bookId = :bookId")
+    suspend fun updateQty(bookId: String, qty: Int)
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(f: MyCartTable) // Long -> row id
+    // (fruits: List<Fruit>)  -> List<Long>
+    // (vararg fruits: Fruit) -> List<Long>
+
+    @Update
+    suspend fun update(f: MyCartTable) // Int -> count
+
+    @Delete
+    suspend fun delete(f: MyCartTable) // Int -> count
+
+//    @Query("DELETE FROM MyCartTable")
+//    suspend fun deleteAll()
 }
