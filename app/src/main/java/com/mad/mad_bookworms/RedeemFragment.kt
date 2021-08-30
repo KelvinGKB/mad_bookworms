@@ -1,14 +1,27 @@
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.MyVoucherFragment
 import com.mad.mad_bookworms.R
+import com.mad.mad_bookworms.SettingListAdapter
+import com.mad.mad_bookworms.data.User
 import com.mad.mad_bookworms.databinding.FragmentRedeemBinding
+import com.mad.mad_bookworms.viewModels.UserViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class RedeemFragment : Fragment() {
@@ -24,12 +37,13 @@ class RedeemFragment : Fragment() {
 //        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 //    }
 
-    private fun setCurrentFragment(fragment: Fragment)=
+    private fun setCurrentFragment(fragment: Fragment) =
         parentFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
+            replace(R.id.flFragment, fragment)
             commit()
         }
 
+    private val vm: UserViewModel by activityViewModels()
     private lateinit var binding: FragmentRedeemBinding
 
     override fun onCreateView(
@@ -39,37 +53,110 @@ class RedeemFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_redeem, container, false)
 
-        binding.copyIdbtn.setOnClickListener(){
+        val animFadeIn: Animation =
+            AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in)
+        val animFadeOut: Animation =
+            AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out)
 
-            val id :String = binding.copyIdbtn.text.toString()
-//            val inputPassword :String = binding.editPassword.text.toString()
-//
-//            if(inputName == "abc" && inputPassword == "123") {
-//
-////                Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_questionFragment)
-//
-//            }else{
-//                Toast.makeText(context, "Invalid user name or password!", Toast.LENGTH_LONG).show()
-//            }
+        binding.shimmerView.startShimmerAnimation()
 
+        val user = Firebase.auth.currentUser
+
+        requireActivity().runOnUiThread { // This code will always run on the UI thread, therefore is safe to modify UI elements.
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val u = user?.let { vm.get(it.uid) }
+
+                val level = u?.level
+                val points = u?.usable_points.toString() + " usable points"
+                val earn_points = u?.earn_points
+                val priviledge = u?.level + " priviledge"
+                val code = u?.referral_code
+                val remaining = 0
+
+                Handler(Looper.getMainLooper()).postDelayed({
+
+                    binding.shimmerView.stopShimmerAnimation()
+                    binding.shimmerView.visibility = View.GONE
+
+                    binding.redeemAppBar.visibility= View.VISIBLE
+                    binding.redeemScrollView.visibility = View.VISIBLE
+
+                    binding.tvLevel.startAnimation(animFadeIn)
+                    binding.tvLevel.text = level
+
+                    binding.tvPoints.startAnimation(animFadeIn)
+                    binding.tvPoints.text = points
+
+                    if (earn_points!! < 2000) {
+                        binding.levelBar.max = 2000
+                        val remaining = 2000 - earn_points
+                        binding.levelBar.progress = earn_points
+                        binding.tvRemaining.text =
+                            "earn more " + remaining + " points to upgrade gold"
+
+                    } else if (earn_points!! < 5000) {
+                        binding.levelBar.max = 5000
+                        val remaining = 5000 - 2000 - earn_points
+                        binding.levelBar.progress = earn_points - 2000
+                        binding.tvRemaining.text =
+                            "earn more " + remaining + " points to upgrade platinum"
+                    }
+
+                    binding.tvPriviledge.startAnimation(animFadeIn)
+                    binding.tvPriviledge.text = priviledge
+
+                    binding.btnCode.text = code
+
+                    if(level == "Silver")
+                    {
+                        binding.itemDiscount.visibility = View.VISIBLE
+                        binding.itemShipping.visibility = View.GONE
+                        binding.itemVoucher.visibility = View.GONE
+
+                    }else if(level == "Gold")
+                    {
+                        binding.itemDiscount.visibility = View.VISIBLE
+                        binding.itemShipping.visibility = View.VISIBLE
+                        binding.itemVoucher.visibility = View.GONE
+                    }else{
+                        binding.itemDiscount.visibility = View.VISIBLE
+                        binding.itemShipping.visibility = View.VISIBLE
+                        binding.itemVoucher.visibility = View.VISIBLE
+                    }
+
+
+                }, 500)
+
+            }
+        }
+
+
+        binding.voucherBtn.setOnClickListener() {
+            val myVoucherFragment = MyVoucherFragment()
+            setCurrentFragment(myVoucherFragment)
+        }
+
+        binding.btnCode.setOnClickListener() {
+
+            val id: String = binding.btnCode.text.toString()
             Toast.makeText(context, "Referal Code copied : " + id, Toast.LENGTH_LONG).show()
         }
 
-        binding.copyLinkbtn.setOnClickListener(){
+        binding.btnLink.setOnClickListener() {
 
             Toast.makeText(context, "Copied", Toast.LENGTH_LONG).show()
-        }
-
-        binding.voucherBtn.setOnClickListener(){
-
-            val myVoucherFragment = MyVoucherFragment()
-            setCurrentFragment(myVoucherFragment)
-
         }
 
         return binding.root
     }
 
+//    suspend fun getUser(): User? {
+//        val user = Firebase.auth.currentUser
+//        val u = user?.let { vm.get(it.uid) }
+//
+//        return u
+//    }
 
 
 }

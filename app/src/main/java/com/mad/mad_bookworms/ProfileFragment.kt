@@ -25,16 +25,17 @@ import com.mad.mad_bookworms.data.LocalDB
 import com.mad.mad_bookworms.data.LocalDao
 import com.mad.mad_bookworms.data.User_Table
 import com.mad.mad_bookworms.databinding.FragmentProfileBinding
+import com.mad.mad_bookworms.security.ChangePasswordFragment
 import com.mad.mad_bookworms.security.ForgotPasswordActivity
 import com.mad.mad_bookworms.security.LoginActivity
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.*
 
 
-class ProfileFragment:Fragment() {
+class ProfileFragment : Fragment() {
 
     lateinit var dao: LocalDao
-    private val vm : UserViewModel by activityViewModels()
+    private val vm: UserViewModel by activityViewModels()
     private lateinit var binding: FragmentProfileBinding
     lateinit var listItem: Array<String>
 
@@ -46,109 +47,136 @@ class ProfileFragment:Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
         //Animation
-        val animFadeIn: Animation = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in)
-        val animFadeOut: Animation = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out)
+        val animFadeIn: Animation =
+            AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in)
+        val animFadeOut: Animation =
+            AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out)
         val listView = binding.listview
 
 //        Handler(Looper.getMainLooper()).postDelayed({
 //            if
 //        },2000)
 
-        val user = Firebase.auth.currentUser
+        binding.shimmerView.startShimmerAnimation()
 
-        var role =""
         CoroutineScope(Dispatchers.IO).launch {
-            val u = user?.let { vm.get(it.uid) }
-            binding.tvName.setText(u?.username)
-
-            role = u?.role.toString()
-
-            Handler(Looper.getMainLooper()).postDelayed({
-
-                if(role == "normal"){
-                    listItem = context?.getResources()?.getStringArray(R.array.array_profile) as Array<String>
-                }else
-                {
-                    Toast.makeText(context, role,   Toast.LENGTH_SHORT).show()
-                    listItem = context?.getResources()?.getStringArray(R.array.admin_array_profile) as Array<String>
-                }
-                listView.adapter = listItem?.let { SettingListAdapter(requireActivity(), it) }
-                binding.listview.startAnimation(animFadeIn)
-
-            },200)
+            loadUser()
         }
 
-
-        binding.listview.setOnItemClickListener{parent, view, position, id ->
+        binding.listview.setOnItemClickListener { parent, view, position, id ->
 
             when (listItem?.get(position)) {
-                "Change Password" -> changePassword()
-                "Purchase History" -> Toast.makeText(context, "Item One",   Toast.LENGTH_SHORT).show()
-                "My Favourites" -> Toast.makeText(context, "Item Two",   Toast.LENGTH_SHORT).show()
-                "Language" -> Toast.makeText(context, "Item Three",   Toast.LENGTH_SHORT).show()
-                "Refer a Friend" -> Toast.makeText(context, "Item Five",   Toast.LENGTH_SHORT).show()
-                "Admin Panel" -> Toast.makeText(context, "Item Six",   Toast.LENGTH_SHORT).show()
+                "Change Password" -> setCurrentFragment(ChangePasswordFragment())
+                "Purchase History" -> Toast.makeText(context, "Item One", Toast.LENGTH_SHORT).show()
+                "My Favourites" -> Toast.makeText(context, "Item Two", Toast.LENGTH_SHORT).show()
+                "Language" -> Toast.makeText(context, "Item Three", Toast.LENGTH_SHORT).show()
+                "Refer a Friend" -> Toast.makeText(context, "Item Five", Toast.LENGTH_SHORT).show()
+                "Admin Panel" -> Toast.makeText(context, "Item Six", Toast.LENGTH_SHORT).show()
                 "Log Out" -> signOut()
             }
+        }
+        return binding.root
 
-//            if (position==0){
-//                Toast.makeText(context, "Item One",   Toast.LENGTH_SHORT).show()
-//            }
+    }
+
+    private fun setCurrentFragment(fragment: Fragment) =
+        parentFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, fragment)
+            commit()
         }
 
-//                if (user != null) {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                createUser(user.uid)
+    fun signOut() {
+        Firebase.auth.signOut()
+        Toast.makeText(context, "Signed Out", Toast.LENGTH_SHORT).show()
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//
+//            val userList = Firebase.auth.currentUser?.let { dao.getUser(it.uid) }
+////            val userList = dao.getUser()
+//            Log.w(ContentValues.TAG, "Delete Data : " + userList.toString())
+//            if(userList!=null)
+//            {
+//                Log.w(ContentValues.TAG, "Delete Data")
+////                dao.deleteUser(u)
+//            }else{
+//                Log.w(ContentValues.TAG, "Not Delete Data")
 //            }
 //        }
 
-        return binding.root
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(getActivity(), LoginActivity::class.java)
+            startActivity(intent)
+        }, 2000)
     }
 
-    fun changePassword()
-    {
+    suspend fun loadUser() = coroutineScope {
+
+        //Animation
+        val animFadeIn: Animation =
+            AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in)
+        val animFadeOut: Animation =
+            AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out)
+
+        val user = Firebase.auth.currentUser
+        var role = ""
+
+        val u = user?.let { vm.get(it.uid) }
+
+        role = u?.role.toString()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            binding.shimmerView.stopShimmerAnimation()
+            binding.shimmerView.visibility = View.GONE
+
+            binding.profile.visibility = View.VISIBLE
+            binding.layoutList.visibility = View.VISIBLE
+
+            binding.tvName.startAnimation(animFadeIn)
+            binding.tvName.setText(u?.username)
+
+            if (role == "normal") {
+                listItem =
+                    context?.getResources()?.getStringArray(R.array.array_profile) as Array<String>
+            } else {
+                Toast.makeText(context, role, Toast.LENGTH_SHORT).show()
+                listItem = context?.getResources()
+                    ?.getStringArray(R.array.admin_array_profile) as Array<String>
+            }
+            binding.listview.adapter = listItem?.let { SettingListAdapter(requireActivity(), it) }
+            binding.listview.startAnimation(animFadeIn)
+
+        }, 1000)
 
     }
 
-    fun signOut()
-    {
-//        Firebase.auth.signOut()
-        Toast.makeText(context, "Signed Out",  Toast.LENGTH_SHORT).show()
+    suspend fun createUser(u: String) = coroutineScope {
 
-        CoroutineScope(Dispatchers.IO).launch {
-
-//            val u = Firebase.auth.currentUser?.let { dao.getUser(it.uid) }
-        }
-        val userList = dao.getAll()
-        Log.w(ContentValues.TAG, "Delete Data : " + userList.toString())
-        if(userList!=null)
-        {
-            Log.w(ContentValues.TAG, "Delete Data")
-//                dao.deleteUser(u)
-        }else{
-            Log.w(ContentValues.TAG, "Not Delete Data")
-        }
-
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            val intent = Intent(getActivity(), LoginActivity::class.java)
-//            startActivity(intent) },2000)
-    }
-
-    suspend fun createUser(u: String) = coroutineScope{
-
-        Log.w(ContentValues.TAG, "Create User : "+u)
+        Log.w(ContentValues.TAG, "Create User : " + u)
 //        val c = vm.get(u)
         val u = async { vm.get(u) }
         val p = u.await()
         Log.w(ContentValues.TAG, "Create User : " + p.toString())
         dao = LocalDB.getInstance(requireActivity()).LocalDao
 
-        val m = p?.let { User_Table(it.id,it.username,it.email,it.level,it.role,it.earn_points,it.usable_points,it.referral_code,it.referred_by) }
+        val m = p?.let {
+            User_Table(
+                it.id,
+                it.username,
+                it.email,
+                it.level,
+                it.role,
+                it.earn_points,
+                it.usable_points,
+                it.referral_code,
+                it.referred_by
+            )
+        }
         CoroutineScope(Dispatchers.IO).launch {
             if (m != null) {
                 dao.insertUser(m)
                 Log.w(ContentValues.TAG, "Create User Not null")
-            }else{
+            } else {
                 Log.w(ContentValues.TAG, "Create User null")
             }
         }
