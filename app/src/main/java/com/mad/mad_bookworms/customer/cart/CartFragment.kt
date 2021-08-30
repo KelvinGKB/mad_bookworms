@@ -2,6 +2,7 @@ package com.mad.mad_bookworms.customer.cart
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.renderscript.ScriptGroup
 import android.util.Log
@@ -13,8 +14,12 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.mad.mad_bookworms.R
+import com.mad.mad_bookworms.customer.bookDetail.BookDetailActivity
 import com.mad.mad_bookworms.customer.explore.RecyclerAdapter
+import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.data.LocalDB
 import com.mad.mad_bookworms.data.MyCartDao
 import com.mad.mad_bookworms.data.MyCartTable
@@ -31,7 +36,6 @@ class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
     private lateinit var adapter: CartOrderAdapter
     private val pendingOrder: MutableList<MyCartTable> = ArrayList()
-    private lateinit var myCartDao : MyCartDao
     private val vm: BookViewModel by activityViewModels()
     private val cartVm: CartOrderViewModel by activityViewModels()
     private var totalPrice : Double = 0.0
@@ -43,11 +47,22 @@ class CartFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
+        val data: MutableList<MyCartTable> = ArrayList()
         //myCartDao = LocalDB.getInstance(requireContext()).MyCartDao
 
         //Recycler View for cart order
         adapter = CartOrderAdapter() { holder, MyCartTable ->
+            holder.adapterPosition
             var qty = MyCartTable.quantity
+
+            holder.root.setOnClickListener {
+
+                val intent = Intent(requireContext(), BookDetailActivity::class.java)
+                intent.putExtra("bookID",MyCartTable.bookId)
+
+                startActivity(intent)
+            }
+
             holder.btnIncrease.setOnClickListener {
                 qty += 1
                 cartVm.updateQty(MyCartTable.bookId,qty)
@@ -98,7 +113,11 @@ class CartFragment : Fragment() {
             }
 
 
+
+
         }
+
+
 
         binding.btnDelete.setOnClickListener {
             Log.d("TAG", "${pendingOrder.isEmpty()}")
@@ -126,8 +145,47 @@ class CartFragment : Fragment() {
         binding.rvCartOrder.adapter = adapter
         binding.rvCartOrder.setHasFixedSize(true)
 
+        val swipeGesture = object :  SwipeGesture(requireContext()) {
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                when (direction) {
+
+                    ItemTouchHelper.LEFT -> {
+                        cartVm.delete(data[viewHolder.adapterPosition])
+                        data.removeAt(viewHolder.adapterPosition)
+                        adapter.submitList(data)
+                    }
+
+                    ItemTouchHelper.RIGHT -> {
+                        val achieveItem = data[viewHolder.adapterPosition]
+                        cartVm.delete(data[viewHolder.adapterPosition])
+                        data.removeAt(viewHolder.adapterPosition)
+                        cartVm.insert(achieveItem)
+                        data.add(achieveItem)
+                        adapter.submitList(data)
+//                        val achieveItemPos = viewHolder.adapterPosition
+//                        cartVm.delete(adapter.getOrderAt(viewHolder.adapterPosition))
+//                        cartVm.insert(achieveItem)
+//                        Toast.makeText(requireContext(), "swipe right", Toast.LENGTH_SHORT).show()
+                    }
+
+
+                }
+
+
+            }
+
+        }
+
+        val touchHelper = ItemTouchHelper(swipeGesture)
+        binding.rvCartOrder.apply {
+            touchHelper.attachToRecyclerView(this)
+        }
+
         cartVm.getAll().observe(viewLifecycleOwner) { myCart ->
             adapter.submitList(myCart)
+            data.addAll(myCart)
         }
 
 

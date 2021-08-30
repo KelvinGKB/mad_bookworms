@@ -49,8 +49,6 @@ class ExploreFragment : Fragment() {
         adapter = RecyclerAdapter(){ holder, book ->
             // Item click
             holder.root.setOnClickListener {
-//                Toast.makeText(context, "${trendingBook}", Toast.LENGTH_SHORT).show()
-//                nav.navigate(R.id.updateFragment, bundleOf("id" to friend.id))
 
                 val intent = Intent(requireContext(), BookDetailActivity::class.java)
                 intent.putExtra("bookID",book.id)
@@ -82,6 +80,7 @@ class ExploreFragment : Fragment() {
         //load all the book data from the firebase
         vm.getAll().observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
+            data.addAll(list)
             for(book in list) {
                 if (book.trending == true){
                     trendingBook.add(book)

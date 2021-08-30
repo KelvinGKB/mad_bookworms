@@ -1,5 +1,6 @@
 package com.mad.mad_bookworms.customer.cart
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ class CartOrderAdapter(
     val fn: (ViewHolder, MyCartTable) -> Unit = { _, _ -> })
     : ListAdapter<MyCartTable, CartOrderAdapter.ViewHolder>(DiffCallback) {
 
-    private lateinit var vm : BookViewModel
+    private var myCartTable : List<MyCartTable> = arrayListOf()
 
     companion object DiffCallback : DiffUtil.ItemCallback<MyCartTable>() {
         override fun areItemsTheSame(a: MyCartTable, b: MyCartTable)    = a.bookId == b.bookId
@@ -63,4 +64,5 @@ class CartOrderAdapter(
 
         fn(holder, item)
     }
+
 }
