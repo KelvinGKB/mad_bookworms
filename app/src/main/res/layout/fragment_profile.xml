@@ -96,9 +96,9 @@
                             android:paddingTop="10sp"
                             android:paddingRight="10sp"
                             android:paddingBottom="10sp"
-                            android:text="Edit personal information "
                             android:textColor="#636363"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            tools:text="Edit personal information " />
                     </LinearLayout>
 
                 </LinearLayout>

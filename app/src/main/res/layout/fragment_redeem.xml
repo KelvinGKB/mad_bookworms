@@ -104,11 +104,11 @@
                                             android:layout_marginLeft="20sp"
                                             android:layout_marginTop="30sp"
                                             android:fontFamily="@font/roboto_medium"
-                                            android:text="My Voucher"
                                             android:textAllCaps="false"
                                             android:textSize="14sp"
                                             app:backgroundTint="@color/pink_700"
-                                            app:cornerRadius="50sp" />
+                                            app:cornerRadius="50sp"
+                                            tools:text="My Voucher" />
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -139,8 +139,8 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
                                             android:fontFamily="@font/roboto_medium"
-                                            android:text=" earn more 240 points to upgrade platinum"
-                                            android:textColor="#888888" />
+                                            android:textColor="#888888"
+                                            tools:text=" earn more 240 points to upgrade platinum" />
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -279,11 +279,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_medium"
-                                android:text="Ways of Earning Points"
                                 android:textAlignment="center"
                                 android:textColor="#020202"
                                 android:textSize="24sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:text="Ways of Earning Points" />
 
                         </LinearLayout>
 
