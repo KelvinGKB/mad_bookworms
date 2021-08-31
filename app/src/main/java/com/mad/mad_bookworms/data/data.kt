@@ -42,6 +42,7 @@ data class MyVoucher(
     @DocumentId
     var id   : String = "",
     var uid : String = "",
+    var discount : Int = 0,
     var expiry_date : Date = Date(),
     var type : String = "",
     var status : String = "",
@@ -50,7 +51,8 @@ data class MyVoucher(
 data class Voucher(
     @DocumentId
     var id   : String = "",
-    var level : String = "",
+    var level : Int = 1,
+    var discount : Int = 0,
     var type : String = "",
     var requiredPoint : Int = 0,
 )

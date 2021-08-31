@@ -1,9 +1,16 @@
 package com.mad.mad_bookworms
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.Window
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.scale
 import androidx.fragment.app.Fragment
@@ -19,6 +26,43 @@ fun Fragment.errorDialog(text: String) {
         .setMessage(text)
         .setPositiveButton("Dismiss", null)
         .show()
+}
+
+class MultiuseViewDialog {
+    fun showMultiuseDialog(activity: Activity?, type: Int, title:String, content :String) {
+        val dialog = Dialog(activity!!)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.reward_dialog)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val imgDialog = dialog.findViewById<ImageView>(R.id.imgDialog)
+        val dialogTitle = dialog.findViewById<TextView>(R.id.dialogTitle)
+        val dialogContent = dialog.findViewById<TextView>(R.id.dialogContent)
+        val dialogBtn_remove = dialog.findViewById<Button>(R.id.btnOK)
+
+        if(type == 1)
+        {
+            imgDialog.setImageResource(R.drawable.reward_not_eligible);
+
+        }else if(type == 2){
+
+            imgDialog.setImageResource(R.drawable.reward_claim);
+
+        }else if(type == 3){
+
+            imgDialog.setImageResource(R.drawable.reward_not_enough);
+        }
+
+        dialogTitle.text = title
+        dialogContent.text = content
+
+        dialogBtn_remove.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
 }
 
 // Usage: Crop and resize bitmap (upscale)
@@ -77,3 +121,4 @@ fun ImageView.cropToBlob(width: Int, height: Int): Blob {
     else
         return this.drawable.toBitmap().crop(width, height).toBlob()
 }
+

@@ -1,3 +1,5 @@
+package com.mad.mad_bookworms.redeem
+
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,16 +9,12 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.mad.mad_bookworms.MyVoucherFragment
 import com.mad.mad_bookworms.R
-import com.mad.mad_bookworms.SettingListAdapter
-import com.mad.mad_bookworms.data.User
 import com.mad.mad_bookworms.databinding.FragmentRedeemBinding
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.CoroutineScope

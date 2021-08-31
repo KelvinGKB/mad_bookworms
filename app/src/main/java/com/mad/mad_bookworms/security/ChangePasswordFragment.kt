@@ -1,6 +1,6 @@
 package com.mad.mad_bookworms.security
 
-import ProfileFragment
+import com.mad.mad_bookworms.profile.ProfileFragment
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.os.Handler
@@ -16,10 +16,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.mad.mad_bookworms.MyVoucherFragment
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.databinding.FragmentChangePasswordBinding
-import com.mad.mad_bookworms.databinding.FragmentRedeemBinding
 
 class ChangePasswordFragment : Fragment() {
 

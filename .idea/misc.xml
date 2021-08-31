@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/drawable-v24/ic_error.xml" value="0.2759259259259259" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.2814814814814815" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.2814814814814815" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/drawable/pink_round_background.xml" value="0.290625" />
@@ -14,18 +13,29 @@
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/activity_main.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/browse_voucher_list.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/cardview_booklist.xml" value="0.4" />
-        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/cardview_cartorder.xml" value="0.264" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/cardview_trending.xml" value="0.4" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_active_voucher.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_book_detail.xml" value="0.23052536231884058" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_browse_voucher.xml" value="0.23867753623188406" />
-        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_cart.xml" value="0.264" />
+        <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_cart.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_explore.xml" value="0.264" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_my_voucher.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_profile.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/fragment_redeem.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/layout/setting_list.xml" value="0.23867753623188406" />
         <entry key="..\:/MobileApp Practical/mad_bookworms/app/src/main/res/menu/bottom_nav_menu.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/active_voucher_list.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/activity_main.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/browse_voucher_list.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/cardview_booklist.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/fragment_active_voucher.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/fragment_browse_voucher.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/fragment_cart.xml" value="0.22780797101449277" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/fragment_explore.xml" value="0.20742753623188406" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/fragment_profile.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/fragment_redeem.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/layout/reward_dialog.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/mad_bookworms/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3619791666666667" />
       </map>
     </option>
   </component>

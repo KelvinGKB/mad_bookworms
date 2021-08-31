@@ -1,19 +1,17 @@
-package com.mad.mad_bookworms
+package com.mad.mad_bookworms.redeem
 
-import RedeemFragment
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
+import com.mad.mad_bookworms.MyAdapter
+import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.databinding.FragmentMyVoucherBinding
 
 

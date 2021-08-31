@@ -9,11 +9,29 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
+        <ListView
+            android:id="@+id/voucher_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="5dp"
+            android:visibility="gone">
+
+        </ListView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUserVoucherList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/active_voucher_list" />
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#E4E4E4"
+            android:visibility="visible"
             app:duration="800">
 
             <LinearLayout
@@ -437,11 +455,5 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <ListView
-            android:id="@+id/voucher_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:dividerHeight="5dp"
-            android:visibility="gone" />
     </LinearLayout>
 </layout>

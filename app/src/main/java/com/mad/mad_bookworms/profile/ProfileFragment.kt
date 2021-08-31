@@ -1,5 +1,6 @@
+package com.mad.mad_bookworms.profile
+
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,10 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.BaseAdapter
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -26,7 +24,6 @@ import com.mad.mad_bookworms.data.LocalDao
 import com.mad.mad_bookworms.data.User_Table
 import com.mad.mad_bookworms.databinding.FragmentProfileBinding
 import com.mad.mad_bookworms.security.ChangePasswordFragment
-import com.mad.mad_bookworms.security.ForgotPasswordActivity
 import com.mad.mad_bookworms.security.LoginActivity
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.*
