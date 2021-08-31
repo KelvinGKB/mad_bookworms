@@ -30,6 +30,7 @@
     <string name="delete_confirmation_message">Are you sure you want to delete these item(s)?</string>
     <string name="no_selected_any_item_message">You Have not selected any item</string>
     <string name="change">Change</string>
+    <string name="added_cart_successfully_message">Item Successfully Added to Cart.</string>
 
     <string-array name="array_profile">
         <item>Purchase History</item>

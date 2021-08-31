@@ -10,7 +10,7 @@ class CartOrderViewModel : ViewModel() {
 
     fun getAll() = db.MyCartDao.getAll()
 
-    fun get(bookId: String) = db.MyCartDao.get(bookId)
+    suspend fun get(bookId: String) = db.MyCartDao.get(bookId)
 
     fun insert(b: MyCartTable) = viewModelScope.launch { db.MyCartDao.insert(b) }
 

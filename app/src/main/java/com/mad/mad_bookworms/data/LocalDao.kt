@@ -34,7 +34,7 @@ interface MyCartDao {
     fun getAll(): LiveData<List<MyCartTable>>
 
     @Query("SELECT * FROM MyCartTable WHERE bookId = :bookId")
-    fun get(bookId: String): LiveData<MyCartTable>
+    suspend fun get(bookId: String): MyCartTable
 
     @Query("UPDATE MyCartTable SET quantity = :qty WHERE bookId = :bookId")
     suspend fun updateQty(bookId: String, qty: Int)

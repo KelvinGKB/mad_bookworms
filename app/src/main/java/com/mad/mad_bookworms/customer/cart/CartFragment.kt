@@ -47,6 +47,7 @@ class CartFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
+
         val data: MutableList<MyCartTable> = ArrayList()
         //myCartDao = LocalDB.getInstance(requireContext()).MyCartDao
 
@@ -120,7 +121,6 @@ class CartFragment : Fragment() {
 
 
         binding.btnDelete.setOnClickListener {
-            Log.d("TAG", "${pendingOrder.isEmpty()}")
             if (pendingOrder.isNotEmpty()){
                 var builder = AlertDialog.Builder(activity)
                 builder.setTitle(getString(R.string.confirm_delete))
@@ -129,6 +129,7 @@ class CartFragment : Fragment() {
                     for (b in pendingOrder) {
                         cartVm.delete(b)
                     }
+                    pendingOrder.clear()
                     dialog.cancel()
                 })
                 builder.setNegativeButton("No", DialogInterface.OnClickListener{ dialog, id ->
@@ -186,6 +187,13 @@ class CartFragment : Fragment() {
         cartVm.getAll().observe(viewLifecycleOwner) { myCart ->
             adapter.submitList(myCart)
             data.addAll(myCart)
+            for (c in myCart) {
+                if (pendingOrder.contains(c)){
+                    pendingOrder.remove(c)
+                }
+            }
+
+
         }
 
 

@@ -43,16 +43,19 @@ import java.io.File
 import java.io.FileOutputStream
 
 
+
 class BookDetailActivity : AppCompatActivity() {
 
-    lateinit var drawable : Drawable
-    lateinit var bookImage : ImageView
-    lateinit var bitmap : Bitmap
-    private lateinit var binding : ActivityBookDetailBinding
+    lateinit var drawable: Drawable
+    lateinit var bookImage: ImageView
+    lateinit var bitmap: Bitmap
+    private lateinit var binding: ActivityBookDetailBinding
     private val vm: BookViewModel by viewModels()
     private val cartVm: CartOrderViewModel by viewModels()
     private lateinit var dao: MyCartDao
-    private lateinit var tempBook : Book
+    private lateinit var tempBook: Book
+
+    val data: MutableList<MyCartTable> = ArrayList()
 
     var permissions = arrayOf(
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -71,13 +74,14 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        dao = LocalDB.getInstance(application).MyCartDao
+
+
+
 
         //bind all the data
         val bookID = intent.getStringExtra("bookID") ?: ""
@@ -86,31 +90,99 @@ class BookDetailActivity : AppCompatActivity() {
         bookImage = binding.imageBook
 
         //button onclick event
-        binding.btnMinus.setOnClickListener{ decreaseQty() }
-        binding.btnIncrease.setOnClickListener{ increaseQty() }
-        binding.btnAddToCart.setOnClickListener{ addToCart() }
+        binding.btnMinus.setOnClickListener { decreaseQty() }
+        binding.btnIncrease.setOnClickListener { increaseQty() }
+        binding.btnAddToCart.setOnClickListener { addToCart() }
 
-        binding.btnShare.setOnClickListener{
+        binding.btnShare.setOnClickListener {
             share()
         }
 
+        cartVm.getAll().observe(this) { list ->
+            data.addAll(list)
+        }
 
 
     }
 
     private fun addToCart() {
-        val b = MyCartTable(bookId = tempBook.id,  quantity = binding.edtQty.text.toString().toInt())
+        Log.d("TAG", "Hi I am here.")
+        val b = MyCartTable(bookId = tempBook.id, quantity = binding.edtQty.text.toString().toInt())
+        val order: MutableList<MyCartTable> = ArrayList()
+        var checkDuplicate: Boolean = false
+        var cartOrder: MyCartTable
+        Log.d("TAG","${data}")
 
-        cartVm.insert(b)
+
+        CoroutineScope(IO).launch {
+            var c = cartVm.get(tempBook.id)
+            order.add(c)
+            Log.d("TAG","Addeddddd")
+
+            Log.d("TAG","ORderrrr ${order}")
+            cartOrder = order[0]
+
+            if (data.contains(cartOrder)) {
+                Log.d("TAG","wrongggggggggg")
+                cartVm.updateQty(bookId = tempBook.id, cartOrder.quantity + binding.edtQty.text.toString().toInt())
+
+                return@launch
+
+            }
+            else {
+                Log.d("TAG","imsefrefesr")
+                cartVm.insert(b)
+
+                return@launch
+            }
+        }
+        Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
+
+//        cartOrder = order[0]
+
+//
+
+
+//            if (!data.contains(f.value)) {
+//                cartVm.insert(b)
+//                Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
+//
+//            }
+//            else if (data.contains(f.value)){
+//                Log.d("TAG","wrongggggggggg")
+//                cartVm.updateQty(bookId = tempBook.id, f.value!!.quantity + binding.edtQty.text.toString().toInt())
+//                Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
+//            }
+
+
+
+
+//        for (c in data) {
+//            Log.d("TAG","CCCC ${c.bookId}")
+//            Log.d("TAG", "TEMP ${tempBook.id}")
+//
+////            if (tempBook.id == c.bookId){
+////                Log.d("TAG","Duplicated lahhhh")
+//////                cartVm.updateQty(bookId = tempBook.id,c.quantity + binding.edtQty.text.toString().toInt())
+//////                Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
+////                return
+////            }
+////            else{
+////                cartVm.insert(b)
+////                Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
+////                return
+////            }
+//        }
     }
 
     private fun load(bookID: String) {
         lifecycleScope.launch {
+
             val f = vm.get(bookID)
-            Log.d("TAG","${bookID}")
-            Log.d("TAG","${f}")
-            if (f!=null) {
-                with(binding){
+            Log.d("TAG", "${bookID}")
+            Log.d("TAG", "${f}")
+            if (f != null) {
+                with(binding) {
                     tempBook = f
                     tvBookTitle.text = f.title
                     tvBookAuthor.text = f.author
@@ -158,7 +230,12 @@ class BookDetailActivity : AppCompatActivity() {
     private fun getImageUri(bookDetailActivity: BookDetailActivity, image: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(bookDetailActivity.contentResolver, image, "Title", null)
+        val path = MediaStore.Images.Media.insertImage(
+            bookDetailActivity.contentResolver,
+            image,
+            "Title",
+            null
+        )
         return Uri.parse(path)
     }
 
@@ -170,16 +247,18 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
     private fun increaseQty() {
-        display( binding.edtQty.text.toString().toInt() + 1)
+        display(binding.edtQty.text.toString().toInt() + 1)
     }
 
     private fun decreaseQty() {
-        display( binding.edtQty.text.toString().toInt() - 1)
+        display(binding.edtQty.text.toString().toInt() - 1)
     }
 
     private fun display(i: Int) {
         var qty = i
-        if(qty < 1){ qty = 1 }
+        if (qty < 1) {
+            qty = 1
+        }
         binding.edtQty.setText("$qty")
     }
 
