@@ -27,13 +27,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val r = intent.getStringExtra("cart")?:""
 
         val exploreFragment= ExploreFragment()
         val cartFragment= CartFragment()
         val redeemFragment=RedeemFragment()
         val profileFragment=ProfileFragment()
 
-        setCurrentFragment(exploreFragment)
+        if (r == "cart") {
+            setCurrentFragment(cartFragment)
+        }
+        else{
+            setCurrentFragment(exploreFragment)
+        }
 
        findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnNavigationItemSelectedListener {
             when(it.itemId){

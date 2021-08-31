@@ -93,6 +93,11 @@ class BookDetailActivity : AppCompatActivity() {
         binding.btnMinus.setOnClickListener { decreaseQty() }
         binding.btnIncrease.setOnClickListener { increaseQty() }
         binding.btnAddToCart.setOnClickListener { addToCart() }
+        binding.btnCart.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("cart", "cart")
+            startActivity(intent)
+        }
 
         binding.btnShare.setOnClickListener {
             share()
@@ -138,41 +143,6 @@ class BookDetailActivity : AppCompatActivity() {
         }
         Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
 
-//        cartOrder = order[0]
-
-//
-
-
-//            if (!data.contains(f.value)) {
-//                cartVm.insert(b)
-//                Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
-//
-//            }
-//            else if (data.contains(f.value)){
-//                Log.d("TAG","wrongggggggggg")
-//                cartVm.updateQty(bookId = tempBook.id, f.value!!.quantity + binding.edtQty.text.toString().toInt())
-//                Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
-//            }
-
-
-
-
-//        for (c in data) {
-//            Log.d("TAG","CCCC ${c.bookId}")
-//            Log.d("TAG", "TEMP ${tempBook.id}")
-//
-////            if (tempBook.id == c.bookId){
-////                Log.d("TAG","Duplicated lahhhh")
-//////                cartVm.updateQty(bookId = tempBook.id,c.quantity + binding.edtQty.text.toString().toInt())
-//////                Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
-////                return
-////            }
-////            else{
-////                cartVm.insert(b)
-////                Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
-////                return
-////            }
-//        }
     }
 
     private fun load(bookID: String) {
@@ -194,14 +164,6 @@ class BookDetailActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-//        if (f == null) {
-//            val intent = Intent(this, MainActivity::class.java)
-//
-//            startActivity(intent)
-//        }
-
 
     }
 
