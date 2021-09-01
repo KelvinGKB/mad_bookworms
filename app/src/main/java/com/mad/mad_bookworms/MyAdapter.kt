@@ -5,20 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.mad.mad_bookworms.customer.explore.RecyclerAdapter
-import com.mad.mad_bookworms.data.Book
-import com.mad.mad_bookworms.data.MyVoucher
 import com.mad.mad_bookworms.redeem.ActiveVoucherFragment
-import com.mad.mad_bookworms.redeem.BrowseVoucher
+import com.mad.mad_bookworms.redeem.BrowseVoucherFragment
 import com.mad.mad_bookworms.redeem.MyVoucherFragment
 
 @Suppress("DEPRECATION")
@@ -34,7 +27,7 @@ internal class MyAdapter(
                 ActiveVoucherFragment()
             }
             1 -> {
-                BrowseVoucher()
+                BrowseVoucherFragment()
             }
             else -> getItem(position)
         }

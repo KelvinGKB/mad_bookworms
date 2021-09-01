@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.R
+import com.mad.mad_bookworms.copyToClipboard
 import com.mad.mad_bookworms.databinding.FragmentRedeemBinding
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -138,7 +139,10 @@ class RedeemFragment : Fragment() {
         binding.btnCode.setOnClickListener() {
 
             val id: String = binding.btnCode.text.toString()
-            Toast.makeText(context, "Referal Code copied : " + id, Toast.LENGTH_LONG).show()
+
+            // Copy Text to the Clipboard
+            copyToClipboard(context,id)
+            Toast.makeText(context, "Copied", Toast.LENGTH_LONG).show()
         }
 
         binding.btnLink.setOnClickListener() {

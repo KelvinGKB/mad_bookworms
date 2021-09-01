@@ -2,6 +2,7 @@ package com.mad.mad_bookworms.redeem
 
 import android.content.ContentValues
 import android.os.Build
+import android.text.method.TextKeyListener.clear
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -65,5 +66,23 @@ class UserVoucherAdapter(val fn: (ViewHolder, MyVoucher) -> Unit = { _, _ -> }):
         var itemExpiry: TextView = itemView.findViewById((R.id.tvExpiry))
         var itemButton: Button = itemView.findViewById((R.id.btnUse))
     }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+//    fun clear() {
+//        MyVoucher.clear()
+//        notifyDataSetChanged()
+//    }
+//
+//    fun addAll(tweetList: List<Tweet>) {
+//        MyVoucher.addAll(tweetList)
+//        notifyDataSetChanged()
+//    }
 
 }

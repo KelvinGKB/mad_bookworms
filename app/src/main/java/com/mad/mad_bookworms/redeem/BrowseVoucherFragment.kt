@@ -14,12 +14,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.mad.mad_bookworms.MultiuseViewDialog
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.data.MyVoucher
 import com.mad.mad_bookworms.data.User
 import com.mad.mad_bookworms.data.Voucher
 import com.mad.mad_bookworms.databinding.FragmentBrowseVoucherBinding
+import com.mad.mad_bookworms.showMultiuseDialog
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import com.mad.mad_bookworms.viewModels.UserVoucherViewModel
 import com.mad.mad_bookworms.viewModels.VoucherViewModel
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
-class BrowseVoucher : Fragment() {
+class BrowseVoucherFragment : Fragment() {
 
     private lateinit var binding: FragmentBrowseVoucherBinding
     private val vm: VoucherViewModel by activityViewModels()
@@ -47,6 +47,15 @@ class BrowseVoucher : Fragment() {
             inflater,
             R.layout.fragment_browse_voucher, container, false
         )
+
+        val voucherList: MutableList<Voucher> = ArrayList()
+
+        // Setup refresh listener which triggers new data loading
+        binding.swipeContainer2.setOnRefreshListener {
+
+            loadVoucher(voucherList)
+            binding.swipeContainer2.setRefreshing(false)
+        }
 
         binding.shimmerView.startShimmerAnimation()
 
@@ -72,13 +81,12 @@ class BrowseVoucher : Fragment() {
 
                         if (level == "Silver" && (voucher.level == 2 || voucher.level == 3)) {
 
-                            val alert = MultiuseViewDialog()
-                            alert.showMultiuseDialog(activity,1,title,content)
+                            showMultiuseDialog(activity,1,title,content)
                             return@postDelayed
 
                         } else if (level == "Gold" && voucher.level == 3) {
-                            val alert = MultiuseViewDialog()
-                            alert.showMultiuseDialog(activity,1,title,content)
+
+                            showMultiuseDialog(activity,1,title,content)
                             return@postDelayed
                         }
 
@@ -87,8 +95,7 @@ class BrowseVoucher : Fragment() {
                             val title = "Oh No..."
                             val content = "You have not enough points to redeem it"
 
-                            val alert = MultiuseViewDialog()
-                            alert.showMultiuseDialog(activity,3,title,content)
+                            showMultiuseDialog(activity,3,title,content)
 
                         }else{
 //                            val remaining_point = points - voucher.requiredPoint
@@ -113,6 +120,7 @@ class BrowseVoucher : Fragment() {
                                 discount = discount ,
                                 type =  type,
                                 uid  = uid,
+                                status = "active",
                                 expiry_date = expiry_day
                             )
 
@@ -122,8 +130,7 @@ class BrowseVoucher : Fragment() {
                             val title = "Voucher claim successfully !"
                             val content = "Don't forget to use your voucher within 14 days."
 
-                            val alert = MultiuseViewDialog()
-                            alert.showMultiuseDialog(activity,2,title,content)
+                            showMultiuseDialog(activity,2,title,content)
 
                         }
 
@@ -132,34 +139,37 @@ class BrowseVoucher : Fragment() {
                 }
             }
         }
+
         binding.rvVoucherList.adapter = adapter
         binding.rvVoucherList.setHasFixedSize(true)
 
+        loadVoucher(voucherList)
+
+        return binding.root
+    }
+
+    fun loadVoucher(voucherList : MutableList<Voucher>)
+    {
+
         //load all the voucher data from the firebase
         val uid = Firebase.auth.currentUser?.uid
-        val voucherList: MutableList<Voucher> = ArrayList()
+
+        voucherList.clear() // clear list
+        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
 
         if (uid != null) {
             vm.getAll().observe(viewLifecycleOwner) { list ->
                 Log.w(ContentValues.TAG, "Voucher : " + list.toString())
-
-//                for(voucher in list) {
-//                    if (voucher.uid == uid && !voucher.expiry_date.before(Calendar.getInstance().time)){
-//                        voucherList.add(voucher)
-//                    }
-//                }
 
                 adapter.submitList(list)
 
                 binding.shimmerView.stopShimmerAnimation()
                 binding.shimmerView.visibility = View.GONE
 
-                binding.rvVoucherList.visibility = View.VISIBLE
+                binding.swipeContainer2.visibility = View.VISIBLE
 
             }
         }
-
-        return binding.root
     }
 
     fun getVoucherCode(length: Int) : String {

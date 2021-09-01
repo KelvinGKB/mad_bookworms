@@ -21,6 +21,7 @@ import com.mad.mad_bookworms.customer.explore.RecyclerAdapter
 import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.data.MyVoucher
 import com.mad.mad_bookworms.databinding.FragmentActiveVoucherBinding
+import com.mad.mad_bookworms.showUseDialog
 import com.mad.mad_bookworms.viewModels.BookViewModel
 import com.mad.mad_bookworms.viewModels.UserVoucherViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -45,6 +46,16 @@ class ActiveVoucherFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_active_voucher, container, false)
 
+        val voucherList: MutableList<MyVoucher> = ArrayList()
+
+        // Setup refresh listener which triggers new data loading
+        binding.swipeContainer.setOnRefreshListener {
+
+            loadUserVoucher(voucherList)
+            binding.swipeContainer.setRefreshing(false)
+        }
+
+
         binding.shimmerView.startShimmerAnimation()
 
         //Recycler View for user voucher list
@@ -52,31 +63,33 @@ class ActiveVoucherFragment : Fragment() {
             // Item click
             holder.itemButton.setOnClickListener {
 
-                if(voucher.type == "1")
-                {
-                    var title = "Free Shipping"
-                    Toast.makeText(context, "You get "+ title + " \nVoucher id : " + voucher.id , Toast.LENGTH_LONG).show()
+                showUseDialog(activity,voucher.id)
 
-                }else if(voucher.type == "2"){
-
-                    var title = "Discount RM " + voucher.discount.toString()
-                    Toast.makeText(context, "You get "+ title + " \nVoucher id : " + voucher.id , Toast.LENGTH_LONG).show()
-                }
             }
         }
         binding.rvUserVoucherList.adapter = adapter
         binding.rvUserVoucherList.setHasFixedSize(true)
 
+        loadUserVoucher(voucherList)
+
+        return binding.root
+
+    }
+
+    fun loadUserVoucher(voucherList : MutableList<MyVoucher>) {
+
         //load all the voucher data from the firebase
         val uid = Firebase.auth.currentUser?.uid
-        val voucherList: MutableList<MyVoucher> = ArrayList()
+
+        voucherList.clear() // clear list
+        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
 
         if (uid != null) {
             vm.getAll().observe(viewLifecycleOwner) { list ->
                 Log.w(ContentValues.TAG, "Voucher : " + list.toString())
 
                 for(voucher in list) {
-                    if (voucher.uid == uid && !voucher.expiry_date.before(Calendar.getInstance().time)){
+                    if (voucher.uid == uid && !voucher.expiry_date.before(Calendar.getInstance().time) && voucher.status =="active"){
                         voucherList.add(voucher)
                     }
                 }
@@ -86,13 +99,15 @@ class ActiveVoucherFragment : Fragment() {
                 binding.shimmerView.stopShimmerAnimation()
                 binding.shimmerView.visibility = View.GONE
 
-                binding.rvUserVoucherList.visibility = View.VISIBLE
+                binding.swipeContainer.visibility = View.VISIBLE
 
             }
         }
-
-        return binding.root
-
     }
+
+//    fun clearData() {
+//        myList.clear() // clear list
+//        mAdapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
+//    }
 
 }

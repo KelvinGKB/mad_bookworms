@@ -10,9 +10,10 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="340dp"
-        android:layout_height="290dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="11dp"
         app:cardPreventCornerOverlap="false">
 
@@ -28,13 +29,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#DAD8D8"
+                    app:cardCornerRadius="3dp"
+                    app:cardElevation="2dp">
+
+                    <TextView
+                        android:id="@+id/tvCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textAlignment="center"
+                        android:textSize="28sp"
+                        tools:text="T57H8F" />
+                </androidx.cardview.widget.CardView>
 
                 <ImageView
                     android:id="@+id/imgDialog"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/reward_not_eligible" />
             </LinearLayout>
 
@@ -57,7 +81,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:shadowDx="50"
                         android:shadowDy="50"
-                        android:text="Sorry, You're not eligible for this Voucher"
+                        android:text="Here's your discount !"
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textSize="14sp"
@@ -67,10 +91,10 @@
                         android:id="@+id/dialogContent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Earn more points to upgrade your level in-order to enjoy more benefits"
+                        android:text="copy the voucher code and paste inside the payment discounr code field."
                         android:textAlignment="center" />
                 </LinearLayout>
 
@@ -85,12 +109,12 @@
                 android:paddingRight="15dp">
 
                 <Button
-                    android:id="@+id/btnOK"
+                    android:id="@+id/btnCopy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/curver_btn"
-                    android:text="Ok"
+                    android:text="Copy "
                     tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
         </LinearLayout>

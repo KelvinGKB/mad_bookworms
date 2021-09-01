@@ -1,12 +1,16 @@
 package com.mad.mad_bookworms
 
+import android.R.attr
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Handler
+import android.os.Looper
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
@@ -14,9 +18,22 @@ import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.scale
 import androidx.fragment.app.Fragment
-import com.mad.mad_bookworms.R
 import com.google.firebase.firestore.Blob
 import java.io.ByteArrayOutputStream
+import android.R.attr.label
+
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import androidx.core.content.ContextCompat
+
+import androidx.core.content.ContextCompat.getSystemService
+import android.R.attr.label
+
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.getSystemService
+import java.security.AccessController.getContext
+
 
 // Usage: Show an error dialog from fragment
 fun Fragment.errorDialog(text: String) {
@@ -28,41 +45,74 @@ fun Fragment.errorDialog(text: String) {
         .show()
 }
 
-class MultiuseViewDialog {
-    fun showMultiuseDialog(activity: Activity?, type: Int, title:String, content :String) {
-        val dialog = Dialog(activity!!)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.reward_dialog)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+fun showMultiuseDialog(activity: Activity?, type: Int, title:String, content :String) {
+    val dialog = Dialog(activity!!)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setCancelable(false)
+    dialog.setContentView(R.layout.dialog_multiuse)
+    dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val imgDialog = dialog.findViewById<ImageView>(R.id.imgDialog)
-        val dialogTitle = dialog.findViewById<TextView>(R.id.dialogTitle)
-        val dialogContent = dialog.findViewById<TextView>(R.id.dialogContent)
-        val dialogBtn_remove = dialog.findViewById<Button>(R.id.btnOK)
+    val imgDialog = dialog.findViewById<ImageView>(R.id.imgDialog)
+    val dialogTitle = dialog.findViewById<TextView>(R.id.dialogTitle)
+    val dialogContent = dialog.findViewById<TextView>(R.id.dialogContent)
+    val dialogBtn_remove = dialog.findViewById<Button>(R.id.btnOK)
 
-        if(type == 1)
-        {
-            imgDialog.setImageResource(R.drawable.reward_not_eligible);
+    if(type == 1)
+    {
+        imgDialog.setImageResource(R.drawable.reward_not_eligible);
 
-        }else if(type == 2){
+    }else if(type == 2){
 
-            imgDialog.setImageResource(R.drawable.reward_claim);
+        imgDialog.setImageResource(R.drawable.reward_claim);
 
-        }else if(type == 3){
+    }else if(type == 3){
 
-            imgDialog.setImageResource(R.drawable.reward_not_enough);
-        }
-
-        dialogTitle.text = title
-        dialogContent.text = content
-
-        dialogBtn_remove.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog.show()
+        imgDialog.setImageResource(R.drawable.reward_not_enough);
     }
+
+    dialogTitle.text = title
+    dialogContent.text = content
+
+    dialogBtn_remove.setOnClickListener {
+        dialog.dismiss()
+    }
+
+    dialog.show()
+}
+
+fun showUseDialog(activity: Activity?, code: String) {
+    val dialog = Dialog(activity!!)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setCancelable(false)
+    dialog.setContentView(R.layout.dialog_use_voucher)
+    dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+    val dialogCode = dialog.findViewById<TextView>(R.id.tvCode)
+    val dialogBtn_copy = dialog.findViewById<Button>(R.id.btnCopy)
+
+    dialogCode.text = code
+
+    dialogBtn_copy.setOnClickListener {
+
+        dialogBtn_copy.text = "copied"
+
+        // Copy Text to the Clipboard
+        copyToClipboard(activity,code)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+        }, 1500)
+
+    }
+
+    dialog.show()
+}
+
+fun copyToClipboard(context: Context?, text :String)
+{
+    val clipboard = ContextCompat.getSystemService(context!!, ClipboardManager::class.java)
+    val clip = ClipData.newPlainText("label",text)
+    clipboard!!.setPrimaryClip(clip)
 }
 
 // Usage: Crop and resize bitmap (upscale)
