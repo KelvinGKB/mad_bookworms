@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/explore"
@@ -8,8 +9,10 @@
 
     <item
         android:id="@+id/cart"
-        android:icon="@drawable/ic_baseline_shopping_cart_24"
-        android:title="@string/title_cart" />
+        android:icon="@drawable/ic_menu_cart"
+        android:title="@string/title_cart"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/redeem"
         android:icon="@drawable/ic_baseline_redeem_24"

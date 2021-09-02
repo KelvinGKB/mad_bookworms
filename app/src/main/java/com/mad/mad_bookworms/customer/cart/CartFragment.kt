@@ -3,26 +3,26 @@ package com.mad.mad_bookworms.customer.cart
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.drawable.LayerDrawable
+import android.os.Build
 import android.os.Bundle
 import android.renderscript.ScriptGroup
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mad.mad_bookworms.BadgeDrawable
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.customer.bookDetail.BookDetailActivity
 import com.mad.mad_bookworms.customer.explore.RecyclerAdapter
-import com.mad.mad_bookworms.data.Book
-import com.mad.mad_bookworms.data.LocalDB
-import com.mad.mad_bookworms.data.MyCartDao
-import com.mad.mad_bookworms.data.MyCartTable
+import com.mad.mad_bookworms.customer.payment.PaymentActivity
+import com.mad.mad_bookworms.data.*
 import com.mad.mad_bookworms.databinding.FragmentCartBinding
 import com.mad.mad_bookworms.viewModels.BookViewModel
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
@@ -36,6 +36,7 @@ class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
     private lateinit var adapter: CartOrderAdapter
     private val pendingOrder: MutableList<MyCartTable> = ArrayList()
+    private var prepareOrder: MutableList<PendingOrder> = arrayListOf()
     private val vm: BookViewModel by activityViewModels()
     private val cartVm: CartOrderViewModel by activityViewModels()
     private var totalPrice : Double = 0.0
@@ -112,13 +113,10 @@ class CartFragment : Fragment() {
                 }
 
             }
-
-
-
-
         }
 
-
+        binding.rvCartOrder.adapter = adapter
+        binding.rvCartOrder.setHasFixedSize(true)
 
         binding.btnDelete.setOnClickListener {
             if (pendingOrder.isNotEmpty()){
@@ -143,8 +141,25 @@ class CartFragment : Fragment() {
             }
         }
 
-        binding.rvCartOrder.adapter = adapter
-        binding.rvCartOrder.setHasFixedSize(true)
+        binding.btnCheckOut.setOnClickListener {
+            if (pendingOrder.isNotEmpty()){
+                prepareOrder.clear()
+                for(o in pendingOrder) {
+                    prepareOrder.add(PendingOrder(o.bookId, o.quantity))
+                }
+
+                val intent = Intent(requireContext(), PaymentActivity::class.java)
+                intent.putExtra("totalAmount", totalPrice)
+                intent.putExtra("pendingOrder",ArrayList(prepareOrder))
+
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(requireContext(), getString(R.string.no_selected_any_item_message), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
 
         val swipeGesture = object :  SwipeGesture(requireContext()) {
 
@@ -192,7 +207,7 @@ class CartFragment : Fragment() {
                     pendingOrder.remove(c)
                 }
             }
-
+            binding.tvTotalCart.text = "(${myCart.size})"
 
         }
 

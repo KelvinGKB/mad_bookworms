@@ -4,6 +4,8 @@ import androidx.room.PrimaryKey
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId
 import java.util.*
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 // TODO: Specify document id
 // TODO: Add date and photo
@@ -57,4 +59,18 @@ data class Voucher(
     var requiredPoint : Int = 0,
 )
 
+@Parcelize
+data class PendingOrder(
+    var bookId: String,
+    var quantity: Int): Parcelable
+
+
+data class PaymentMethod(
+    var PaymentName: String,
+    var PaymentIcon: Int
+)
+
+data class SelectedPayMethod(
+    var PaymentMethod: Int
+)
 

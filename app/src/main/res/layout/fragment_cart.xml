@@ -23,6 +23,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tvTotalCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="#8B8A8A"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="(XX)" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCartOrder"
             android:layout_width="0dp"
@@ -158,6 +171,7 @@
             app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toTopOf="@+id/textView14"
             android:src="@drawable/ic_baseline_delete_24" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

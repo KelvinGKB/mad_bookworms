@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="deletecolor">#E61C0D</color>
     <color name="archiveColor">#0AC520</color>
+    <color name="background_color">#F74D41</color>
+    <color name="light_blue">#ADCBE8</color>
 </resources>

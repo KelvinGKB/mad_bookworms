@@ -1,11 +1,14 @@
 package com.mad.mad_bookworms.customer.explore
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
@@ -18,6 +21,8 @@ import com.mad.mad_bookworms.databinding.FragmentExploreBinding
 import android.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mad.mad_bookworms.BadgeDrawable
 import com.mad.mad_bookworms.customer.bookDetail.BookDetailActivity
 import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.viewModels.BookViewModel
@@ -40,6 +45,8 @@ class ExploreFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         binding = FragmentExploreBinding.inflate(inflater,container,false)
+
+        binding.searchView.clearFocus()
 
         val data: MutableList<Book> = ArrayList()
         val displayBook: MutableList<Book> = ArrayList()

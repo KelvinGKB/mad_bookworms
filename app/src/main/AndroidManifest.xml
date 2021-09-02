@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mad_bookworms">
         <activity android:name=".admin.AdminActivity"></activity>
+        <activity
+            android:name=".customer.payment.PaymentActivity"
+            android:exported="true" />
         <!-- Security Package -->
         <activity android:name=".security.ForgotPasswordActivity" />
         <activity android:name=".security.VerifyActivity" />

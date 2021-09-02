@@ -40,7 +40,7 @@ class CartOrderAdapter(
         val tvBookTitle : TextView = itemview.findViewById(R.id.tvBookTitle)
         val tvBookAuthor : TextView = itemview.findViewById(R.id.tvBookAuthor)
         val tvBookPrice : TextView = itemview.findViewById(R.id.tvBookPrice)
-        var itemImage: ImageView = itemView.findViewById(R.id.image_book)
+        var itemImage: ImageView = itemview.findViewById(R.id.image_book)
         val btnMinus : ImageButton = itemview.findViewById(R.id.btnMinus)
         val btnIncrease: ImageButton = itemview.findViewById(R.id.btnIncrease)
         val edtQty: EditText = itemview.findViewById(R.id.edtQty)
@@ -55,7 +55,6 @@ class CartOrderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        var qty = holder.edtQty.text.toString().toInt()
 //        holder.tvBookTitle.text = item.book.title
 //        holder.tvBookAuthor.text = item.book.author
 //        holder.tvBookPrice.text = "RM" + "%.2f".format(item.book.price)
