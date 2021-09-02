@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mad.mad_bookworms">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".App"
@@ -11,16 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mad_bookworms">
-
+        <activity android:name=".admin.AdminActivity"></activity>
         <!-- Security Package -->
-        <activity android:name=".security.ForgotPasswordActivity"></activity>
+        <activity android:name=".security.ForgotPasswordActivity" />
         <activity android:name=".security.VerifyActivity" />
         <activity android:name=".security.RegisterActivity" />
         <activity
             android:name=".customer.bookDetail.BookDetailActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity" />
-<!--        <activity android:name=".ListView" />-->
+            android:parentActivityName=".MainActivity" /> <!-- <activity android:name=".ListView" /> -->
         <activity android:name=".MainActivity" />
         <activity android:name=".security.LoginActivity">
             <intent-filter>

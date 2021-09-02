@@ -50,4 +50,21 @@
         <item>Admin Panel</item>
         <item>Log Out</item>
     </string-array>
+
+    <string-array name="category">
+        <item>Business</item>
+        <item>Hisotry</item>
+        <item>Romantic</item>
+        <item>Education</item>
+        <item>Technology</item>
+        <item>Motivation</item>
+    </string-array>
+
+
+    <string-array name="language">
+        <item>EN</item>
+        <item>CH</item>
+        <item>MY</item>
+    </string-array>
+
 </resources>

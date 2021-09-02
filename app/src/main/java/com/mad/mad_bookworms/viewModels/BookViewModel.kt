@@ -27,5 +27,51 @@ class BookViewModel : ViewModel() {
 
     fun getAll() = books
 
+    fun delete(id: String) {
+        // TODO
+        col.document(id).delete()
+    }
+
+    fun deleteAll() {
+        // TODO
+        // col.get().addOnSuccessListener { snap -> snap.documents.forEach { doc -> delete(doc.id) } }
+        books.value?.forEach { f -> delete(f.id) }
+    }
+
+    fun set(f: Book) {
+        // TODO
+        col.document(f.id).set(f)
+    }
+
+    private fun idExists(id: String): Boolean {
+        return books.value?.any { f -> f.id == id } ?: false
+    }
+
+    fun validate(f: Book, insert: Boolean = true): String {
+        val regexId = Regex("""^[0-9A-Z]{4}$""")
+        var e = ""
+
+        if (insert) {
+            e += if (f.id == "") "- Id is required.\n"
+            else if (!f.id.matches(regexId)) "- Id format is invalid.\n"
+            else if (idExists(f.id)) "- Id is duplicated.\n"
+            else ""
+        }
+
+        e += if (f.title == "") "- Name is required.\n"
+        else if (f.title.length < 3) "- Name is too short.\n"
+        //else if (nameExists(f.name)) "- Name is duplicated.\n"
+        else ""
+
+        e += if (f.pages == 0) "- Age is required.\n"
+        else if (f.pages < 18) "- Underage.\n"
+        else ""
+
+        e += if (f.image.toBytes().isEmpty()) "- Photo is required.\n"
+        else ""
+
+        return e
+    }
+
 
 }

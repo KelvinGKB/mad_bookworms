@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin"
+    app:startDestination="@id/homeFragment">
+
+
+<fragment
+        android:id="@+id/homeFragment"
+        android:name="com.mad.mad_bookworms.admin.BookFragment"
+        android:label="Book | Home"
+        tools:layout="@layout/fragment_book" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.mad.mad_bookworms.admin.List1Fragment"
+        android:label="Book | List"
+        tools:layout="@layout/fragment_list1" />
+    <fragment
+        android:id="@+id/insertFragment"
+        android:name="com.mad.mad_bookworms.admin.Insert1Fragment"
+        android:label="Book | Insert"
+        tools:layout="@layout/fragment_insert1" />
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.mad.mad_bookworms.admin.Update1Fragment"
+        android:label="Book | Update"
+        tools:layout="@layout/fragment_update1" />
+
+
+</navigation>

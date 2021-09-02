@@ -20,7 +20,7 @@ data class Book(
     var category: String = "",
     var language: String = "",
     var pages: Int = 0,
-    //var image: Blob = Blob.fromBytes(ByteArray(0)),
+    var image: Blob = Blob.fromBytes(ByteArray(0)),
 )
 
 

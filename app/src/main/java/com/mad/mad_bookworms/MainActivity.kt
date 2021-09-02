@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.show()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

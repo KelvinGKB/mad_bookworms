@@ -19,12 +19,15 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.SettingListAdapter
+import com.mad.mad_bookworms.admin.AdminActivity
+import com.mad.mad_bookworms.customer.bookDetail.BookDetailActivity
 import com.mad.mad_bookworms.data.LocalDB
 import com.mad.mad_bookworms.data.LocalDao
 import com.mad.mad_bookworms.data.User_Table
 import com.mad.mad_bookworms.databinding.FragmentProfileBinding
 import com.mad.mad_bookworms.security.ChangePasswordFragment
 import com.mad.mad_bookworms.security.LoginActivity
+import com.mad.mad_bookworms.security.RegisterActivity
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.*
 
@@ -68,12 +71,18 @@ class ProfileFragment : Fragment() {
                 "My Favourites" -> Toast.makeText(context, "Item Two", Toast.LENGTH_SHORT).show()
                 "Language" -> Toast.makeText(context, "Item Three", Toast.LENGTH_SHORT).show()
                 "Refer a Friend" -> Toast.makeText(context, "Item Five", Toast.LENGTH_SHORT).show()
-                "Admin Panel" -> Toast.makeText(context, "Item Six", Toast.LENGTH_SHORT).show()
+                "Admin Panel" -> activity()
                 "Log Out" -> signOut()
             }
         }
         return binding.root
 
+    }
+
+    private fun activity(){
+        Toast.makeText(context, "admin apge", Toast.LENGTH_SHORT).show()
+        val intent = Intent(getActivity(), AdminActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
