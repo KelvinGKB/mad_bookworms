@@ -3,13 +3,20 @@ package com.mad.mad_bookworms
 import com.mad.mad_bookworms.profile.ProfileFragment
 import com.mad.mad_bookworms.redeem.RedeemFragment
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mad.mad_bookworms.customer.cart.CartFragment
 import com.mad.mad_bookworms.customer.explore.ExploreFragment
+import com.mad.mad_bookworms.viewModels.CartOrderViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.badge_menu_item.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,43 +32,73 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.show()
     }
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    private lateinit var notificationBadges: View
+    private var count: Int = 1
+    private val cartVm: CartOrderViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val r = intent.getStringExtra("cart")?:""
 
-        val exploreFragment= ExploreFragment()
-        val cartFragment= CartFragment()
-        val redeemFragment= RedeemFragment()
-        val profileFragment= ProfileFragment()
+        val r = intent.getStringExtra("cart") ?: ""
+
+        val exploreFragment = ExploreFragment()
+        val cartFragment = CartFragment()
+        val redeemFragment = RedeemFragment()
+        val profileFragment = ProfileFragment()
 
         if (r == "cart") {
             setCurrentFragment(cartFragment)
-            findViewById<BottomNavigationView>(R.id.bottomNavigationView).getMenu().getItem(1).setChecked(true);
-        }
-        else{
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView).getMenu().getItem(1)
+                .setChecked(true);
+        } else {
             setCurrentFragment(exploreFragment)
         }
 
-       findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.explore->setCurrentFragment(exploreFragment)
-                R.id.redeem->setCurrentFragment(redeemFragment)
-                R.id.cart->setCurrentFragment(cartFragment)
-                R.id.profile->setCurrentFragment(profileFragment)
+        findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.explore -> setCurrentFragment(exploreFragment)
+                R.id.redeem -> setCurrentFragment(redeemFragment)
+                R.id.cart -> setCurrentFragment(cartFragment)
+                R.id.profile -> setCurrentFragment(profileFragment)
             }
             true
+        }
+
+        cartVm.getAll().observe(this) { myCart ->
+            var totalQty = 0
+            for (c in myCart) {
+                totalQty += c.quantity
+            }
+            updateBadgeCount(totalQty)
+
         }
 
     }
 
 
-    private fun setCurrentFragment(fragment: Fragment)=
+    private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
+            replace(R.id.flFragment, fragment)
             commit()
         }
+
+    private fun updateBadgeCount(count: Int = 0) {
+        //at which index of bottom navigation
+        val itemView: BottomNavigationView? = bottomNavigationView?.getChildAt(0) as? BottomNavigationView
+
+
+        //layout inflating for badge count view
+        notificationBadges = LayoutInflater.from(this).inflate(R.layout.badge_menu_item, itemView, true)
+
+        //set text count
+        notificationBadges?.notification_badge?.text = count.toString()
+
+        //add the layout to bottom navigation
+        findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.addView(notificationBadges)
+
+    }
 
 
 }

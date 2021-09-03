@@ -7,16 +7,17 @@
         android:icon="@drawable/ic_baseline_explore_24"
         android:title="@string/title_explore" />
 
-    <item
-        android:id="@+id/cart"
-        android:icon="@drawable/ic_menu_cart"
-        android:title="@string/title_cart"
-        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/redeem"
         android:icon="@drawable/ic_baseline_redeem_24"
         android:title="@string/title_redeem" />
+
+    <item
+        android:id="@+id/cart"
+        android:icon="@drawable/ic_menu_cart"
+        android:title="@string/title_cart"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/profile"

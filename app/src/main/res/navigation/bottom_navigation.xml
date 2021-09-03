@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.mad.mad_bookworms.CartFragment"
+        android:name="com.mad.mad_bookworms.customer.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.mad.mad_bookworms.ProfileFragment"
+        android:name="com.mad.mad_bookworms.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/member_level"
-        android:name="com.mad.mad_bookworms.RedeemFragment"
+        android:name="com.mad.mad_bookworms.redeem.RedeemFragment"
         android:label="fragment_redeem"
         tools:layout="@layout/fragment_redeem" />
 </navigation>

@@ -200,6 +200,7 @@ class CartFragment : Fragment() {
         }
 
         cartVm.getAll().observe(viewLifecycleOwner) { myCart ->
+            var totalQty = 0
             adapter.submitList(myCart)
             data.addAll(myCart)
             for (c in myCart) {
@@ -207,7 +208,10 @@ class CartFragment : Fragment() {
                     pendingOrder.remove(c)
                 }
             }
-            binding.tvTotalCart.text = "(${myCart.size})"
+            for (c in myCart) {
+                totalQty += c.quantity
+            }
+            binding.tvTotalCart.text = "(${totalQty})"
 
         }
 
