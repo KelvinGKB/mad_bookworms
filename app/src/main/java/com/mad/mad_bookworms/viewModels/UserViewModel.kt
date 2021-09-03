@@ -55,6 +55,20 @@ class UserViewModel : ViewModel() {
 
 
     fun updateEarnPoints(id:String,current_points:Int,points:Int) {
+
+        var level = ""
+        val final_points = current_points + points
+
+        if (final_points < 2000) {level = "Silver"}
+        else if (final_points > 2000 && final_points < 5000) {level = "Gold"}
+        else if (final_points > 5000) {level = "Platinum"}
+
+        Firebase.firestore
+            .collection("Users")
+            .document(id)
+            .update("level", level)
+            .addOnSuccessListener {}
+
         Firebase.firestore
             .collection("Users")
             .document(id)
@@ -98,8 +112,9 @@ class UserViewModel : ViewModel() {
         return users.value?.any { f -> f.email == email } ?: false
     }
 
-    fun validate(f: User, insert: Boolean = true): String {
+    fun validate(f: User,conPassword:String,password:String, insert: Boolean = true): String {
         val emailPattern = Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+        val studentEmailPattern = Regex(pattern = "^[a-zA-Z0-9._-]+@student\\.tarc\\.edu\\.my$", options = setOf())
 
         var e = ""
 
@@ -108,16 +123,25 @@ class UserViewModel : ViewModel() {
         else ""
 
         e += if (f.email == "") "\n- email is required."
-        else if (!f.email.matches(emailPattern)) "\n- email format is invalid."
-        else if (emailExists(f.email)) "\n- emails has been used."
+        else if (!f.email.matches(emailPattern)) {
+            if (!f.email.matches(studentEmailPattern)) {
+                "\n- email format is invalid."
+            } else ""
+        } else if (emailExists(f.email)) "\n- emails has been used."
         else ""
 
-        if(f.referral_code !="")
-        {
+        e += if (password == "") "\n- password is required."
+        else if (password.length < 6) "\n- password must be at least 6 characters."
+        else if (conPassword == "") "\n- confirm password is required."
+        else if (password != conPassword) "\n- confirm password does not match password."
+        else ""
+
+        if (f.referral_code != "") {
             e += if (!referralExists(f.referral_code)) "\n- invalid referral code."
             else ""
         }
 
         return e
+
     }
 }

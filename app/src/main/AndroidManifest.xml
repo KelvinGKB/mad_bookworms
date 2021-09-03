@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mad.mad_bookworms">
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
         android:name=".App"
@@ -17,19 +16,54 @@
             android:name=".customer.payment.PaymentActivity"
             android:exported="true" />
         <!-- Security Package -->
-        <activity android:name=".security.ForgotPasswordActivity" />
+        <activity android:name=".security.ForgotPasswordActivity"></activity>
         <activity android:name=".security.VerifyActivity" />
-        <activity android:name=".security.RegisterActivity" />
+<!--        <activity android:name=".security.RegisterActivity" />-->
         <activity
             android:name=".customer.bookDetail.BookDetailActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity" /> <!-- <activity android:name=".ListView" /> -->
+            android:parentActivityName=".MainActivity" />
+<!--        <activity android:name=".ListView" />-->
         <activity android:name=".MainActivity" />
         <activity android:name=".security.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".security.RegisterActivity">
+            <intent-filter android:label="referral_link">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "https://www.mad_bookworm.com/referral_register” -->
+                <data
+                    android:scheme="https"
+                    android:host="www.mad_bookworm.com"
+                    android:pathPrefix="/referral_register"/>
+
+                <!-- Accepts URIs that begin with "app://mad_bookworms/referral_register” -->
+<!--                <data android:scheme="app"-->
+<!--                    android:host="mad_bookworm"-->
+<!--                    android:pathPrefix="/referral_register"/>-->
+                <!-- note that the leading "/" is required for pathPrefix-->
+            </intent-filter>
+            <intent-filter android:label="referral_link">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://www.mad_bookworm.com/referral_register” -->
+                <data
+                    android:scheme="http"
+                    android:host="www.mad_bookworm.com"
+                    android:pathPrefix="/referral_register"/>
+<!--                 Accepts URIs that begin with "app://mad_bookworms/referral_register” -->
+<!--                <data android:scheme="app"-->
+<!--                    android:host="mad_bookworm"-->
+<!--                    android:pathPrefix="/referral_register"/>-->
+                <!-- note that the leading "/" is required for pathPrefix-->
             </intent-filter>
         </activity>
 

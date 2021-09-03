@@ -67,7 +67,7 @@ class VerifyActivity : AppCompatActivity() {
         binding.btnSend.setOnClickListener()
         {
 
-            code = (10000..999999).random().toString()
+            code = (100000..999999).random().toString()
             sendMail(email, code)
             binding.btnSend.isEnabled = false
 
@@ -112,7 +112,7 @@ class VerifyActivity : AppCompatActivity() {
         val subject = "Email Verification @ Bookworms"
 
         //send main
-        val javaMainAPI = JavaMailAPI(this,email,subject,message)
+        val javaMainAPI = JavaMailAPI(this,this,email,subject,message)
         javaMainAPI.execute();
 
     }
@@ -173,13 +173,26 @@ class VerifyActivity : AppCompatActivity() {
             val username = intent.getStringExtra("username") ?: ""
             val referral = "B" + (100000..999999).random().toString()
             val referred_by = intent.getStringExtra("referred_by") ?: ""
+            var points = 0
+            var user_points = 0
+
+            if(referred_by != "") points = 500
+
+            val studentEmailPattern = Regex(pattern = "^[a-zA-Z0-9._-]+@student\\.tarc\\.edu\\.my$", options = setOf())
+
+            if (email.matches(studentEmailPattern)) {
+                points = points + 250
+            }
+
 
             val u = User(
                 id    = uid,
                 email = email,
                 username  = username,
                 referral_code  = referral,
-                referred_by  = referred_by
+                referred_by  = referred_by,
+                earn_points = points,
+                usable_points = points
             )
 
             vm.set(u)

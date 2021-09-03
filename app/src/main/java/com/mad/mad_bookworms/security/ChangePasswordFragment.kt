@@ -18,6 +18,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.databinding.FragmentChangePasswordBinding
+import com.mad.mad_bookworms.showEmailDialog
+import com.mad.mad_bookworms.showMultiuseDialog
 
 class ChangePasswordFragment : Fragment() {
 
@@ -76,18 +78,27 @@ class ChangePasswordFragment : Fragment() {
                     if (task.isSuccessful) {
                         Log.d(TAG, "User password updated.")
 
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            binding.tvButton.startAnimation(animFadeIn)
-                            binding.tvButton.setText("Password Changed")
-                        }, 1000)
-
-                        binding.tvButton.startAnimation(animFadeIn)
+                        showEmailDialog(activity, 2, "Password changed")
                         binding.tvButton.setText("Change")
 
-                        setCurrentFragment(ProfileFragment())
+                        Handler(Looper.getMainLooper()).postDelayed({
+//                            binding.tvButton.startAnimation(animFadeIn)
+//                            binding.tvButton.setText("Password Changed")
+
+                            binding.tvButton.startAnimation(animFadeIn)
+
+                            setCurrentFragment(ProfileFragment())
+
+                        }, 2000)
 
                     }else{
                         Log.d(TAG, "User password update unsuccessful.")
+
+                        val title = "Oh No..."
+                        val content = "password change unsuccessfully. Please try again later"
+
+                        showMultiuseDialog(activity,3,title,content)
+                        binding.tvButton.setText("Change")
                     }
                 }
 

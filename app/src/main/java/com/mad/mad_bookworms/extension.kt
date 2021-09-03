@@ -29,6 +29,9 @@ import androidx.core.content.ContextCompat
 
 import androidx.core.content.ContextCompat.getSystemService
 import android.R.attr.label
+import android.app.PendingIntent.getActivity
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.getSystemService
@@ -104,6 +107,48 @@ fun showUseDialog(activity: Activity?, code: String) {
         }, 1500)
 
     }
+
+    dialog.show()
+}
+
+fun showEmailDialog(activity: Activity?, type: Int, title:String) {
+
+    val animFadeIn: Animation =
+        AnimationUtils.loadAnimation(activity, android.R.anim.fade_in)
+    val animFadeOut: Animation =
+        AnimationUtils.loadAnimation(activity, android.R.anim.fade_out)
+
+    val dialog = Dialog(activity!!)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setCancelable(false)
+    dialog.setContentView(R.layout.dialog_send_email)
+    dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+    val imgDialog = dialog.findViewById<ImageView>(R.id.imgDialog)
+    val dialogTitle = dialog.findViewById<TextView>(R.id.dialogTitle)
+
+    if(type == 1)
+    {
+        imgDialog.startAnimation(animFadeIn)
+        imgDialog.setImageResource(R.drawable.done);
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+        }, 3500)
+
+    }else if(type == 2){
+
+        imgDialog.startAnimation(animFadeIn)
+        imgDialog.setImageResource(R.drawable.load);
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+        }, 2000)
+
+    }
+
+    dialogTitle.startAnimation(animFadeIn)
+    dialogTitle.text = title
 
     dialog.show()
 }

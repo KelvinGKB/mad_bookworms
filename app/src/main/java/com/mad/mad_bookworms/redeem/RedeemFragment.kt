@@ -92,14 +92,19 @@ class RedeemFragment : Fragment() {
                         val remaining = 2000 - earn_points
                         binding.levelBar.progress = earn_points
                         binding.tvRemaining.text =
-                            "earn more " + remaining + " points to upgrade gold"
+                            "earn more " + remaining + " points to upgrade Gold"
 
-                    } else if (earn_points!! < 5000) {
-                        binding.levelBar.max = 5000
-                        val remaining = 5000 - 2000 - earn_points
+                    } else if (earn_points!! > 2000 && earn_points!! < 5000) {
+                        binding.levelBar.max = 3000
+                        val remaining = 5000 - earn_points
                         binding.levelBar.progress = earn_points - 2000
                         binding.tvRemaining.text =
-                            "earn more " + remaining + " points to upgrade platinum"
+                            "earn more " + remaining + " points to upgrade Platinum"
+                    } else{
+                        binding.levelBar.max = 5000
+                        binding.levelBar.progress = 5000
+                        binding.tvRemaining.text =
+                            "You're our precious Platinum member"
                     }
 
                     binding.tvPriviledge.startAnimation(animFadeIn)
@@ -109,16 +114,18 @@ class RedeemFragment : Fragment() {
 
                     if(level == "Silver")
                     {
-                        binding.itemDiscount.visibility = View.VISIBLE
+                        binding.itemDiscount.visibility = View.GONE
                         binding.itemShipping.visibility = View.GONE
-                        binding.itemVoucher.visibility = View.GONE
+                        binding.itemVoucher.visibility = View.VISIBLE
 
                     }else if(level == "Gold")
                     {
+                        binding.tvDiscount.text = "1.2x points"
                         binding.itemDiscount.visibility = View.VISIBLE
-                        binding.itemShipping.visibility = View.VISIBLE
-                        binding.itemVoucher.visibility = View.GONE
+                        binding.itemShipping.visibility = View.GONE
+                        binding.itemVoucher.visibility = View.VISIBLE
                     }else{
+                        binding.tvDiscount.text = "1.5x points"
                         binding.itemDiscount.visibility = View.VISIBLE
                         binding.itemShipping.visibility = View.VISIBLE
                         binding.itemVoucher.visibility = View.VISIBLE
@@ -147,6 +154,12 @@ class RedeemFragment : Fragment() {
 
         binding.btnLink.setOnClickListener() {
 
+            //Generate Referral Link
+            val id: String = binding.btnCode.text.toString()
+            val link = "http://www.mad_bookworm.com/referral_register/" + id
+
+            // Copy Text to the Clipboard
+            copyToClipboard(context,link)
             Toast.makeText(context, "Copied", Toast.LENGTH_LONG).show()
         }
 

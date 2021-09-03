@@ -70,7 +70,7 @@ class ProfileFragment : Fragment() {
                 "Purchase History" -> Toast.makeText(context, "Item One", Toast.LENGTH_SHORT).show()
                 "My Favourites" -> Toast.makeText(context, "Item Two", Toast.LENGTH_SHORT).show()
                 "Language" -> Toast.makeText(context, "Item Three", Toast.LENGTH_SHORT).show()
-                "Refer a Friend" -> Toast.makeText(context, "Item Five", Toast.LENGTH_SHORT).show()
+                "Refer a Friend" ->  CoroutineScope(Dispatchers.IO).launch { referFriend() }
                 "Admin Panel" -> activity()
                 "Log Out" -> signOut()
             }
@@ -112,7 +112,32 @@ class ProfileFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(getActivity(), LoginActivity::class.java)
             startActivity(intent)
-        }, 2000)
+        }, 1000)
+    }
+
+    suspend fun referFriend() = coroutineScope {
+
+        val uid = Firebase.auth.currentUser?.uid
+
+        val u = vm.get(uid!!)
+
+        val id = u?.referral_code.toString()
+
+        val link = "http://www.mad_bookworm.com/referral_register/" + id
+
+        val text = "Join the Bookworms now with the links Below to earn points ! \n\n" +
+                "*** Use TARUC student email will earn extra 50% points ! *** \n\n" +
+                link
+
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, text)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+
     }
 
     suspend fun loadUser() = coroutineScope {
@@ -145,14 +170,14 @@ class ProfileFragment : Fragment() {
                 listItem =
                     context?.getResources()?.getStringArray(R.array.array_profile) as Array<String>
             } else {
-                Toast.makeText(context, role, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, role, Toast.LENGTH_SHORT).show()
                 listItem = context?.getResources()
                     ?.getStringArray(R.array.admin_array_profile) as Array<String>
             }
             binding.listview.adapter = listItem?.let { SettingListAdapter(requireActivity(), it) }
             binding.listview.startAnimation(animFadeIn)
 
-        }, 1000)
+        }, 500)
 
     }
 

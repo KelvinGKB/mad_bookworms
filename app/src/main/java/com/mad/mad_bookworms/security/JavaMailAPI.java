@@ -1,5 +1,9 @@
 package com.mad.mad_bookworms.security;
 
+import static com.mad.mad_bookworms.ExtensionKt.showEmailDialog;
+import static com.mad.mad_bookworms.ExtensionKt.showMultiuseDialog;
+
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -24,6 +28,7 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
 
     //Variables
     private Context mContext;
+    private Activity mActivity;
     private Session mSession;
 
     private String mEmail;
@@ -33,8 +38,9 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     private ProgressDialog mProgressDialog;
 
     //Constructor
-    public JavaMailAPI(Context mContext, String mEmail, String mSubject, String mMessage) {
+    public JavaMailAPI(Context mContext, Activity mActivity,String mEmail, String mSubject, String mMessage) {
         this.mContext = mContext;
+        this.mActivity = mActivity;
         this.mEmail = mEmail;
         this.mSubject = mSubject;
         this.mMessage = mMessage;
@@ -44,17 +50,19 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     protected void onPreExecute() {
         super.onPreExecute();
         //Show progress dialog while sending email
-        mProgressDialog = ProgressDialog.show(mContext,"Sending Verification Code", "Please wait...",false,false);
+//        mProgressDialog = ProgressDialog.show(mContext,"Sending Verification Code", "Please wait...",false,false);
+        showEmailDialog(mActivity, 1,"Sending email..");
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         //Dismiss progress dialog when message successfully send
-        mProgressDialog.dismiss();
+//        mProgressDialog.dismiss();
 
         //Show success toast
-        Toast.makeText(mContext,"Verification Code Sent",Toast.LENGTH_SHORT).show();
+        showEmailDialog(mActivity, 2,"Email sent");
+//        Toast.makeText(mContext,"Verification Code Sent",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -119,4 +127,5 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
         }
         return null;
     }
+
 }

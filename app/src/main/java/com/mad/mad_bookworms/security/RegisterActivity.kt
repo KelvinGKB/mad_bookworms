@@ -2,9 +2,11 @@ package com.mad.mad_bookworms.security
 
 import android.content.ContentValues
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -12,6 +14,7 @@ import com.mad.mad_bookworms.data.User
 import com.mad.mad_bookworms.databinding.ActivityLoginBinding
 import com.mad.mad_bookworms.databinding.ActivityRegisterBinding
 import com.mad.mad_bookworms.viewModels.UserViewModel
+import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -34,6 +37,22 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        val intent = intent
+        val data = intent.data
+
+        if(data != null)
+        {
+            val u = data!!.pathSegments
+            val referral_code = u.get(u.size - 1)
+            binding.edtReferral.editText?.setText(referral_code)
+
+        }
+//        Toast.makeText(applicationContext,"referral : " + p,Toast.LENGTH_LONG).show()
+        val c = vm.getAll()
+
+        Log.w(ContentValues.TAG, "data :" + data)
+
         binding.btnSignIn.setOnClickListener()
         {
             val intent = Intent(this, LoginActivity::class.java)
@@ -52,23 +71,6 @@ class RegisterActivity : AppCompatActivity() {
             val referral = binding.edtReferral.editText?.text.toString()
             var referred_by = ""
 
-//            if(username == null || username == "")
-//            {
-////                validation.text = "Username cannot be empty !"
-////                validation.isVisible = true
-//                showText("Username is required !")
-//                return@setOnClickListener
-//
-//            }
-//            if(email == null || email == "")
-//            {
-//                showText("Email is required !")
-//                return@setOnClickListener
-//            }
-//            if (!email.matches(emailPattern.toRegex())) {
-//                showText("Invalid Email !")
-//                return@setOnClickListener
-//            }
 
             val u = User(
                 username  = username,
@@ -76,36 +78,25 @@ class RegisterActivity : AppCompatActivity() {
                 referral_code = referral,
             )
 
-            val err = vm.validate(u)
+            val err = vm.validate(u,conPassword,password)
+
             if (err != "") {
                 showText(err)
                 Log.d(ContentValues.TAG, err)
                 return@setOnClickListener
             }
 
-            if(password == null || password == "")
-            {
-                showText("Password is required !")
-                return@setOnClickListener
-            }
-            if(password.length < 6 )
-            {
-                showText("Password must be at least 6 characters !")
-                return@setOnClickListener
-            }
-            if(conPassword == null || conPassword == "")
-            {
-                showText("Confirm Password is required !")
-                return@setOnClickListener
-            }
-            if(password != conPassword)
-            {
-                showText("Confirm Password does not match Password !")
-                return@setOnClickListener
-            }
+            if(referral != "") {
 
-            if(referral != "") { referred_by = vm.getReferrer(referral)?.id.toString() }
+//                val u = validateReferral(referral)
+//                if(u == false)
+//                {
+//                    Toast.makeText(applicationContext,"Invalid Referral Code.", Toast.LENGTH_SHORT).show()
+////                    return@setOnClickListener
+//                }
+                referred_by = vm.getReferrer(referral)?.id.toString()
 
+            }
 
             val intent = Intent(this, VerifyActivity::class.java)
                 .putExtra("username",username)
@@ -125,9 +116,18 @@ class RegisterActivity : AppCompatActivity() {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 
-    fun validateReferral(code : String)
+    fun validateReferral(code : String) : Boolean
     {
 
+        val users = vm.getAll()
+        val p =  users.value?.any { f -> f.referral_code == code } ?: false
+
+        if(p == false)
+        {
+            return false
+        }
+
+        return true
     }
 
 }
