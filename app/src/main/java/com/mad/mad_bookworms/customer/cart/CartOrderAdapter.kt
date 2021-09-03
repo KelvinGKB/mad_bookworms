@@ -5,19 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mad.mad_bookworms.R
-import com.mad.mad_bookworms.customer.explore.RecyclerAdapter
-import com.mad.mad_bookworms.customer.explore.TrendingAdapter
-import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.data.MyCartTable
-import com.mad.mad_bookworms.viewModels.BookViewModel
-import com.sun.mail.imap.protocol.FetchResponse.getItem
-import androidx.fragment.app.FragmentActivity
 
 
 

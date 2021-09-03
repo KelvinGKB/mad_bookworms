@@ -29,7 +29,7 @@ class RecyclerAdapter(val fn: (ViewHolder, Book) -> Unit = { _, _ -> }): ListAda
         val book = getItem(position)
         holder.itemTitle.text = book.title
         holder.itemAuthor.text = book.author
-        //holder.itemImage.setImageBitmap(book.image.toBitmap())
+        holder.itemImage.setImageBitmap(book.image.toBitmap())
 
         fn(holder, book)
     }

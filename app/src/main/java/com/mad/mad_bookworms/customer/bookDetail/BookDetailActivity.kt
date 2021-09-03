@@ -34,6 +34,7 @@ import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.data.LocalDB
 import com.mad.mad_bookworms.data.MyCartDao
 import com.mad.mad_bookworms.data.MyCartTable
+import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -122,20 +123,15 @@ class BookDetailActivity : AppCompatActivity() {
         CoroutineScope(IO).launch {
             var c = cartVm.get(tempBook.id)
             order.add(c)
-            Log.d("TAG","Addeddddd")
-
-            Log.d("TAG","ORderrrr ${order}")
             cartOrder = order[0]
 
             if (data.contains(cartOrder)) {
-                Log.d("TAG","wrongggggggggg")
                 cartVm.updateQty(bookId = tempBook.id, cartOrder.quantity + binding.edtQty.text.toString().toInt())
 
                 return@launch
 
             }
             else {
-                Log.d("TAG","imsefrefesr")
                 cartVm.insert(b)
 
                 return@launch
@@ -160,7 +156,7 @@ class BookDetailActivity : AppCompatActivity() {
                     tvBookPrice.text = "RM" + "%.2f".format(f.price)
                     tvBookLanguage.text = f.language
                     tvBookPages.text = f.pages.toString()
-                    //imageBook.setImageResource(bookImage)
+                    imageBook.setImageBitmap(f.image.toBitmap())
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.mad.mad_bookworms
 import com.mad.mad_bookworms.profile.ProfileFragment
 import com.mad.mad_bookworms.redeem.RedeemFragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -33,7 +34,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var notificationBadges: View
-    private var count: Int = 1
+    private lateinit var nullBadge: View
+    private var count: Int = 0
     private val cartVm: CartOrderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         if (r == "cart") {
             setCurrentFragment(cartFragment)
-            findViewById<BottomNavigationView>(R.id.bottomNavigationView).getMenu().getItem(1)
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView).getMenu().getItem(2)
                 .setChecked(true);
         } else {
             setCurrentFragment(exploreFragment)
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             }
             updateBadgeCount(totalQty)
 
+
         }
 
     }
@@ -84,19 +87,27 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
-    private fun updateBadgeCount(count: Int = 0) {
+    private fun updateBadgeCount(count: Int) {
         //at which index of bottom navigation
         val itemView: BottomNavigationView? = bottomNavigationView?.getChildAt(0) as? BottomNavigationView
-
+        Log.d("TAG", "Hellooo")
 
         //layout inflating for badge count view
         notificationBadges = LayoutInflater.from(this).inflate(R.layout.badge_menu_item, itemView, true)
+        nullBadge = LayoutInflater.from(this).inflate(R.layout.null_badge, itemView, true)
 
         //set text count
         notificationBadges?.notification_badge?.text = count.toString()
 
         //add the layout to bottom navigation
-        findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.addView(notificationBadges)
+        if (count < 1 ){
+            Log.d("TAG", "nullBadge")
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.removeView(notificationBadges)
+        }
+        else {
+            Log.d("TAG", "NotnullBadge")
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.addView(notificationBadges)
+        }
 
     }
 

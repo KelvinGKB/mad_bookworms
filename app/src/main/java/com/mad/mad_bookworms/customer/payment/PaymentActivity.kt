@@ -16,6 +16,7 @@ import com.mad.mad_bookworms.data.PaymentMethod
 import com.mad.mad_bookworms.data.PendingOrder
 import com.mad.mad_bookworms.data.SelectedPayMethod
 import com.mad.mad_bookworms.databinding.ActivityPaymentBinding
+import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.BookViewModel
 import kotlinx.coroutines.launch
 
@@ -78,7 +79,7 @@ class PaymentActivity : AppCompatActivity() {
                     holder.tvBookTitle.text = o.title
                     holder.tvBookAuthor.text = o.author
                     holder.tvBookPrice.text = "RM " + "%.2f".format(o.price)
-                    //holder.itemImage.setImageBitmap(o.image)
+                    holder.itemImage.setImageBitmap(o.image.toBitmap())
 
                     pricePerOrder = o.price * order.quantity
                     totalOrderAmt += pricePerOrder

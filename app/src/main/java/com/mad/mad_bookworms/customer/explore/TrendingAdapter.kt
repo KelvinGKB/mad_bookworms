@@ -32,7 +32,7 @@ class TrendingAdapter(
         val book = getItem(position)
         holder.itemTitle.text = book.title
         holder.itemAuthor.text = book.author
-        //holder.itemImage.setImageBitmap(data[position].image.toBitmap())
+        holder.itemImage.setImageBitmap(book.image.toBitmap())
         holder.itemPrice.text = "RM" + "%.2f".format(book.price)
 
         fn(holder, book)

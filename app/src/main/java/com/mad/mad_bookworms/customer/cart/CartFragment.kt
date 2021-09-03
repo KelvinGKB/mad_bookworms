@@ -1,6 +1,7 @@
 package com.mad.mad_bookworms.customer.cart
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.LayerDrawable
@@ -18,14 +19,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mad.mad_bookworms.BadgeDrawable
+import com.mad.mad_bookworms.MainActivity
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.customer.bookDetail.BookDetailActivity
 import com.mad.mad_bookworms.customer.explore.RecyclerAdapter
 import com.mad.mad_bookworms.customer.payment.PaymentActivity
 import com.mad.mad_bookworms.data.*
 import com.mad.mad_bookworms.databinding.FragmentCartBinding
+import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.BookViewModel
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.badge_menu_item.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -65,24 +70,6 @@ class CartFragment : Fragment() {
                 startActivity(intent)
             }
 
-            holder.btnIncrease.setOnClickListener {
-                qty += 1
-                cartVm.updateQty(MyCartTable.bookId,qty)
-
-            }
-
-            holder.btnMinus.setOnClickListener {
-                qty -= 1
-                if (qty < 1) {
-                    qty = 1
-                }
-                cartVm.updateQty(MyCartTable.bookId,qty)
-
-            }
-            holder.edtQty.setText("${MyCartTable.quantity}")
-
-
-            MyCartTable.bookId
             lifecycleScope.launch {
                 val f = vm.get(MyCartTable.bookId)
                 var price: Double
@@ -91,13 +78,14 @@ class CartFragment : Fragment() {
                     holder.tvBookTitle.text = f.title
                     holder.tvBookAuthor.text = f.author
                     holder.tvBookPrice.text = "RM" + "%.2f".format(price)
+                    holder.itemImage.setImageBitmap(f.image.toBitmap())
+
 
                     holder.chkCartOrder.setOnCheckedChangeListener { buttonView, isChecked ->
                         if (isChecked) {
                             pendingOrder.add(MyCartTable)
                             totalPrice = binding.tvTotalPrice.text.toString().toDouble() + price
                             binding.tvTotalPrice.text = "%.2f".format(totalPrice)
-
 
                         }
                         if (!isChecked) {
@@ -113,6 +101,48 @@ class CartFragment : Fragment() {
                 }
 
             }
+
+            holder.btnIncrease.setOnClickListener {
+                qty += 1
+                cartVm.updateQty(MyCartTable.bookId,qty)
+                if (holder.chkCartOrder.isChecked) {
+                    lifecycleScope.launch {
+                        val f = vm.get(MyCartTable.bookId)
+                        var price: Double
+                        if (f!=null){
+                            price = f.price * holder.edtQty.text.toString().toInt()
+                            totalPrice = binding.tvTotalPrice.text.toString().toDouble() + price
+                            binding.tvTotalPrice.text = "%.2f".format(totalPrice)
+                        }
+                    }
+                }
+
+            }
+
+            holder.btnMinus.setOnClickListener {
+                qty -= 1
+                if (qty < 1) {
+                    qty = 1
+                }
+                cartVm.updateQty(MyCartTable.bookId,qty)
+                if (holder.chkCartOrder.isChecked) {
+                    lifecycleScope.launch {
+                        val f = vm.get(MyCartTable.bookId)
+                        var price: Double
+                        if (f!=null){
+                            price = f.price * holder.edtQty.text.toString().toInt()
+                            totalPrice = binding.tvTotalPrice.text.toString().toDouble() + price
+                            binding.tvTotalPrice.text = "%.2f".format(totalPrice)
+                        }
+                    }
+                }
+
+            }
+            holder.edtQty.setText("${MyCartTable.quantity}")
+
+
+            MyCartTable.bookId
+
         }
 
         binding.rvCartOrder.adapter = adapter
@@ -126,6 +156,7 @@ class CartFragment : Fragment() {
                 builder.setPositiveButton("Yes",DialogInterface.OnClickListener{ dialog, id ->
                     for (b in pendingOrder) {
                         cartVm.delete(b)
+
                     }
                     pendingOrder.clear()
                     dialog.cancel()
@@ -213,11 +244,14 @@ class CartFragment : Fragment() {
             }
             binding.tvTotalCart.text = "(${totalQty})"
 
+
         }
+
 
 
 
         return binding.root
     }
+
 
 }
