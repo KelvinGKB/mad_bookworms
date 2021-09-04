@@ -51,7 +51,7 @@ class PaymentMethodAdapter (
 
         holder.tvPaymentName.text = item.PaymentName
         holder.imgPayIcon.setImageResource(item.PaymentIcon)
-        if (item.PaymentName == "Paypal"){
+        if (item.PaymentName == "Paypal" || item.PaymentName == "RazorPay"){
             holder.tvCashbackMessage.text = "Enjoy 10% points cashback"
         }
 
@@ -60,10 +60,5 @@ class PaymentMethodAdapter (
         fn(holder, item)
     }
 
-    fun changeCvBackground (payMethod: String) {
-        Log.d("TAG","huwehfuehfuher $payMethod")
-
-
-    }
 
 }

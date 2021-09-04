@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mad.mad_bookworms">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,19 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mad_bookworms">
-        <activity android:name=".admin.AdminActivity"></activity>
+        <activity
+            android:name=".customer.payment.PaymentDetailsActivity"
+            android:exported="true" />
+        <service android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" />
+        <activity android:name=".admin.AdminActivity" />
         <activity
             android:name=".customer.payment.PaymentActivity"
-            android:exported="true" />
-        <!-- Security Package -->
-        <activity android:name=".security.ForgotPasswordActivity"></activity>
-        <activity android:name=".security.VerifyActivity" />
-<!--        <activity android:name=".security.RegisterActivity" />-->
+            android:exported="true" /> <!-- Security Package -->
+        <activity android:name=".security.ForgotPasswordActivity" />
+        <activity android:name=".security.VerifyActivity" /> <!-- <activity android:name=".security.RegisterActivity" /> -->
         <activity
             android:name=".customer.bookDetail.BookDetailActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity" />
-<!--        <activity android:name=".ListView" />-->
+            android:parentActivityName=".MainActivity" /> <!-- <activity android:name=".ListView" /> -->
         <activity android:name=".MainActivity" />
         <activity android:name=".security.LoginActivity">
             <intent-filter>
@@ -32,44 +35,53 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".security.RegisterActivity">
             <intent-filter android:label="referral_link">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "https://www.mad_bookworm.com/referral_register” -->
                 <data
-                    android:scheme="https"
                     android:host="www.mad_bookworm.com"
-                    android:pathPrefix="/referral_register"/>
+                    android:pathPrefix="/referral_register"
+                    android:scheme="https" />
 
                 <!-- Accepts URIs that begin with "app://mad_bookworms/referral_register” -->
-<!--                <data android:scheme="app"-->
-<!--                    android:host="mad_bookworm"-->
-<!--                    android:pathPrefix="/referral_register"/>-->
-                <!-- note that the leading "/" is required for pathPrefix-->
+                <!-- <data android:scheme="app" -->
+                <!-- android:host="mad_bookworm" -->
+                <!-- android:pathPrefix="/referral_register"/> -->
+                <!-- note that the leading "/" is required for pathPrefix -->
             </intent-filter>
             <intent-filter android:label="referral_link">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "http://www.mad_bookworm.com/referral_register” -->
                 <data
-                    android:scheme="http"
                     android:host="www.mad_bookworm.com"
-                    android:pathPrefix="/referral_register"/>
-<!--                 Accepts URIs that begin with "app://mad_bookworms/referral_register” -->
-<!--                <data android:scheme="app"-->
-<!--                    android:host="mad_bookworm"-->
-<!--                    android:pathPrefix="/referral_register"/>-->
-                <!-- note that the leading "/" is required for pathPrefix-->
+                    android:pathPrefix="/referral_register"
+                    android:scheme="http" />
+                <!-- Accepts URIs that begin with "app://mad_bookworms/referral_register” -->
+                <!-- <data android:scheme="app" -->
+                <!-- android:host="mad_bookworm" -->
+                <!-- android:pathPrefix="/referral_register"/> -->
+                <!-- note that the leading "/" is required for pathPrefix -->
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_MEDmpL6CxRYuTO"/>
+
+        <meta-data
+            android:name="com.google.gms.wallet.api.enabled"
+            android:value="true"/>
     </application>
 
 </manifest>

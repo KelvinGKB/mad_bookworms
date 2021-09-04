@@ -117,5 +117,10 @@ dependencies {
     // GIF Image
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
+    //PAYPAL SDK
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+
+    //RAZOR PAY SDK
+    implementation 'com.razorpay:checkout:1.6.12'
 
 }

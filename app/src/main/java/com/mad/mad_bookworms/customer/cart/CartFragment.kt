@@ -141,7 +141,7 @@ class CartFragment : Fragment() {
             holder.edtQty.setText("${MyCartTable.quantity}")
 
 
-            MyCartTable.bookId
+            binding.edtPromoCode.text
 
         }
 

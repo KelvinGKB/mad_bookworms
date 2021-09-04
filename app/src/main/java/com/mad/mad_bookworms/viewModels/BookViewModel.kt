@@ -18,7 +18,11 @@ class BookViewModel : ViewModel() {
     }
 
     suspend fun get(id: String): Book? {
-        return col.document(id).get().await().toObject<Book>()
+        if(id.isNotBlank()){
+            return col.document(id).get().await().toObject<Book>()
+        }else{
+            return null
+        }
     }
 
 //    fun get(id: String): Book? {
