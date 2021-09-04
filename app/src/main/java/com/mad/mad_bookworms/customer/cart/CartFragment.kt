@@ -18,6 +18,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.BadgeDrawable
 import com.mad.mad_bookworms.MainActivity
 import com.mad.mad_bookworms.R
@@ -44,7 +46,7 @@ class CartFragment : Fragment() {
     private var prepareOrder: MutableList<PendingOrder> = arrayListOf()
     private val vm: BookViewModel by activityViewModels()
     private val cartVm: CartOrderViewModel by activityViewModels()
-    private var totalPrice : Double = 0.0
+    private var totalPrice: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,13 +61,14 @@ class CartFragment : Fragment() {
 
         //Recycler View for cart order
         adapter = CartOrderAdapter() { holder, MyCartTable ->
+            val uid = Firebase.auth.currentUser?.uid
             holder.adapterPosition
             var qty = MyCartTable.quantity
 
             holder.root.setOnClickListener {
 
                 val intent = Intent(requireContext(), BookDetailActivity::class.java)
-                intent.putExtra("bookID",MyCartTable.bookId)
+                intent.putExtra("bookID", MyCartTable.bookId)
 
                 startActivity(intent)
             }
@@ -73,7 +76,7 @@ class CartFragment : Fragment() {
             lifecycleScope.launch {
                 val f = vm.get(MyCartTable.bookId)
                 var price: Double
-                if (f!=null) {
+                if (f != null) {
                     price = f.price * holder.edtQty.text.toString().toInt()
                     holder.tvBookTitle.text = f.title
                     holder.tvBookAuthor.text = f.author
@@ -89,7 +92,7 @@ class CartFragment : Fragment() {
 
                         }
                         if (!isChecked) {
-                            if (pendingOrder.contains(MyCartTable)){
+                            if (pendingOrder.contains(MyCartTable)) {
                                 pendingOrder.remove(MyCartTable)
                                 totalPrice = binding.tvTotalPrice.text.toString().toDouble() - price
                                 binding.tvTotalPrice.text = "%.2f".format(totalPrice)
@@ -104,12 +107,14 @@ class CartFragment : Fragment() {
 
             holder.btnIncrease.setOnClickListener {
                 qty += 1
-                cartVm.updateQty(MyCartTable.bookId,qty)
+                if (uid != null) {
+                    cartVm.updateQty(uid, MyCartTable.bookId, qty)
+                }
                 if (holder.chkCartOrder.isChecked) {
                     lifecycleScope.launch {
                         val f = vm.get(MyCartTable.bookId)
                         var price: Double
-                        if (f!=null){
+                        if (f != null) {
                             price = f.price * holder.edtQty.text.toString().toInt()
                             totalPrice = binding.tvTotalPrice.text.toString().toDouble() + price
                             binding.tvTotalPrice.text = "%.2f".format(totalPrice)
@@ -124,12 +129,14 @@ class CartFragment : Fragment() {
                 if (qty < 1) {
                     qty = 1
                 }
-                cartVm.updateQty(MyCartTable.bookId,qty)
+                if (uid != null) {
+                    cartVm.updateQty(uid, MyCartTable.bookId, qty)
+                }
                 if (holder.chkCartOrder.isChecked) {
                     lifecycleScope.launch {
                         val f = vm.get(MyCartTable.bookId)
                         var price: Double
-                        if (f!=null){
+                        if (f != null) {
                             price = f.price * holder.edtQty.text.toString().toInt()
                             totalPrice = binding.tvTotalPrice.text.toString().toDouble() + price
                             binding.tvTotalPrice.text = "%.2f".format(totalPrice)
@@ -149,11 +156,11 @@ class CartFragment : Fragment() {
         binding.rvCartOrder.setHasFixedSize(true)
 
         binding.btnDelete.setOnClickListener {
-            if (pendingOrder.isNotEmpty()){
+            if (pendingOrder.isNotEmpty()) {
                 var builder = AlertDialog.Builder(activity)
                 builder.setTitle(getString(R.string.confirm_delete))
                 builder.setMessage(getString(R.string.delete_confirmation_message))
-                builder.setPositiveButton("Yes",DialogInterface.OnClickListener{ dialog, id ->
+                builder.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
                     for (b in pendingOrder) {
                         cartVm.delete(b)
 
@@ -161,38 +168,43 @@ class CartFragment : Fragment() {
                     pendingOrder.clear()
                     dialog.cancel()
                 })
-                builder.setNegativeButton("No", DialogInterface.OnClickListener{ dialog, id ->
+                builder.setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
                     dialog.cancel()
                 })
                 var alert = builder.create()
                 alert.show()
-            }
-            else {
-                Toast.makeText(requireContext(), getString(R.string.no_selected_any_item_message), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.no_selected_any_item_message),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
         binding.btnCheckOut.setOnClickListener {
-            if (pendingOrder.isNotEmpty()){
+            if (pendingOrder.isNotEmpty()) {
                 prepareOrder.clear()
-                for(o in pendingOrder) {
+                for (o in pendingOrder) {
                     prepareOrder.add(PendingOrder(o.bookId, o.quantity))
                 }
 
                 val intent = Intent(requireContext(), PaymentActivity::class.java)
                 intent.putExtra("totalAmount", totalPrice)
-                intent.putExtra("pendingOrder",ArrayList(prepareOrder))
+                intent.putExtra("pendingOrder", ArrayList(prepareOrder))
 
                 startActivity(intent)
-            }
-            else{
-                Toast.makeText(requireContext(), getString(R.string.no_selected_any_item_message), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.no_selected_any_item_message),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
 
-
-        val swipeGesture = object :  SwipeGesture(requireContext()) {
+        val swipeGesture = object : SwipeGesture(requireContext()) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
@@ -202,14 +214,16 @@ class CartFragment : Fragment() {
                         cartVm.delete(data[viewHolder.adapterPosition])
                         data.removeAt(viewHolder.adapterPosition)
                         adapter.submitList(data)
+
+
                     }
 
                     ItemTouchHelper.RIGHT -> {
                         val achieveItem = data[viewHolder.adapterPosition]
                         cartVm.delete(data[viewHolder.adapterPosition])
                         data.removeAt(viewHolder.adapterPosition)
-                        cartVm.insert(achieveItem)
                         data.add(achieveItem)
+                        cartVm.insert(achieveItem)
                         adapter.submitList(data)
 //                        val achieveItemPos = viewHolder.adapterPosition
 //                        cartVm.delete(adapter.getOrderAt(viewHolder.adapterPosition))
@@ -231,18 +245,34 @@ class CartFragment : Fragment() {
         }
 
         cartVm.getAll().observe(viewLifecycleOwner) { myCart ->
-            var totalQty = 0
-            adapter.submitList(myCart)
-            data.addAll(myCart)
-            for (c in myCart) {
-                if (pendingOrder.contains(c)){
-                    pendingOrder.remove(c)
+            val o: MutableList<MyCartTable> = ArrayList()
+            o.clear()
+            val uid = Firebase.auth.currentUser?.uid
+            if (uid != null) {
+                for (c in myCart) {
+                    if (c.uid == uid) {
+
+                        o.add(c)
+                    }
+                    var totalQty = 0
+
+
+                    for (c in o) {
+                        if (pendingOrder.contains(c)) {
+                            pendingOrder.remove(c)
+                        }
+                    }
+                    for (c in o) {
+                        totalQty += c.quantity
+                    }
+
+                    binding.tvTotalCart.text = "(${totalQty})"
+
                 }
+                adapter.submitList(o)
+                data.addAll(o)
+
             }
-            for (c in myCart) {
-                totalQty += c.quantity
-            }
-            binding.tvTotalCart.text = "(${totalQty})"
 
 
         }

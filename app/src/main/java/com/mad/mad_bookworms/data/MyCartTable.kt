@@ -9,11 +9,19 @@ import androidx.room.PrimaryKey
 @Entity
 data class MyCartTable (
 
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
+    var id:Int,
+
+    @ColumnInfo
+    var uid: String,
+
+    @ColumnInfo
     var bookId : String,
 
 //    var book : Book,
 
     @ColumnInfo
     var quantity: Int,
+
+
 )

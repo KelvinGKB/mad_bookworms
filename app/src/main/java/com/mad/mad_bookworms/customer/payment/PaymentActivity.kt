@@ -81,11 +81,11 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
     override fun onStart() {
         super.onStart()
         //Payment Method
-//        paymentMethod.add(PaymentMethod("RazorPay", R.drawable.razorpay_icon))
-//        paymentMethod.add(PaymentMethod("Paypal", R.drawable.paypal_icon))
-//        paymentMethod.add( PaymentMethod("BookWorm Wallet", R.drawable.ic_baseline_account_balance_wallet_24))
-//        paymentMethod.add(PaymentMethod("Member Point", R.drawable.ic_baseline_redeem_24))
-//        paymentMethodAdapter.submitList(paymentMethod)
+        paymentMethod.add(PaymentMethod("RazorPay", R.drawable.razorpay_icon))
+        paymentMethod.add(PaymentMethod("Paypal", R.drawable.paypal_icon))
+        paymentMethod.add( PaymentMethod("BookWorm Wallet", R.drawable.ic_baseline_account_balance_wallet_24))
+        paymentMethod.add(PaymentMethod("Member Point", R.drawable.ic_baseline_redeem_24))
+        paymentMethodAdapter.submitList(paymentMethod)
 
         val pendingOrder = intent.getParcelableArrayListExtra<PendingOrder>("pendingOrder") as ArrayList<PendingOrder>
         orderAdapter.submitList(pendingOrder)
@@ -94,20 +94,22 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
     override fun onDestroy() {
         //Stop paypal service
         stopService(Intent(this, PayPalService::class.java))
+        paymentMethod.clear()
         super.onDestroy()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //add payment method
-        paymentMethod.add(PaymentMethod("RazorPay", R.drawable.razorpay_icon))
-        paymentMethod.add(PaymentMethod("Paypal", R.drawable.paypal_icon))
-        paymentMethod.add( PaymentMethod("BookWorm Wallet", R.drawable.ic_baseline_account_balance_wallet_24))
-        paymentMethod.add(PaymentMethod("Member Point", R.drawable.ic_baseline_redeem_24))
-        paymentMethodAdapter.submitList(paymentMethod)
+//
+//        //add payment method
+//        paymentMethod.add(PaymentMethod("RazorPay", R.drawable.razorpay_icon))
+//        paymentMethod.add(PaymentMethod("Paypal", R.drawable.paypal_icon))
+//        paymentMethod.add( PaymentMethod("BookWorm Wallet", R.drawable.ic_baseline_account_balance_wallet_24))
+//        paymentMethod.add(PaymentMethod("Member Point", R.drawable.ic_baseline_redeem_24))
+//        paymentMethodAdapter.submitList(paymentMethod)
 
         //Start Paypal service
         val intent = Intent(this, PayPalService::class.java)

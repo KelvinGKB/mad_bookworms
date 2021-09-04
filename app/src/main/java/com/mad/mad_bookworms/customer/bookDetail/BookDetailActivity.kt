@@ -29,6 +29,8 @@ import androidx.fragment.app.activityViewModels
 import com.mad.mad_bookworms.viewModels.BookViewModel
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.MainActivity
 import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.data.LocalDB
@@ -36,13 +38,13 @@ import com.mad.mad_bookworms.data.MyCartDao
 import com.mad.mad_bookworms.data.MyCartTable
 import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
+import com.mad.mad_bookworms.viewModels.UserVoucherViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-
 
 
 class BookDetailActivity : AppCompatActivity() {
@@ -53,6 +55,7 @@ class BookDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookDetailBinding
     private val vm: BookViewModel by viewModels()
     private val cartVm: CartOrderViewModel by viewModels()
+    private val userVm: UserVoucherViewModel by viewModels()
     private lateinit var dao: MyCartDao
     private lateinit var tempBook: Book
 
@@ -81,9 +84,6 @@ class BookDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
-
-
         //bind all the data
         val bookID = intent.getStringExtra("bookID") ?: ""
         load(bookID)
@@ -96,7 +96,7 @@ class BookDetailActivity : AppCompatActivity() {
         binding.btnAddToCart.setOnClickListener { addToCart() }
         binding.btnCart.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("cart", "cart")
+            intent.putExtra("cart", "cart")
             startActivity(intent)
         }
 
@@ -113,32 +113,42 @@ class BookDetailActivity : AppCompatActivity() {
 
     private fun addToCart() {
         Log.d("TAG", "Hi I am here.")
-        val b = MyCartTable(bookId = tempBook.id, quantity = binding.edtQty.text.toString().toInt())
+        val uid = Firebase.auth.currentUser?.uid
+        val b = uid?.let {
+            MyCartTable(
+                0, it, bookId = tempBook.id, quantity = binding.edtQty.text.toString().toInt()
+            )
+        }
         val order: MutableList<MyCartTable> = ArrayList()
-        var checkDuplicate: Boolean = false
         var cartOrder: MyCartTable
-        Log.d("TAG","${data}")
-
+        Log.d("TAG", "${data}")
 
         CoroutineScope(IO).launch {
-            var c = cartVm.get(tempBook.id)
-            order.add(c)
-            cartOrder = order[0]
+            var c = uid?.let { cartVm.get(it,tempBook.id) }
+            Log.d("TAG", "$c")
+            if (c != null) {
+                if (c.isNotEmpty()){
+                    Log.d("TAG", "im in notempty")
+                    for (cart in c){
+                        if (cart.bookId == tempBook.id){
+                            Log.d("TAG", "im in notempty")
+                            if (uid != null) {
+                                cartVm.updateQty(uid, tempBook.id, cart.quantity+ binding.edtQty.text.toString().toInt())
 
-            if (data.contains(cartOrder)) {
-                cartVm.updateQty(bookId = tempBook.id, cartOrder.quantity + binding.edtQty.text.toString().toInt())
+                            }
+                        }
+                    }
 
-                return@launch
+                }else{
+                    Log.d("TAG", "im in empty")
+                    if (b != null) {
+                        cartVm.insert(b)
 
-            }
-            else {
-                cartVm.insert(b)
-
-                return@launch
+                    }
+                }
             }
         }
         Toast.makeText(applicationContext, getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
-
     }
 
     private fun load(bookID: String) {

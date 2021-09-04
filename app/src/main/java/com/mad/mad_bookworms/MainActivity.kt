@@ -13,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.customer.cart.CartFragment
 import com.mad.mad_bookworms.customer.explore.ExploreFragment
+import com.mad.mad_bookworms.data.MyCartTable
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.badge_menu_item.view.*
@@ -69,13 +72,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         cartVm.getAll().observe(this) { myCart ->
-            var totalQty = 0
-            for (c in myCart) {
-                totalQty += c.quantity
+            val o: MutableList<MyCartTable> = ArrayList()
+            val uid = Firebase.auth.currentUser?.uid
+            if (uid != null) {
+                for (c in myCart) {
+                    if (c.uid == uid) {
+
+                        o.add(c)
+                    }
+                    var totalQty = 0
+                    for (c in o) {
+                        totalQty += c.quantity
+                    }
+                    updateBadgeCount(totalQty)
+
+                }
+
             }
-            updateBadgeCount(totalQty)
-
-
         }
 
     }

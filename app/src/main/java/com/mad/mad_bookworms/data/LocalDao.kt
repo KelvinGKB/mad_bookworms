@@ -33,11 +33,11 @@ interface MyCartDao {
     @Query("SELECT * FROM MyCartTable")
     fun getAll(): LiveData<List<MyCartTable>>
 
-    @Query("SELECT * FROM MyCartTable WHERE bookId = :bookId")
-    suspend fun get(bookId: String): MyCartTable
+    @Query("SELECT * FROM MyCartTable WHERE uid = :uid AND bookId = :bookId")
+    suspend fun get(uid: String, bookId: String): List<MyCartTable>
 
-    @Query("UPDATE MyCartTable SET quantity = :qty WHERE bookId = :bookId")
-    suspend fun updateQty(bookId: String, qty: Int)
+    @Query("UPDATE MyCartTable SET quantity = :qty WHERE bookId = :bookId AND uid = :uid")
+    suspend fun updateQty(uid:String, bookId: String, qty: Int)
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(f: MyCartTable) // Long -> row id
