@@ -3,7 +3,8 @@
     package="com.mad.mad_bookworms">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -13,10 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mad_bookworms">
         <activity
+            android:name=".customer.payment.RazorPaySuccess"
+            android:exported="true" />
+        <activity
             android:name=".customer.payment.PaymentDetailsActivity"
             android:exported="true" />
-        <service android:name="com.paypal.android.sdk.payments.PayPalService"
+
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
             android:exported="false" />
+
         <activity android:name=".admin.AdminActivity" />
         <activity
             android:name=".customer.payment.PaymentActivity"
@@ -74,14 +81,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_MEDmpL6CxRYuTO"/>
-
+            android:value="rzp_test_A5H9oaLbXXw59r" />
         <meta-data
             android:name="com.google.gms.wallet.api.enabled"
-            android:value="true"/>
+            android:value="true" />
     </application>
 
 </manifest>

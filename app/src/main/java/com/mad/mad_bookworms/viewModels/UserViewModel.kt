@@ -102,6 +102,24 @@ class UserViewModel : ViewModel() {
             .addOnSuccessListener {}
     }
 
+    fun addCashBackPoints(id: String, current_points: Int, current_UsablePoint: Int, base_point:Double, level:String){
+
+        if (level == "Gold"){
+            col.document(id).update("usable_points", current_UsablePoint + (base_point * 1.2)).addOnSuccessListener {  }
+            col.document(id).update("earn_points", current_points + (base_point * 1.2)).addOnSuccessListener {  }
+        }
+        else if (level == "Platinum"){
+            col.document(id).update("usable_points", current_UsablePoint + (base_point * 1.5)).addOnSuccessListener {  }
+            col.document(id).update("earn_points", current_points + (base_point * 1.5)).addOnSuccessListener {  }
+        }else if (level == "Silver"){
+            col.document(id).update("usable_points", current_UsablePoint + base_point).addOnSuccessListener {  }
+            col.document(id).update("earn_points", current_points + base_point).addOnSuccessListener {  }
+        }
+
+
+
+    }
+
     //----------------------------------------------------------------------------------------------
 
 //    private suspend fun idExists(id: String): Boolean {

@@ -85,3 +85,21 @@ data class SelectedPayMethod(
     var PaymentMethod: Int
 )
 
+data class Order(
+    @DocumentId
+    var id   : String = "",
+    var amount : Double = 0.00,
+    var dateTime : Date = Date(),
+    var paymentType: String = "",
+    var status : String = "",
+    var uid: String = "",
+)
+
+data class BookOrder(
+    @DocumentId
+    var id   : String = "",
+    var order_id: String = "",
+    var book_id: String = "",
+    var qty : Int = 0,
+)
+

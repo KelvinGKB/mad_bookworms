@@ -32,18 +32,15 @@ class BookViewModel : ViewModel() {
     fun getAll() = books
 
     fun delete(id: String) {
-        // TODO
         col.document(id).delete()
     }
 
     fun deleteAll() {
-        // TODO
         // col.get().addOnSuccessListener { snap -> snap.documents.forEach { doc -> delete(doc.id) } }
         books.value?.forEach { f -> delete(f.id) }
     }
 
     fun set(f: Book) {
-        // TODO
         col.document(f.id).set(f)
     }
 

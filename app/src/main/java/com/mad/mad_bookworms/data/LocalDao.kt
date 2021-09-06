@@ -50,6 +50,9 @@ interface MyCartDao {
     @Delete
     suspend fun delete(f: MyCartTable) // Int -> count
 
+    @Query("DELETE FROM MyCartTable WHERE bookId = :bookId AND uid = :uid")
+    suspend fun deleteCart(uid:String, bookId: String)
+
 //    @Query("DELETE FROM MyCartTable")
 //    suspend fun deleteAll()
 }

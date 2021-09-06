@@ -19,4 +19,6 @@ class CartOrderViewModel : ViewModel() {
     fun update(b: MyCartTable) = viewModelScope.launch { db.MyCartDao.update(b) }
 
     fun delete(b: MyCartTable) = viewModelScope.launch { db.MyCartDao.delete(b) }
+
+    fun deleteCart(uid:String, bookId: String) = viewModelScope.launch { db.MyCartDao.deleteCart(uid,bookId) }
 }

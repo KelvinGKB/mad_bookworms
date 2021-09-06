@@ -51,8 +51,11 @@ class PaymentMethodAdapter (
 
         holder.tvPaymentName.text = item.PaymentName
         holder.imgPayIcon.setImageResource(item.PaymentIcon)
-        if (item.PaymentName == "Paypal" || item.PaymentName == "RazorPay"){
-            holder.tvCashbackMessage.text = "Enjoy 10% points cashback"
+        if (item.PaymentName == "Paypal" ){
+            holder.tvCashbackMessage.text = "Earn more 10% points cashback"
+        }
+        else if (item.PaymentName == "RazorPay"){
+            holder.tvCashbackMessage.text = "Earn more 15% points cashback"
         }
 
 
