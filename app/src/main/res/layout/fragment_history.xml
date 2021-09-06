@@ -35,13 +35,13 @@
                     android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvUserVoucherList"
+                        android:id="@+id/rvReferralUserList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
                         android:visibility="visible"
                         app:layoutManager="LinearLayoutManager"
-                        tools:listitem="@layout/cardview_active_voucher_list">
+                        tools:listitem="@layout/cardview_referral_history">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
@@ -52,7 +52,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="- no more voucher - "
+                        android:text="- no more history - "
                         android:textAlignment="center"
                         android:textSize="14sp" />
 
@@ -142,23 +142,16 @@
                             android:layout_weight="3"
                             android:orientation="vertical">
 
-                            <Button
-                                android:layout_width="70dp"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:textAlignment="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="50dp"
-                                app:elevation="2dp"
-                                tools:text="Use" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="+ 500 points" />
 
                         </LinearLayout>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -224,23 +217,16 @@
                             android:layout_weight="3"
                             android:orientation="vertical">
 
-                            <Button
-                                android:layout_width="70dp"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:textAlignment="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="50dp"
-                                app:elevation="2dp"
-                                tools:text="Use" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="+ 500 points" />
 
                         </LinearLayout>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -306,23 +292,16 @@
                             android:layout_weight="3"
                             android:orientation="vertical">
 
-                            <Button
-                                android:layout_width="70dp"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:textAlignment="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="50dp"
-                                app:elevation="2dp"
-                                tools:text="Use" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="+ 500 points" />
 
                         </LinearLayout>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -388,23 +367,16 @@
                             android:layout_weight="3"
                             android:orientation="vertical">
 
-                            <Button
-                                android:layout_width="70dp"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:textAlignment="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="50dp"
-                                app:elevation="2dp"
-                                tools:text="Use" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="+ 500 points" />
 
                         </LinearLayout>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -470,22 +442,17 @@
                             android:layout_weight="3"
                             android:orientation="vertical">
 
-                            <Button
-                                android:layout_width="70dp"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:textAlignment="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="50dp"
-                                app:elevation="2dp"
-                                tools:text="Use" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="+ 500 points" />
 
                         </LinearLayout>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
 
             </LinearLayout>
 

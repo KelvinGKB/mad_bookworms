@@ -3,10 +3,12 @@ package com.mad.mad_bookworms.viewModels
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
+import com.mad.mad_bookworms.cropToBlob
 import com.mad.mad_bookworms.data.User
 import kotlinx.coroutines.tasks.await
 
@@ -81,6 +83,22 @@ class UserViewModel : ViewModel() {
             .collection("Users")
             .document(id)
             .update("usable_points", current_points+points)
+            .addOnSuccessListener {}
+    }
+
+    fun updateUserInfo(uid:String, u : User)
+    {
+        Firebase.firestore
+            .collection("Users")
+            .document(uid)
+            .update("username", u.username,
+                "contact", u.contact,
+                        "address", u.address,
+                        "state",u.state,
+                        "postal",u.postal,
+                        "city",u.city,
+                        "fullname",u.fullname,
+                        "photo", u.photo)
             .addOnSuccessListener {}
     }
 

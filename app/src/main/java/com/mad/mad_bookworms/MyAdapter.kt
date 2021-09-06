@@ -10,6 +10,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.mad.mad_bookworms.profile.HistoryFragment
+import com.mad.mad_bookworms.profile.InvitedUserFragment
+import com.mad.mad_bookworms.profile.ReferralFragment
 import com.mad.mad_bookworms.redeem.ActiveVoucherFragment
 import com.mad.mad_bookworms.redeem.BrowseVoucherFragment
 import com.mad.mad_bookworms.redeem.MyVoucherFragment
@@ -28,6 +31,30 @@ internal class MyAdapter(
             }
             1 -> {
                 BrowseVoucherFragment()
+            }
+            else -> getItem(position)
+        }
+    }
+    override fun getCount(): Int {
+        return totalTabs
+    }
+
+}
+
+@Suppress("DEPRECATION")
+internal class ReferralAdapter(
+    var context: ReferralFragment,
+    fm: FragmentManager,
+    var totalTabs: Int
+) :
+    FragmentPagerAdapter(fm) {
+    override fun getItem(position: Int): Fragment {
+        return when (position) {
+            0 -> {
+                InvitedUserFragment()
+            }
+            1 -> {
+                HistoryFragment()
             }
             else -> getItem(position)
         }

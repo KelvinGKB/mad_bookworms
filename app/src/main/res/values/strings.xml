@@ -38,6 +38,7 @@
         <item>Language</item>
         <item>Change Password</item>
         <item>Refer a Friend</item>
+        <item>Referral History</item>
         <item>Log Out</item>
     </string-array>
 
@@ -47,6 +48,7 @@
         <item>Language</item>
         <item>Change Password</item>
         <item>Refer a Friend</item>
+        <item>Referral History</item>
         <item>Admin Panel</item>
         <item>Log Out</item>
     </string-array>

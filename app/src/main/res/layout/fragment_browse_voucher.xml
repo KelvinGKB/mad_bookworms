@@ -32,7 +32,7 @@
                         android:nestedScrollingEnabled="false"
                         android:visibility="visible"
                         app:layoutManager="LinearLayoutManager"
-                        tools:listitem="@layout/browse_voucher_list" />
+                        tools:listitem="@layout/cardview_browse_voucher_list" />
 
                     <TextView
                         android:id="@+id/textView9"

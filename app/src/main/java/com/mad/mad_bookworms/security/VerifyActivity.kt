@@ -18,9 +18,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.mad.mad_bookworms.data.Referral
 import com.mad.mad_bookworms.data.User
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import com.mad.mad_bookworms.databinding.ActivityVerifyBinding
+import com.mad.mad_bookworms.viewModels.ReferralViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +46,7 @@ class VerifyActivity : AppCompatActivity() {
 //    private var mAuth: FirebaseAuth? = null
 
     private val vm : UserViewModel by viewModels()
+    private val referral_vm : ReferralViewModel by viewModels()
 
     private lateinit var binding: ActivityVerifyBinding
 
@@ -207,6 +210,14 @@ class VerifyActivity : AppCompatActivity() {
                     vm.updateEarnPoints(referred_by,current_earn_points,500)
                     vm.updateUsablePoints(referred_by,current_usable_points,500)
                 }
+
+                val r = Referral(
+                    referred_by = referred_by,
+                    referred_to = uid
+                )
+
+                referral_vm.set(r)
+
             }
 
             Handler(Looper.getMainLooper()).postDelayed({

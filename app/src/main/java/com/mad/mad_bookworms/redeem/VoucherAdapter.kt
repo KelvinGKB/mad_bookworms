@@ -1,8 +1,5 @@
 package com.mad.mad_bookworms.redeem
 
-import android.content.ContentValues
-import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.type.DateTime
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.data.Voucher
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDate.parse
-import java.time.LocalDateTime.parse
-import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.logging.Level.parse
 
 class VoucherAdapter(val fn: (ViewHolder, Voucher) -> Unit = { _, _ -> }): ListAdapter<Voucher, VoucherAdapter.ViewHolder>(DiffCallback) {
 
@@ -31,7 +21,7 @@ class VoucherAdapter(val fn: (ViewHolder, Voucher) -> Unit = { _, _ -> }): ListA
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.browse_voucher_list,parent,false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.cardview_browse_voucher_list,parent,false)
         return ViewHolder(v)
     }
 

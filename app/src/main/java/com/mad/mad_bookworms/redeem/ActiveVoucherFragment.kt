@@ -70,6 +70,7 @@ class ActiveVoucherFragment : Fragment() {
         binding.rvUserVoucherList.adapter = adapter
         binding.rvUserVoucherList.setHasFixedSize(true)
 
+        Log.w(ContentValues.TAG, "Referral : " + " HI")
         loadUserVoucher(voucherList)
 
         return binding.root

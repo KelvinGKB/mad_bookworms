@@ -389,7 +389,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_medium"
-                                    android:text="register account with below referal code to earn more points."
+                                    android:text="Register account with below referal code to earn more points."
                                     android:textAlignment="center"
                                     android:textColor="#000000"
                                     android:textSize="12sp"
@@ -790,7 +790,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="every purchase of the products will reward amount of points."
+                            android:text="Every purchase of the products will reward amount of points while. Gold or Platinum level will enjoy extra points on every purchase."
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textSize="12sp" />

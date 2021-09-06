@@ -37,6 +37,12 @@ data class User(
     var usable_points  : Int = 0,
     var referral_code : String = "",
     var referred_by : String = "",
+    var address: String ="",
+    var postal : String = "",
+    var state : String = "",
+    var city : String = "",
+    var fullname : String = "",
+    var contact : String = "",
     var photo: Blob = Blob.fromBytes(ByteArray(0)),
 )
 
@@ -57,6 +63,11 @@ data class Voucher(
     var discount : Int = 0,
     var type : String = "",
     var requiredPoint : Int = 0,
+)
+
+data class Referral(
+    var referred_by: String = "",
+    var referred_to : String = "",
 )
 
 @Parcelize

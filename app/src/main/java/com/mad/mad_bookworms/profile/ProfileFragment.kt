@@ -28,6 +28,7 @@ import com.mad.mad_bookworms.databinding.FragmentProfileBinding
 import com.mad.mad_bookworms.security.ChangePasswordFragment
 import com.mad.mad_bookworms.security.LoginActivity
 import com.mad.mad_bookworms.security.RegisterActivity
+import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.*
 
@@ -67,6 +68,7 @@ class ProfileFragment : Fragment() {
 
             when (listItem?.get(position)) {
                 "Change Password" -> setCurrentFragment(ChangePasswordFragment())
+                "Referral History" -> setCurrentFragment(ReferralFragment())
                 "Purchase History" -> Toast.makeText(context, "Item One", Toast.LENGTH_SHORT).show()
                 "My Favourites" -> Toast.makeText(context, "Item Two", Toast.LENGTH_SHORT).show()
                 "Language" -> Toast.makeText(context, "Item Three", Toast.LENGTH_SHORT).show()
@@ -74,6 +76,10 @@ class ProfileFragment : Fragment() {
                 "Admin Panel" -> activity()
                 "Log Out" -> signOut()
             }
+        }
+
+        binding.btnEditInfo.setOnClickListener{
+            setCurrentFragment(EditPersonalInfoFragment())
         }
         return binding.root
 
@@ -165,6 +171,12 @@ class ProfileFragment : Fragment() {
 
             binding.tvName.startAnimation(animFadeIn)
             binding.tvName.setText(u?.username)
+
+           if(u?.photo!!.toBitmap() != null){
+               binding.imageView.setImageBitmap(u!!.photo.toBitmap())
+           }else{
+               binding.imageView.setImageResource(R.drawable.user_profile_1)
+           }
 
             if (role == "normal") {
                 listItem =
