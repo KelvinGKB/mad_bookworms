@@ -67,10 +67,11 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
     private val vmMyCart: CartOrderViewModel by viewModels()
     private val vmOrder: OrderViewModel by viewModels()
     private val vmUser: UserViewModel by viewModels()
+    private val vmBook: BookViewModel by viewModels()
     private var totalItemQty : Int = 0
     private var placeOrderAmt : Double = 0.0
     private var subTotalAmt : Double = 0.0
-    private var totalOrderAmt : Double = 0.0
+    private var totalRequiredPoint : Int = 0
     private var selectedPayMethod : String = ""
     private var selected_position: Int = -1
     private var applyVoucher: Boolean = false
@@ -245,6 +246,18 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
 
         }
 
+        //binding user address
+        val uid = Firebase.auth.currentUser?.uid
+
+        if (uid != null) {
+            lifecycleScope.launch {
+                val u = vmUser.get(uid)
+                if (u != null) {
+                    binding.tvDeliveryAddress.text = "${u.address} \n${u.city} \n${u.postal}, ${u.state}"
+                }
+            }
+        }
+
 
 
     }
@@ -260,11 +273,78 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
             intent.putExtra(EXTRA_PAYMENT,payPalPayment)
             startActivityForResult(intent, PAYPAL_REQUEST_CODE)
         }
-        else if (paymentType == "BookWorm Wallet"){
-            Toast.makeText(this,selectedPayMethod , Toast.LENGTH_SHORT).show()
-        }
         else if (paymentType == "Member Point") {
-            Toast.makeText(this,selectedPayMethod , Toast.LENGTH_SHORT).show()
+            Log.d("TAG","MEMBER POINT PAYMENT METHOD")
+            val currentDate = Date()
+            //get uid of current user
+            val uid = Firebase.auth.currentUser?.uid
+
+            if (uid != null) {
+                lifecycleScope.launch {
+                    val u = vmUser.get(uid)
+                    if (u!=null){
+                        //get user usable point
+                        val usablePoint = u.usable_points
+                        //accumulate total required points to claim
+                        for(b in allOrder){
+                            val book = vmBook.get(b.bookId)
+                            if (book != null){
+                                totalRequiredPoint += (book.requiredPoint * b.quantity)
+                            }
+                        }
+                        Log.d("TAG","totalrequiredpoint = $totalRequiredPoint")
+
+                        if (usablePoint >= totalRequiredPoint){
+                            val orderId = random() + random()
+                            //Add to order
+                            val f = uid?.let {
+                                Order(
+                                    id = orderId,
+                                    amount = placeOrderAmt,
+                                    dateTime = currentDate,
+                                    paymentType = selectedPayMethod,
+                                    status = "paid",
+                                    uid = it
+                                )
+
+                            }
+
+                            if (f != null) {
+                                vmOrder.set(f)
+                            }
+
+                            //add to book order & delete order from cart
+                            for (order in allOrder){
+                                val rBookOrderId = random()
+                                vmBookOrder.set(BookOrder(id= rBookOrderId,order_id = orderId, book_id = order.bookId, qty = order.quantity))
+                                lifecycleScope.launch {
+                                    if (uid != null) {
+                                        vmMyCart.deleteCart(uid,order.bookId)
+                                    }
+                                }
+                            }
+                            vmUser.minusUsablePoints(uid,usablePoint,totalRequiredPoint)
+                            try{
+                                startActivity(Intent(this@PaymentActivity, RazorPaySuccess::class.java)
+                                    .putExtra("PaymentAmount", placeOrderAmt)
+                                    .putExtra("CashBackPoint", cashBackPoint)
+                                    .putExtra("UserLevel", "redeemPoint")
+                                    .putExtra("OrderId",orderId))
+                            }catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                        else{
+                            val title = "Not Enough Points!"
+                            val content = "Share BookWorm to more people and earn more points. "
+
+                            showMultiuseDialog(this@PaymentActivity,3,title,content)
+                        }
+                    }
+
+                }
+
+            }
         }
         else if (paymentType == "RazorPay"){
             val co = Checkout()
@@ -429,13 +509,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentSuccess(p0: String?) {
-        //Toast.makeText(this, "Payment Success: $p0", Toast.LENGTH_SHORT).show()
-//        val title = "Congratulation"
-//        val point = "%.2f".format(cashBackPoint)
-//        val content = "You have successfully earn $point cashback points."
-//
-//        showMultiuseDialog(this,2,title,content)
-//        razorPaymentSuccess(p0)
         //get current datetime
         if (p0!=null){
             val currentDate = Date()
@@ -527,122 +600,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
                 }
 
             }
-        }
-
-//        try{
-//            startActivity(Intent(this, MainActivity::class.java)
-//                .putExtra("cart",p0))
-//            finish()
-//        }catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-
-
-    }
-
-    private fun razorPaymentSuccess(p0: String?) {
-
-        try {
-            //get current datetime
-            val currentDate = Date()
-
-            //get random order id
-            val rOrderId:String = random()
-
-            //get uid of current user
-            val uid = Firebase.auth.currentUser?.uid
-
-            val paymentDetails = JSONObject()
-            paymentDetails.put("id",p0)
-            paymentDetails.put("state", "approved")
-            val res = paymentDetails.getJSONObject("response")
-            val orderId = res.getString("id")
-            //Add to order
-            val f = uid?.let {
-                Order(
-                    id = orderId,
-                    amount = placeOrderAmt,
-                    dateTime = currentDate,
-                    paymentType = selectedPayMethod,
-                    status = "paid",
-                    uid = it
-                )
-
-            }
-
-            if (f != null) {
-                vmOrder.set(f)
-            }
-
-            //add to book order & delete order from cart
-            for (order in allOrder){
-                val rBookOrderId = random()
-                vmBookOrder.set(BookOrder(id= rBookOrderId,order_id = orderId, book_id = order.bookId, qty = order.quantity))
-                lifecycleScope.launch {
-                    if (uid != null) {
-                        vmMyCart.deleteCart(uid,order.bookId)
-                    }
-                }
-            }
-
-            if (applyVoucher){
-                val f = appliedVCode?.let { MyVoucher(
-                    id = it.id,
-                    discount = it.discount,
-                    expiry_date = it.expiry_date,
-                    status = "used",
-                    type = it.type,
-                    uid = it.uid) }
-
-                if (f != null) {
-                    vmVoucher.set(f)
-                }
-            }
-
-
-            if (uid != null) {
-                lifecycleScope.launch {
-                    Log.d("TAG","UID NOT NULL")
-                    val u = vmUser.get(uid)
-
-                    if (u!=null){
-                        var currentEarnPoint = u.earn_points.toInt()
-                        var currentUsablePoint = u.usable_points.toInt()
-                        var razorPayEarnPoint = 0
-                        Log.d("TAG","User NOT NULL")
-                        if (u.level == "Silver"){
-                            Log.d("TAG","User is silver")
-                            razorPayEarnPoint = (currentEarnPoint * 0.15).toInt()
-                            vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt + razorPayEarnPoint, u.level)
-                            cashBackPoint = razorPayEarnPoint.toDouble()
-                        }
-                        else if (u.level == "Gold") {
-                            razorPayEarnPoint = (currentEarnPoint * 0.15).toInt()
-                            vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt+razorPayEarnPoint, u.level)
-                            cashBackPoint = placeOrderAmt * 1.2
-                        }
-                        else if (u.level == "Platinum"){
-                            razorPayEarnPoint = (currentEarnPoint * 0.15).toInt()
-                            vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt+razorPayEarnPoint, u.level)
-                            cashBackPoint = placeOrderAmt * 1.5
-                        }
-                        userLevel = u.level
-                        Log.d("TAG","cashBackPoint = $cashBackPoint")
-                        Log.d("TAG","userLevel = $userLevel")
-
-                        startActivity(Intent(this@PaymentActivity, PaymentDetailsActivity::class.java)
-                            .putExtra("PaymentDetails",paymentDetails.toString())
-                            .putExtra("PaymentAmount", placeOrderAmt)
-                            .putExtra("CashBackPoint", cashBackPoint)
-                            .putExtra("UserLevel", userLevel))
-                        finish()
-                    }
-
-                }
-
-            }
-        }catch (e: JSONException) {
-            e.printStackTrace()
         }
 
     }

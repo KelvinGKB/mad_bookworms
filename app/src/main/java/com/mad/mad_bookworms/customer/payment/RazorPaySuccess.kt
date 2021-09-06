@@ -33,16 +33,21 @@ class RazorPaySuccess : AppCompatActivity() {
             showMultiuseDialog(this,1,title,content)
         }
         else if (userLevel == "Gold"){
-            val title = "Congratulation"
+            val title = "Congratulation!"
             val point = "%.2f".format(cashBackPoint)
             val content = "You have successfully earn $point cashback points."
 
             showMultiuseDialog(this,2,title,content)
         }
         else if (userLevel == "Platinum"){
-            val title = "Congratulation"
+            val title = "Congratulation!"
             val point = "%.2f".format(cashBackPoint)
             val content = "You have successfully earn $point cashback points."
+
+            showMultiuseDialog(this,2,title,content)
+        }else if (userLevel == "redeemPoint"){
+            val title = "Congratulation!"
+            val content = "You have successfully redeem the book(s)!"
 
             showMultiuseDialog(this,2,title,content)
         }

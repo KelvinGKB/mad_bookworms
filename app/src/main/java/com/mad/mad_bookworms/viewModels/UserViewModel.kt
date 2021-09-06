@@ -86,6 +86,14 @@ class UserViewModel : ViewModel() {
             .addOnSuccessListener {}
     }
 
+    fun minusUsablePoints(id:String,current_points:Int,points:Int) {
+        Firebase.firestore
+            .collection("Users")
+            .document(id)
+            .update("usable_points", current_points-points)
+            .addOnSuccessListener {}
+    }
+
     fun updateUserInfo(uid:String, u : User)
     {
         Firebase.firestore
