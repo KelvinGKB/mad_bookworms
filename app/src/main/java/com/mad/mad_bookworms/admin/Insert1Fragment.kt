@@ -57,6 +57,7 @@ class Insert1Fragment : Fragment() {
         binding.edtPoint.text.clear()
         binding.spnCategory.setSelection(0);
         binding.spnLanguage.setSelection(0);
+        binding.trendingCheck.setChecked(false);
         binding.imgPhoto.setImageDrawable(null)
         binding.edtId.requestFocus()
     }
@@ -73,7 +74,8 @@ class Insert1Fragment : Fragment() {
             requiredPoint  = binding.edtPoint.text.toString().toIntOrNull() ?: 0,
             category = binding.spnCategory.selectedItem as String,
             language = binding.spnLanguage.selectedItem as String,
-            image = binding.imgPhoto.cropToBlob(300, 300),
+            trending = binding.trendingCheck.isChecked,
+            image = binding.imgPhoto.cropToBlob(130, 200),
         )
 
         val err = vm.validate(f)
