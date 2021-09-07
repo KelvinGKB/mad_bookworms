@@ -27,7 +27,8 @@ class BookFragment : Fragment() {
 
         binding = FragmentBookBinding.inflate(inflater, container, false)
 
-        binding.btnFriend.setOnClickListener { nav.navigate(R.id.listFragment) }
+        binding.btnBook.setOnClickListener { nav.navigate(R.id.listFragment) }
+        binding.btnVoucher.setOnClickListener { nav.navigate(R.id.list2Fragment) }
         binding.btnRead.setOnClickListener { read() }
         binding.btnSet.setOnClickListener { set() }
         binding.btnUpdate.setOnClickListener { update() }

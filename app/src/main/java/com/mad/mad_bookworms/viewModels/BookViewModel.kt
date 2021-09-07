@@ -59,14 +59,32 @@ class BookViewModel : ViewModel() {
             else ""
         }
 
-        e += if (f.title == "") "- Name is required.\n"
-        else if (f.title.length < 3) "- Name is too short.\n"
+        e += if (f.title == "") "- Title is required.\n"
+        else if (f.title.length < 3) "- Title is too short.\n"
         //else if (nameExists(f.name)) "- Name is duplicated.\n"
         else ""
 
-        e += if (f.pages == 0) "- Age is required.\n"
-        else if (f.pages < 18) "- Underage.\n"
+        e += if (f.author == "") "- Author is required.\n"
+        else if (f.author.length > 50) "- Author is too long.\n"
         else ""
+
+        e += if (f.description == "") "- Description is required.\n"
+        else if (f.description.length > 150) "- Title is too long.\n"
+        else ""
+
+
+        e += if (f.price == 0.0) "- Price is required.\n"
+        else if (f.price < 0) "Price Must more than 0.\n"
+        else ""
+
+        e += if (f.requiredPoint == 0) "- Points is required.\n"
+        else if (f.requiredPoint < 0) "Points Must more than 0.\n"
+        else ""
+
+        e += if (f.pages == 0) "- Page is required.\n"
+        else if (f.pages < 0) "Page Must more than 0.\n"
+        else ""
+
 
         e += if (f.image.toBytes().isEmpty()) "- Photo is required.\n"
         else ""

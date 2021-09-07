@@ -15,7 +15,7 @@ data class Book(
     var id: String = "",
     var title: String = "",
     var author: String = "",
-    var trending: Boolean? = null,
+    var trending: Boolean = false,
     var description: String = "",
     var price: Double = 0.00,
     var requiredPoint: Int = 0,

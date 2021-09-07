@@ -3,16 +3,15 @@ package com.mad.mad_bookworms.admin
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Spinner
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.cropToBlob
 import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.databinding.FragmentUpdate1Binding
@@ -20,6 +19,7 @@ import com.mad.mad_bookworms.errorDialog
 import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.BookViewModel
 import kotlinx.coroutines.launch
+
 
 class Update1Fragment : Fragment() {
 
@@ -78,13 +78,11 @@ class Update1Fragment : Fragment() {
         binding.edtPrice.setText(f.price.toString())
         binding.edtPage.setText(f.pages.toString())
         binding.edtPoint.setText(f.requiredPoint.toString())
+        binding.spnCategory.setSelection(getIndex(binding.spnCategory, f.category));
+        binding.spnLanguage.setSelection(getIndex(binding.spnLanguage, f.language));
+        binding.trendingCheck.setChecked(f.trending);
 
-        //Havent done===================================
-        binding.spnCategory.setSelection(0);
-        binding.spnLanguage.setSelection(0);
-
-
-        // TODO: Load photo and date
+        // TODO: Load photo
         binding.imgPhoto.setImageBitmap(f.image.toBitmap())
 
         binding.edtTitle.requestFocus()
@@ -103,7 +101,8 @@ class Update1Fragment : Fragment() {
             requiredPoint  = binding.edtPoint.text.toString().toIntOrNull() ?: 0,
             category = binding.spnCategory.selectedItem as String,
             language = binding.spnLanguage.selectedItem as String,
-            image = binding.imgPhoto.cropToBlob(300, 300),
+            trending = binding.trendingCheck.isChecked,
+            image = binding.imgPhoto.cropToBlob(130, 200),
         )
 
         val err = vm.validate(f, false)
@@ -120,6 +119,17 @@ class Update1Fragment : Fragment() {
         // TODO: Delete
         vm.delete(id)
         nav.navigateUp()
+    }
+
+    private fun getIndex(spinner: Spinner, myString: String):Int {
+        for (i in 0 until spinner.getCount()) {
+            if (spinner.getItemAtPosition(i).toString().equals(myString)) {
+                return i
+                break
+            }
+        }
+        return 0
+
     }
 
 }
