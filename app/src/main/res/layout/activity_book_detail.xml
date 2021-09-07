@@ -15,8 +15,8 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Book Detail"
-            android:textColor="#000000"
-            android:textSize="18sp"
+            android:textColor="#8B8A8A"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
             android:layout_height="234dp"
             android:layout_marginBottom="23dp"
             app:cardCornerRadius="25dp"
-            app:cardElevation="5dp"
+            app:cardElevation="3dp"
             app:contentPadding="0dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,12 +43,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/bookcover"
-                    android:scaleType="fitXY"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -57,7 +53,6 @@
             android:id="@+id/guideline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="53dp" />
 
@@ -87,11 +82,11 @@
                     android:id="@+id/tvBookPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="55dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="53dp"
+                    android:layout_marginTop="15dp"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#FF7759"
-                    android:textSize="22sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -101,11 +96,11 @@
                     android:id="@+id/tvBookTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="55dp"
+                    android:layout_marginStart="53dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#000000"
-                    android:textSize="22dp"
+                    android:textSize="24dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvBookPrice"
@@ -115,11 +110,11 @@
                     android:id="@+id/tvBookAuthor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="55dp"
+                    android:layout_marginStart="53dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#666565"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="normal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvBookTitle"
@@ -129,8 +124,8 @@
                     android:id="@+id/cardView"
                     android:layout_width="305dp"
                     android:layout_height="69dp"
-                    android:layout_marginStart="53dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="58dp"
+                    android:layout_marginTop="6dp"
                     app:cardBackgroundColor="#F6BDD2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvBookAuthor">
@@ -144,7 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="25dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="16dp"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Number of Pages"
                             android:textColor="#575050"
@@ -158,7 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="70dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="16dp"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Languages"
                             android:textColor="#575050"
@@ -194,10 +189,10 @@
 
                 <TextView
                     android:id="@+id/tvBookDescription"
-                    android:layout_width="303dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="55dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="53dp"
+                    android:layout_marginTop="14dp"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#000000"
                     app:layout_constraintStart_toStartOf="parent"
@@ -207,19 +202,17 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView2"
                     android:layout_width="154dp"
-                    android:layout_height="50dp"
+                    android:layout_height="49dp"
                     android:layout_marginStart="53dp"
                     android:layout_marginBottom="25dp"
                     app:cardBackgroundColor="#F6BDD2"
-                    app:cardCornerRadius="10dp"
                     app:cardElevation="3dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="5dp">
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView23"
@@ -229,7 +222,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="QTY"
                             android:textColor="#666565"
-                            android:textSize="18sp"
+                            android:textSize="20dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -254,11 +247,11 @@
                             android:inputType="number"
                             android:text="1"
                             android:textColor="#777777"
-                            android:textSize="18sp"
+                            android:textSize="24dp"
                             app:layout_constraintBottom_toBottomOf="@+id/btnMinus"
-                            app:layout_constraintEnd_toStartOf="@id/btnIncrease"
                             app:layout_constraintStart_toEndOf="@+id/btnMinus"
                             app:layout_constraintTop_toTopOf="@+id/btnMinus"
+                            app:layout_constraintEnd_toStartOf="@id/btnIncrease"
                             tools:ignore="TouchTargetSizeCheck" />
 
                         <ImageButton
@@ -280,15 +273,13 @@
                 <Button
                     android:id="@+id/btnAddToCart"
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginBottom="18dp"
+                    android:layout_marginBottom="25dp"
                     android:text="Add To Cart"
-                    android:textSize="12sp"
                     app:backgroundTint="#FF7759"
-                    app:cornerRadius="10dp"
+                    app:cornerRadius="15dp"
                     app:icon="@drawable/ic_baseline_shopping_cart_24"
-                    app:iconSize="18dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cardView2" />
 
