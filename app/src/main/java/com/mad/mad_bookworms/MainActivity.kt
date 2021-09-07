@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -19,11 +20,51 @@ import com.mad.mad_bookworms.customer.cart.CartFragment
 import com.mad.mad_bookworms.customer.explore.ExploreFragment
 import com.mad.mad_bookworms.data.MyCartTable
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
+import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.badge_menu_item.view.*
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
+
+
+    private val vm: UserViewModel by viewModels()
+    private lateinit var notificationBadges: View
+    private lateinit var nullBadge: View
+    private var count: Int = 0
+    private val cartVm: CartOrderViewModel by viewModels()
+
+    override fun onStart() {
+        super.onStart()
+        val uid = Firebase.auth.currentUser?.uid
+
+        if (uid != null) {
+            lifecycleScope.launch {
+                var formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                val currentDate = formatter.format(Date())
+                var today = Date()
+
+                today = formatter.parse(currentDate); // Date with 0:00:00
+
+                val u = vm.get(uid)
+
+                if (u != null) {
+                    val title = "Don't miss out daily check in rewards!"
+                    val text = "Go to Profile -> Daily Check In to complete your check in!"
+
+                    //Check is this user already check in
+                    if (u.checkInDate.before(today)) {
+                        showMultiuseDialog(this@MainActivity,4, title, text)
+                    }
+
+                }
+            }
+        }
+    }
 
     /// Hide Action Bar
     override fun onResume() {
@@ -36,10 +77,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.show()
     }
 
-    private lateinit var notificationBadges: View
-    private lateinit var nullBadge: View
-    private var count: Int = 0
-    private val cartVm: CartOrderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

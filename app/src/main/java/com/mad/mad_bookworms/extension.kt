@@ -49,6 +49,8 @@ fun Fragment.errorDialog(text: String) {
 }
 
 fun showMultiuseDialog(activity: Activity?, type: Int, title:String, content :String) {
+    val animFadeIn: Animation =
+        AnimationUtils.loadAnimation(activity, android.R.anim.fade_in)
     val dialog = Dialog(activity!!)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setCancelable(false)
@@ -71,6 +73,9 @@ fun showMultiuseDialog(activity: Activity?, type: Int, title:String, content :St
     }else if(type == 3){
 
         imgDialog.setImageResource(R.drawable.reward_not_enough);
+    }else if (type == 4){
+        imgDialog.startAnimation(animFadeIn)
+        imgDialog.setImageResource(R.drawable.check_in)
     }
 
     dialogTitle.text = title
