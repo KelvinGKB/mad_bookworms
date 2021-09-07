@@ -44,6 +44,7 @@ data class User(
     var fullname : String = "",
     var contact : String = "",
     var photo: Blob = Blob.fromBytes(ByteArray(0)),
+    var checkInDate: Date = Date(),
 )
 
 data class MyVoucher(

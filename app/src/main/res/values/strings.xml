@@ -33,6 +33,7 @@
     <string name="added_cart_successfully_message">Item Successfully Added to Cart.</string>
 
     <string-array name="array_profile">
+        <item>Daily Check In</item>
         <item>Purchase History</item>
         <item>My Favourites</item>
         <item>Language</item>

@@ -12,9 +12,11 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.R
@@ -31,6 +33,7 @@ import com.mad.mad_bookworms.security.RegisterActivity
 import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.*
+import java.util.*
 
 
 class ProfileFragment : Fragment() {
@@ -67,8 +70,9 @@ class ProfileFragment : Fragment() {
         binding.listview.setOnItemClickListener { parent, view, position, id ->
 
             when (listItem?.get(position)) {
+                "Daily Check In" -> Toast.makeText(context, "Check In", Toast.LENGTH_SHORT).show()
                 "Change Password" -> setCurrentFragment(ChangePasswordFragment())
-                "Referral History" -> setCurrentFragment(ReferralFragment())
+                "Referral History" -> checkIn()
                 "Purchase History" -> Toast.makeText(context, "Item One", Toast.LENGTH_SHORT).show()
                 "My Favourites" -> Toast.makeText(context, "Item Two", Toast.LENGTH_SHORT).show()
                 "Language" -> Toast.makeText(context, "Item Three", Toast.LENGTH_SHORT).show()
@@ -82,6 +86,22 @@ class ProfileFragment : Fragment() {
             setCurrentFragment(EditPersonalInfoFragment())
         }
         return binding.root
+
+    }
+
+    private fun checkIn() {
+        val uid = Firebase.auth.currentUser?.uid
+
+        if (uid != null) {
+            lifecycleScope.launch {
+                val currentDate = Date()
+                val u = vm.get(uid)
+
+                if (u != null) {
+
+                }
+            }
+        }
 
     }
 
