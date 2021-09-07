@@ -11,6 +11,7 @@ import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.cropToBlob
 import com.mad.mad_bookworms.data.User
 import kotlinx.coroutines.tasks.await
+import java.util.*
 
 class UserViewModel : ViewModel() {
     // TODO: Initialization
@@ -125,10 +126,17 @@ class UserViewModel : ViewModel() {
         }else if (level == "share_earn"){
             col.document(id).update("usable_points", current_UsablePoint + 5).addOnSuccessListener {  }
             col.document(id).update("earn_points", current_points + 5).addOnSuccessListener {  }
+        }else if (level == "checkIn_earn"){
+            col.document(id).update("usable_points", current_UsablePoint + 30).addOnSuccessListener {  }
+            col.document(id).update("earn_points", current_points + 30).addOnSuccessListener {  }
         }
 
+    }
 
-
+    fun updateCheckInDate(uid:String, date: Date)
+    {
+        col.document(uid).update("checkInDate", date)
+            .addOnSuccessListener {}
     }
 
     //----------------------------------------------------------------------------------------------

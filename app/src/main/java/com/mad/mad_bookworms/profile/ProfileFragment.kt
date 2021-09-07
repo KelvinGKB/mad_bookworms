@@ -30,6 +30,7 @@ import com.mad.mad_bookworms.databinding.FragmentProfileBinding
 import com.mad.mad_bookworms.security.ChangePasswordFragment
 import com.mad.mad_bookworms.security.LoginActivity
 import com.mad.mad_bookworms.security.RegisterActivity
+import com.mad.mad_bookworms.showEmailDialog
 import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.*
@@ -70,9 +71,9 @@ class ProfileFragment : Fragment() {
         binding.listview.setOnItemClickListener { parent, view, position, id ->
 
             when (listItem?.get(position)) {
-                "Daily Check In" -> Toast.makeText(context, "Check In", Toast.LENGTH_SHORT).show()
+                "Daily Check In" -> checkIn()
                 "Change Password" -> setCurrentFragment(ChangePasswordFragment())
-                "Referral History" -> checkIn()
+                "Referral History" -> setCurrentFragment(ReferralFragment())
                 "Purchase History" -> Toast.makeText(context, "Item One", Toast.LENGTH_SHORT).show()
                 "My Favourites" -> Toast.makeText(context, "Item Two", Toast.LENGTH_SHORT).show()
                 "Language" -> Toast.makeText(context, "Item Three", Toast.LENGTH_SHORT).show()
@@ -90,6 +91,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun checkIn() {
+
         val uid = Firebase.auth.currentUser?.uid
 
         if (uid != null) {
@@ -97,8 +99,19 @@ class ProfileFragment : Fragment() {
                 val currentDate = Date()
                 val u = vm.get(uid)
 
-                if (u != null) {
 
+                if (u != null) {
+                    if(u.checkInDate.before(Calendar.getInstance().time)){
+
+                        var currentEarnPoint = u.earn_points.toInt()
+                        var currentUsablePoint = u.usable_points.toInt()
+
+                        vm.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,0.00, "checkIn_earn")
+                        vm.updateCheckInDate(uid,currentDate)
+                        showEmailDialog(activity, 2, "You have earned 30 points!")
+                    }else {
+                        Toast.makeText(requireContext(), "You have already check in today.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
