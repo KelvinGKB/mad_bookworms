@@ -26,6 +26,7 @@ import com.mad.mad_bookworms.viewModels.ReferralViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.mail.*
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
@@ -187,6 +188,15 @@ class VerifyActivity : AppCompatActivity() {
                 points = points + 250
             }
 
+            val currentDate = Date()
+
+            // convert date to calendar
+            val c = Calendar.getInstance()
+            c.setTime(currentDate);
+            c.add(Calendar.DATE, -1);
+
+            // convert calendar to date
+            val yesterday = c.time
 
             val u = User(
                 id    = uid,
@@ -195,7 +205,8 @@ class VerifyActivity : AppCompatActivity() {
                 referral_code  = referral,
                 referred_by  = referred_by,
                 earn_points = points,
-                usable_points = points
+                usable_points = points,
+                checkInDate = yesterday
             )
 
             vm.set(u)

@@ -19,21 +19,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.mad.mad_bookworms.R
-import com.mad.mad_bookworms.SettingListAdapter
+import com.mad.mad_bookworms.*
 import com.mad.mad_bookworms.admin.AdminActivity
 import com.mad.mad_bookworms.customer.bookDetail.BookDetailActivity
 import com.mad.mad_bookworms.data.LocalDB
 import com.mad.mad_bookworms.data.LocalDao
+import com.mad.mad_bookworms.data.MyVoucher
 import com.mad.mad_bookworms.data.User_Table
 import com.mad.mad_bookworms.databinding.FragmentProfileBinding
 import com.mad.mad_bookworms.security.ChangePasswordFragment
 import com.mad.mad_bookworms.security.LoginActivity
 import com.mad.mad_bookworms.security.RegisterActivity
-import com.mad.mad_bookworms.showEmailDialog
-import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -96,23 +95,32 @@ class ProfileFragment : Fragment() {
 
         if (uid != null) {
             lifecycleScope.launch {
-                val currentDate = Date()
+                var formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                val currentDate = formatter.format(Date())
+                var today = Date()
+
+                today = formatter.parse(currentDate); // Date with 0:00:00
+
                 val u = vm.get(uid)
 
-
                 if (u != null) {
-                    if(u.checkInDate.before(Calendar.getInstance().time)){
+                    if(u.checkInDate.before(today)){
 
                         var currentEarnPoint = u.earn_points.toInt()
                         var currentUsablePoint = u.usable_points.toInt()
 
                         vm.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,0.00, "checkIn_earn")
-                        vm.updateCheckInDate(uid,currentDate)
+                        vm.updateCheckInDate(uid,Calendar.getInstance().time)
                         showEmailDialog(activity, 2, "You have earned 30 points!")
                     }else {
                         Toast.makeText(requireContext(), "You have already check in today.", Toast.LENGTH_SHORT).show()
                     }
                 }
+//
+//                Handler(Looper.getMainLooper()).postDelayed({
+//
+//
+//                }, 500)
             }
         }
 
