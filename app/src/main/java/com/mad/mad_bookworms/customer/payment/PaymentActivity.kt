@@ -460,17 +460,17 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
                                             Log.d("TAG","User NOT NULL")
                                     if (u.level == "Silver"){
                                         Log.d("TAG","User is silver")
-                                        paypalEarnPoint = (currentEarnPoint * 0.1).toInt()
+                                        paypalEarnPoint = (placeOrderAmt * 0.1).toInt()
                                         vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt + paypalEarnPoint, u.level)
                                         cashBackPoint = paypalEarnPoint.toDouble()
                                     }
                                     else if (u.level == "Gold") {
-                                        paypalEarnPoint = (currentEarnPoint * 0.1).toInt()
+                                        paypalEarnPoint = (placeOrderAmt * 0.1).toInt()
                                         vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt+paypalEarnPoint, u.level)
                                         cashBackPoint = placeOrderAmt * 1.2
                                     }
                                     else if (u.level == "Platinum"){
-                                        paypalEarnPoint = (currentEarnPoint * 0.1).toInt()
+                                        paypalEarnPoint = (placeOrderAmt * 0.1).toInt()
                                         vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt+paypalEarnPoint, u.level)
                                         cashBackPoint = placeOrderAmt * 1.5
                                     }
@@ -568,17 +568,17 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
                         Log.d("TAG","User NOT NULL")
                         if (u.level == "Silver"){
                             Log.d("TAG","User is silver")
-                            razorPayEarnPoint = (currentEarnPoint * 0.1).toInt()
+                            razorPayEarnPoint = (placeOrderAmt * 0.1).toInt()
                             vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt + razorPayEarnPoint, u.level)
                             cashBackPoint = razorPayEarnPoint.toDouble()
                         }
                         else if (u.level == "Gold") {
-                            razorPayEarnPoint = (currentEarnPoint * 0.1).toInt()
+                            razorPayEarnPoint = (placeOrderAmt * 0.1).toInt()
                             vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt+razorPayEarnPoint, u.level)
                             cashBackPoint = placeOrderAmt * 1.2
                         }
                         else if (u.level == "Platinum"){
-                            razorPayEarnPoint = (currentEarnPoint * 0.1).toInt()
+                            razorPayEarnPoint = (placeOrderAmt * 0.1).toInt()
                             vmUser.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,placeOrderAmt+razorPayEarnPoint, u.level)
                             cashBackPoint = placeOrderAmt * 1.5
                         }

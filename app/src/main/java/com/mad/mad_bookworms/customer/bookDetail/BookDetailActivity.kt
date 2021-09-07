@@ -32,15 +32,20 @@ import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.MainActivity
+import com.mad.mad_bookworms.customer.payment.RazorPaySuccess
 import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.data.LocalDB
 import com.mad.mad_bookworms.data.MyCartDao
 import com.mad.mad_bookworms.data.MyCartTable
+import com.mad.mad_bookworms.showMultiuseDialog
 import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
+import com.mad.mad_bookworms.viewModels.UserViewModel
 import com.mad.mad_bookworms.viewModels.UserVoucherViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -52,12 +57,15 @@ class BookDetailActivity : AppCompatActivity() {
     lateinit var drawable: Drawable
     lateinit var bookImage: ImageView
     lateinit var bitmap: Bitmap
+    private var bookID = ""
+    private var isShared = false
     private lateinit var binding: ActivityBookDetailBinding
     private val vm: BookViewModel by viewModels()
     private val cartVm: CartOrderViewModel by viewModels()
-    private val userVm: UserVoucherViewModel by viewModels()
+    private val userVm: UserViewModel by viewModels()
     private lateinit var dao: MyCartDao
     private lateinit var tempBook: Book
+    var image: Bitmap? = null
 
     val data: MutableList<MyCartTable> = ArrayList()
 
@@ -77,15 +85,57 @@ class BookDetailActivity : AppCompatActivity() {
         supportActionBar!!.show()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        increasePoint()
+        val intent = Intent(this, BookDetailActivity::class.java)
+        intent.putExtra("bookID", this.bookID)
+        intent.putExtra("isShared", true)
+        startActivity(intent)
+        //Toast.makeText(this, "Im back", Toast.LENGTH_SHORT).show()
+
+
+    }
+
+    private fun increasePoint() {
+        if(!isShared){
+            val uid = Firebase.auth.currentUser?.uid
+
+            if (uid != null) {
+                lifecycleScope.launch {
+                    Log.d("TAG","UID NOT NULL")
+                    val u = userVm.get(uid)
+
+                    if (u!=null){
+                        var currentEarnPoint = u.earn_points.toInt()
+                        var currentUsablePoint = u.usable_points.toInt()
+                        Log.d("TAG","User NOT NULL")
+                        userVm.addCashBackPoints(uid,currentEarnPoint, currentUsablePoint,0.00, "share_earn")
+
+                        Toast.makeText(this@BookDetailActivity, "You have successfully earn 5 sharing points", Toast.LENGTH_SHORT).show()
+
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //check if the user already shared
+        val isShared = intent.getBooleanExtra("isShared",false)
+        this.isShared = isShared
 
         //bind all the data
         val bookID = intent.getStringExtra("bookID") ?: ""
+        this.bookID = bookID
         load(bookID)
 
         bookImage = binding.imageBook
@@ -101,7 +151,12 @@ class BookDetailActivity : AppCompatActivity() {
         }
 
         binding.btnShare.setOnClickListener {
-            share()
+            val image: Bitmap? = getBitmapfromView(binding.imageBook)
+            this.image = image
+
+            checkPermission()
+            CoroutineScope(IO).launch { share() }
+
         }
 
         cartVm.getAll().observe(this) { list ->
@@ -112,7 +167,6 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
     private fun addToCart() {
-        Log.d("TAG", "Hi I am here.")
         val uid = Firebase.auth.currentUser?.uid
         val b = uid?.let {
             MyCartTable(
@@ -173,27 +227,76 @@ class BookDetailActivity : AppCompatActivity() {
 
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-    private fun share() {
-//        val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
-//        StrictMode.setVmPolicy(builder.build())
-        val image: Bitmap? = getBitmapfromView(binding.imageBook)
-        drawable = bookImage.drawable
-        bitmap = drawable.toBitmap()
-
-        val intent = Intent(Intent.ACTION_SEND)
-        val bookTitle = binding.tvBookTitle.text
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_TEXT, "Check Out $bookTitle. Get It on BookWorn now!!")
-        intent.putExtra(Intent.EXTRA_STREAM, getImageUri(this, image!!)) //add image path
-
-        startActivity(Intent.createChooser(intent, "Share image using"))
-        try {
-            this.startActivity(intent)
-        } catch (ex: ActivityNotFoundException) {
-            Toast.makeText(this, "Software not been installed.", Toast.LENGTH_SHORT).show()
+        if (requestCode == 100) {
+            when {
+                grantResults.isNotEmpty() && grantResults[0]== PackageManager.PERMISSION_GRANTED ->{
+                    CoroutineScope(IO).launch { share() }
+                }
+            }
         }
     }
+
+
+    private fun checkPermission(){
+        var result: Int
+        val listPermissionsNeeded: MutableList<String> = ArrayList()
+        for (p in permissions){
+            result = ContextCompat.checkSelfPermission(this,p)
+            if (result != PackageManager.PERMISSION_GRANTED){
+                listPermissionsNeeded.add(p)
+            }
+        }
+        if (listPermissionsNeeded.isNotEmpty()) {
+            ActivityCompat.requestPermissions(
+                this,
+                listPermissionsNeeded.toTypedArray(),
+                100
+            )
+        }
+    }
+
+
+    private suspend fun share() =
+//        val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
+//        StrictMode.setVmPolicy(builder.build())
+        coroutineScope {
+            val uid = Firebase.auth.currentUser?.uid
+
+            val u = userVm.get(uid!!)
+
+            val id = u?.referral_code.toString()
+
+            val bookTitle = binding.tvBookTitle.text
+
+            val link = "http://www.mad_bookworm.com/referral_register/" + id
+
+            val text = "Check Out $bookTitle. Get It on BookWorn now!! \n\n" +
+                    "Join the Bookworms now with the links Below to earn points ! \n\n" +
+                    "*** Use TARUC student email will earn extra 50% points ! *** \n\n" +
+                    link
+
+            val image: Bitmap? = getBitmapfromView(binding.imageBook)
+            drawable = bookImage.drawable
+            bitmap = drawable.toBitmap()
+
+            val sendIntent = Intent(Intent.ACTION_SEND)
+
+            sendIntent.type = "image/*"
+            sendIntent.putExtra(Intent.EXTRA_TEXT, text)
+            sendIntent.putExtra(Intent.EXTRA_STREAM, getImageUri(this@BookDetailActivity, image!!)) //add image path
+
+            startActivity(Intent.createChooser(sendIntent, "Share book using"))
+            startActivity(sendIntent)
+        }
+
+
 
     private fun getImageUri(bookDetailActivity: BookDetailActivity, image: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()

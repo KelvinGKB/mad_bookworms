@@ -47,14 +47,14 @@ class PaymentDetailsActivity : AppCompatActivity() {
             showMultiuseDialog(this,1,title,content)
         }
         else if (userLevel == "Gold"){
-            val title = "Congratulation"
+            val title = "Congratulation!"
             val point = "%.2f".format(cashBackPoint)
             val content = "You have successfully earn $point cashback points."
 
             showMultiuseDialog(this,2,title,content)
         }
         else if (userLevel == "Platinum"){
-            val title = "Congratulation"
+            val title = "Congratulation!"
             val point = "%.2f".format(cashBackPoint)
             val content = "You have successfully earn $point cashback points."
 

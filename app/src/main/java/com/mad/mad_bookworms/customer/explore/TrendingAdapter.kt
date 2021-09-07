@@ -3,6 +3,7 @@ package com.mad.mad_bookworms.customer.explore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -44,5 +45,6 @@ class TrendingAdapter(
         var itemTitle: TextView = itemView.findViewById(R.id.tvBookTitle)
         var itemAuthor: TextView = itemView.findViewById((R.id.tvBookAuthor))
         var itemPrice: TextView = itemView.findViewById((R.id.tvBookPrice))
+        val btnAddToCart: Button = itemView.findViewById(R.id.btnShare)
     }
 }

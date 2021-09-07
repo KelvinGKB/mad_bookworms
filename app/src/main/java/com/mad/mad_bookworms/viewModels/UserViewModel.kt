@@ -122,6 +122,9 @@ class UserViewModel : ViewModel() {
         }else if (level == "Silver"){
             col.document(id).update("usable_points", current_UsablePoint + base_point).addOnSuccessListener {  }
             col.document(id).update("earn_points", current_points + base_point).addOnSuccessListener {  }
+        }else if (level == "share_earn"){
+            col.document(id).update("usable_points", current_UsablePoint + 5).addOnSuccessListener {  }
+            col.document(id).update("earn_points", current_points + 5).addOnSuccessListener {  }
         }
 
 
