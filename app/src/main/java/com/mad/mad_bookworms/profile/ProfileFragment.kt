@@ -72,6 +72,7 @@ class ProfileFragment : Fragment() {
             when (listItem?.get(position)) {
                 "Daily Check In" -> checkIn()
                 "Change Password" -> setCurrentFragment(ChangePasswordFragment())
+                "Our Location" -> setCurrentFragment(OurLocationFragment())
                 "Referral History" -> setCurrentFragment(ReferralFragment())
                 "Purchase History" -> Toast.makeText(context, "Item One", Toast.LENGTH_SHORT).show()
                 "My Favourites" -> Toast.makeText(context, "Item Two", Toast.LENGTH_SHORT).show()

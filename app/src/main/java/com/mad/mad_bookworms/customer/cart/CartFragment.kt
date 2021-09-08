@@ -148,8 +148,6 @@ class CartFragment : Fragment() {
             holder.edtQty.setText("${MyCartTable.quantity}")
 
 
-            binding.edtPromoCode.text
-
         }
 
         binding.rvCartOrder.adapter = adapter

@@ -5,7 +5,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".MainActivity">
 
@@ -16,9 +16,9 @@
             android:layout_marginTop="14dp"
             android:fontFamily="@font/roboto_medium"
             android:text="My Cart"
-            android:textColor="#8B8A8A"
-            android:textSize="22dp"
-            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,17 +30,29 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/roboto_medium"
-            android:textColor="#8B8A8A"
-            android:textSize="20sp"
+            android:textColor="#373737"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="(XX)" />
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#B6B6B6"
+            app:layout_constraintBottom_toTopOf="@+id/rvCartOrder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCartOrder"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
+            android:padding="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/guideline9"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,113 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="425dp" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="411dp"
-            android:layout_height="219dp"
-            app:cardBackgroundColor="#F7F7F7"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvCartOrder">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="TOTAL"
-                    android:textColor="#000000"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvTotalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="0.00"
-                    android:textColor="#000000"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView22"
-                    app:layout_constraintStart_toEndOf="@+id/textView19"
-                    app:layout_constraintTop_toTopOf="@+id/textView22"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="280dp"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.335"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="28dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Promo Code"
-                    android:textColor="#8B8A8A"
-                    android:textSize="22dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-                <EditText
-                    android:id="@+id/edtPromoCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:ems="6"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView25"
-                    app:layout_constraintStart_toEndOf="@+id/textView25"
-                    app:layout_constraintTop_toTopOf="@+id/textView25" />
-
-                <Button
-                    android:id="@+id/btnCheckOut"
-                    android:layout_width="305dp"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Check Out"
-                    app:backgroundTint="#FF7759"
-                    app:cornerRadius="15dp"
-                    app:layout_constraintEnd_toEndOf="@+id/edtPromoCode"
-                    app:layout_constraintStart_toStartOf="@+id/textView25"
-                    app:layout_constraintTop_toBottomOf="@+id/edtPromoCode"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="130dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="RM"
-                    android:textColor="#000000"
-                    android:textSize="20dp"
-                    app:layout_constraintStart_toEndOf="@+id/textView22"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintGuide_begin="500dp" />
 
         <ImageButton
             android:id="@+id/btnDelete"
@@ -167,10 +73,113 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="90dp"
             android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_delete_24"
             app:layout_constraintBottom_toBottomOf="@+id/textView14"
             app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toTopOf="@+id/textView14"
-            android:src="@drawable/ic_baseline_delete_24" />
+            app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            app:cardBackgroundColor="#F7F7F7"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvCartOrder">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="55dp"
+                    android:paddingRight="25dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Total : "
+                            android:textColor="#000000"
+                            android:textSize="18dp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="RM"
+                            android:textColor="#000000"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/tvTotalPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="0.00"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="20dp"
+                        android:background="#9C9C9C" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnCheckOut"
+                        android:layout_width="305dp"
+                        android:layout_height="45dp"
+                        android:text="Check Out"
+                        app:cornerRadius="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

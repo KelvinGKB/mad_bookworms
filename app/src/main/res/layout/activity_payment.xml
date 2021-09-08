@@ -9,7 +9,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="-66dp"
+            tools:layout_editor_absoluteY="27dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
@@ -30,10 +32,10 @@
                         android:layout_height="28dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/ic_baseline_location_on_24" />
+                        android:src="@drawable/ic_baseline_location_on_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView26"
@@ -146,43 +148,45 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
                 android:id="@+id/rlEdtCode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginTop="3dp"
+                android:paddingStart="10dp"
+                android:paddingRight="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider4" >
+                app:layout_constraintTop_toBottomOf="@id/divider4">
 
                 <EditText
                     android:id="@+id/edtVoucherCode"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
                     android:background="#DDDADA"
                     android:ems="8"
                     android:hint="Enter Voucher Code"
                     android:inputType="textPersonName"
+                    android:paddingStart="15dp"
                     android:shadowColor="#5E5A5A" />
 
                 <TextView
                     android:id="@+id/tvApplyVoucher"
                     android:layout_width="51dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignEnd="@+id/edtVoucherCode"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="9dp"
-                    android:layout_marginRight="13dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="20dp"
                     android:clickable="true"
+                    android:gravity="center"
                     android:text="Apply"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </RelativeLayout>
-
 
 
             <TextView

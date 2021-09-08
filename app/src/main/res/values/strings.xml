@@ -42,16 +42,19 @@
         <item>Change Password</item>
         <item>Refer a Friend</item>
         <item>Referral History</item>
+        <item>Our Location</item>
         <item>Log Out</item>
     </string-array>
 
     <string-array name="admin_array_profile">
+        <item>Daily Check In</item>
         <item>Purchase History</item>
         <item>My Favourites</item>
         <item>Language</item>
         <item>Change Password</item>
         <item>Refer a Friend</item>
         <item>Referral History</item>
+        <item>Our Location</item>
         <item>Admin Panel</item>
         <item>Log Out</item>
     </string-array>
