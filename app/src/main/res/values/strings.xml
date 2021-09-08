@@ -36,6 +36,7 @@
 
     <string-array name="array_profile">
         <item>Daily Check In</item>
+        <item>Spin Lucky Wheel</item>
         <item>Purchase History</item>
         <item>My Favourites</item>
         <item>Language</item>

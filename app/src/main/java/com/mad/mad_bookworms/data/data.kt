@@ -45,6 +45,7 @@ data class User(
     var contact : String = "",
     var photo: Blob = Blob.fromBytes(ByteArray(0)),
     var checkInDate: Date = Date(),
+    var lastSpinDate: Date = Date(),
 )
 
 data class MyVoucher(

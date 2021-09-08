@@ -206,7 +206,8 @@ class VerifyActivity : AppCompatActivity() {
                 referred_by  = referred_by,
                 earn_points = points,
                 usable_points = points,
-                checkInDate = yesterday
+                checkInDate = yesterday,
+                lastSpinDate = yesterday
             )
 
             vm.set(u)

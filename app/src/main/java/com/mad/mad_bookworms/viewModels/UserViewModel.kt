@@ -129,6 +129,9 @@ class UserViewModel : ViewModel() {
         }else if (level == "checkIn_earn"){
             col.document(id).update("usable_points", current_UsablePoint + 30).addOnSuccessListener {  }
             col.document(id).update("earn_points", current_points + 30).addOnSuccessListener {  }
+        }else if (level == "spinWheel_earn"){
+            col.document(id).update("usable_points", current_UsablePoint + base_point).addOnSuccessListener {  }
+            col.document(id).update("earn_points", current_points + base_point).addOnSuccessListener {  }
         }
 
     }
@@ -136,6 +139,12 @@ class UserViewModel : ViewModel() {
     fun updateCheckInDate(uid:String, date: Date)
     {
         col.document(uid).update("checkInDate", date)
+            .addOnSuccessListener {}
+    }
+
+    fun updateLastSpinDate(uid:String, date: Date)
+    {
+        col.document(uid).update("lastSpinDate", date)
             .addOnSuccessListener {}
     }
 

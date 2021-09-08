@@ -71,6 +71,7 @@ class ProfileFragment : Fragment() {
 
             when (listItem?.get(position)) {
                 "Daily Check In" -> checkIn()
+                "Spin Lucky Wheel" -> spinWheel()
                 "Change Password" -> setCurrentFragment(ChangePasswordFragment())
                 "Our Location" -> setCurrentFragment(OurLocationFragment())
                 "Referral History" -> setCurrentFragment(ReferralFragment())
@@ -87,6 +88,14 @@ class ProfileFragment : Fragment() {
             setCurrentFragment(EditPersonalInfoFragment())
         }
         return binding.root
+
+    }
+
+    private fun spinWheel() {
+
+        val intent = Intent(requireContext(), SpinnerActivity::class.java)
+
+        startActivity(intent)
 
     }
 
