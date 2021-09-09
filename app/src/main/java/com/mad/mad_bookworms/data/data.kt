@@ -105,3 +105,9 @@ data class BookOrder(
     var qty : Int = 0,
 )
 
+data class Category (
+    @DocumentId
+    var id : String = "",
+    var name: String ="",
+)
+

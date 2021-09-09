@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
@@ -39,6 +40,7 @@ import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.data.MyCartTable
 import com.mad.mad_bookworms.viewModels.BookViewModel
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
+import com.mad.mad_bookworms.viewModels.CategoryViewModel
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import kotlinx.coroutines.*
 import java.util.*
@@ -54,11 +56,14 @@ class ExploreFragment : Fragment() {
     private val vm: BookViewModel by activityViewModels()
     private val userVm: UserViewModel by activityViewModels()
     private val cartVm: CartOrderViewModel by activityViewModels()
+    private val categoryVm: CategoryViewModel by activityViewModels()
 
-    private  lateinit var adapter: RecyclerAdapter
-    private  lateinit var trendingAdapter: TrendingAdapter
+    private lateinit var adapter: RecyclerAdapter
+    private lateinit var trendingAdapter: TrendingAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
     var image: Bitmap? = null
     private var bookTitle = ""
+    private var selected_position: Int = -1
 
     var permissions = arrayOf(
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -73,23 +78,89 @@ class ExploreFragment : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentExploreBinding.inflate(inflater,container,false)
+        binding = FragmentExploreBinding.inflate(inflater, container, false)
 
         binding.searchView.clearFocus()
 
         val data: MutableList<Book> = ArrayList()
+        val categoryBook: MutableList<Book> = ArrayList()
         val displayBook: MutableList<Book> = ArrayList()
         val trendingBook: MutableList<Book> = ArrayList()
+        val technologyBook: MutableList<Book> = ArrayList()
+        val historyBook: MutableList<Book> = ArrayList()
+        val motivationBook: MutableList<Book> = ArrayList()
+        val businessBook: MutableList<Book> = ArrayList()
+        val romanticBook: MutableList<Book> = ArrayList()
+        val educationBook: MutableList<Book> = ArrayList()
+
+        //Recyler view for book category
+        categoryAdapter = CategoryAdapter() { holder, category ->
+            holder.tvCategory.setOnClickListener {
+
+                categoryBook.clear()
+
+                //set to black color when it was clicked
+                selected_position = holder.position
+                binding.rvBookCategory.adapter!!.notifyDataSetChanged()
+
+                if (category.name == "All") {
+                    adapter.submitList(data)
+                }
+
+                else if (category.name == "Technology") {
+                    adapter.submitList(technologyBook)
+                }
+
+                else if (category.name == "History") {
+                    adapter.submitList(historyBook)
+                }
+
+                else if (category.name == "Motivation") {
+                    adapter.submitList(motivationBook)
+                }
+
+                else if (category.name == "Business") {
+                    adapter.submitList(businessBook)
+                }
+
+                else if (category.name == "Romantic") {
+                    adapter.submitList(romanticBook)
+                }
+
+                else if (category.name == "Education") {
+                    adapter.submitList(educationBook)
+                }
+
+
+            }
+
+            if (selected_position == holder.adapterPosition) {
+                holder.tvCategory.setTextColor(Color.parseColor("#000000"))
+            }
+
+            if (selected_position != holder.adapterPosition) {
+                holder.tvCategory.setTextColor(Color.parseColor("#8B8A8A"))
+            }
+
+
+        }
+
+        binding.rvBookCategory.adapter = categoryAdapter
+        binding.rvBookCategory.setHasFixedSize(true)
 
         //Recycler View for book list
-        adapter = RecyclerAdapter(){ holder, book ->
+        adapter = RecyclerAdapter() { holder, book ->
             // Item click
             holder.root.setOnClickListener {
 
                 val intent = Intent(requireContext(), BookDetailActivity::class.java)
-                intent.putExtra("bookID",book.id)
+                intent.putExtra("bookID", book.id)
 
                 startActivity(intent)
             }
@@ -99,7 +170,7 @@ class ExploreFragment : Fragment() {
         binding.rvBookList.setHasFixedSize(true)
 
         //Recycler View for Trending list
-        trendingAdapter = TrendingAdapter(){ holder, book ->
+        trendingAdapter = TrendingAdapter() { holder, book ->
             // Item click
             holder.root.setOnClickListener {
 
@@ -107,7 +178,7 @@ class ExploreFragment : Fragment() {
 
 
                 val intent = Intent(requireContext(), BookDetailActivity::class.java)
-                intent.putExtra("bookID",book.id)
+                intent.putExtra("bookID", book.id)
 
                 startActivity(intent)
             }
@@ -123,22 +194,22 @@ class ExploreFragment : Fragment() {
                 Log.d("TAG", "${data}")
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    var c = uid?.let { cartVm.get(it,book.id) }
+                    var c = uid?.let { cartVm.get(it, book.id) }
                     Log.d("TAG", "$c")
                     if (c != null) {
-                        if (c.isNotEmpty()){
+                        if (c.isNotEmpty()) {
                             Log.d("TAG", "im in notempty")
-                            for (cart in c){
-                                if (cart.bookId == book.id){
+                            for (cart in c) {
+                                if (cart.bookId == book.id) {
                                     Log.d("TAG", "im in notempty")
                                     if (uid != null) {
-                                        cartVm.updateQty(uid, book.id, cart.quantity+ 1)
+                                        cartVm.updateQty(uid, book.id, cart.quantity + 1)
 
                                     }
                                 }
                             }
 
-                        }else{
+                        } else {
                             Log.d("TAG", "im in empty")
                             if (b != null) {
                                 cartVm.insert(b)
@@ -147,7 +218,11 @@ class ExploreFragment : Fragment() {
                         }
                     }
                 }
-                Toast.makeText(requireContext(), getString(R.string.added_cart_successfully_message), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.added_cart_successfully_message),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         binding.rvBookTrending.adapter = trendingAdapter
@@ -158,21 +233,40 @@ class ExploreFragment : Fragment() {
         vm.getAll().observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
             data.addAll(list)
-            for(book in list) {
-                if (book.trending == true){
+            for (book in list) {
+                if (book.trending == true) {
                     trendingBook.add(book)
+                }
+                if (book.category == "Business"){
+                    businessBook.add(book)
+                }
+                if (book.category == "History"){
+                    historyBook.add(book)
+                }
+                if (book.category == "Romantic"){
+                    romanticBook.add(book)
+                }
+                if (book.category == "Education"){
+                    educationBook.add(book)
+                }
+                if (book.category == "Technology"){
+                    technologyBook.add(book)
+                }
+                if (book.category == "Motivation"){
+                    motivationBook.add(book)
                 }
             }
             trendingAdapter.submitList(trendingBook)
         }
 
-
-
-
+        //load all category from firebase
+        categoryVm.getAll().observe(viewLifecycleOwner) { list ->
+            categoryAdapter.submitList(list)
+        }
 
 
         //search_bar
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
@@ -181,19 +275,19 @@ class ExploreFragment : Fragment() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
 
-                if(newText!!.isNotEmpty()){
+                if (newText!!.isNotEmpty()) {
                     displayBook.clear()
 
                     val search = newText.lowercase(Locale.getDefault())
 
-                    for (book in data){
-                        if(book.title.lowercase(Locale.getDefault()).contains(search)){
+                    for (book in data) {
+                        if (book.title.lowercase(Locale.getDefault()).contains(search)) {
                             displayBook.add(book)
                         }
                         adapter.submitList(displayBook)
                         binding.rvBookList.adapter!!.notifyDataSetChanged()
                     }
-                }else{
+                } else {
                     adapter.submitList(data)
                     binding.rvBookList.adapter!!.notifyDataSetChanged()
                 }
