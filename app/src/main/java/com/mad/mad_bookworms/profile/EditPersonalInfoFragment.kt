@@ -140,7 +140,7 @@ class EditPersonalInfoFragment : Fragment() {
         }
 
         binding.tvButton.startAnimation(animFadeIn)
-        binding.tvButton.setText("Updating...");
+        binding.tvButton.setText(getString(R.string.updating));
 
         val taddress = address + "," + state + "," + postal + "," + city
 //        showText(taddress)
@@ -161,7 +161,7 @@ class EditPersonalInfoFragment : Fragment() {
 
         vm.updateUserInfo(Firebase.auth.currentUser!!.uid,u)
 
-        showEmailDialog(activity, 2, "Information Updated")
+        showEmailDialog(activity, 2, getString(R.string.information_updated))
         binding.tvButton.setText("update")
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -197,30 +197,30 @@ class EditPersonalInfoFragment : Fragment() {
 
         var e = ""
 
-        e += if (username == "") "- username is required."
-        else if (username.length < 8) "\n- username is too short."
+        e += if (username == "") getString(R.string.username_required)
+        else if (username.length < 8) "\n" + getString(R.string.username_short)
         else ""
 
-        e += if (name == "") "\n- name is required."
-        else if (name.length < 6) "\n- Fullname is too short."
+        e += if (name == "") "\n" + getString(R.string.name_requried)
+        else if (name.length < 6) "\n" +getString(R.string.name_short)
         else ""
 
-        e +=if (contact == "") "\n- contact number is required."
-        else if (contact.length < 10 || contact.length > 11) "\n- Invalid contact number."
+        e +=if (contact == "") "\n" +getString(R.string.contact_required)
+        else if (contact.length < 10 || contact.length > 11) "\n" +getString(R.string.invaliad_contact)
         else ""
 
-        e += if (address == "") "\n- address is required."
-        else if (address.length < 10) "\n- address is too short."
+        e += if (address == "") "\n" +getString(R.string.address_required)
+        else if (address.length < 10) "\n" +getString(R.string.address_short)
         else ""
 
-        e += if (state == "") "\n- state is required."
+        e += if (state == "") "\n" +getString(R.string.state_required)
         else ""
 
-        e += if (postal == "") "\n- postal code is required."
-        else if (postal.length != 5) "\n- invalid postal code."
+        e += if (postal == "") "\n" +getString(R.string.postal_requried)
+        else if (postal.length != 5) "\n" +getString(R.string.postal_invalid)
         else ""
 
-        e += if (city == "") "\n- city is required."
+        e += if (city == "") "\n" +getString(R.string.city_required)
         else ""
 
 

@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Referral History"
+                android:text="@string/referral_history"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />

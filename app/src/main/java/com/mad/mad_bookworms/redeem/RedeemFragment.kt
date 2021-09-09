@@ -67,9 +67,9 @@ class RedeemFragment : Fragment() {
                 val u = user?.let { vm.get(it.uid) }
 
                 val level = u?.level
-                val points = u?.usable_points.toString() + " usable points"
+                val points = u?.usable_points.toString() + " " + getString(R.string.usable_points)
                 val earn_points = u?.earn_points
-                val priviledge = u?.level + " priviledge"
+                val priviledge = u?.level + " " + getString(R.string.privileges)
                 val code = u?.referral_code
                 val remaining = 0
 
@@ -92,40 +92,40 @@ class RedeemFragment : Fragment() {
                         val remaining = 2000 - earn_points
                         binding.levelBar.progress = earn_points
                         binding.tvRemaining.text =
-                            "earn more " + remaining + " points to upgrade Gold"
+                            getString(R.string.earn_more) + " " + remaining + " " + getString(R.string.upgrade_gold)
 
                     } else if (earn_points!! > 2000 && earn_points!! < 5000) {
                         binding.levelBar.max = 3000
                         val remaining = 5000 - earn_points
                         binding.levelBar.progress = earn_points - 2000
                         binding.tvRemaining.text =
-                            "earn more " + remaining + " points to upgrade Platinum"
+                            getString(R.string.earn_more) + " " + remaining + " " + getString(R.string.upgrade_platinum)
                     } else{
                         binding.levelBar.max = 5000
                         binding.levelBar.progress = 5000
                         binding.tvRemaining.text =
-                            "You're our precious Platinum member"
+                            getString(R.string.precious_member)
                     }
 
                     binding.tvPriviledge.startAnimation(animFadeIn)
-                    binding.tvPriviledge.text = priviledge
+                    binding.tvPriviledge.text = " " + priviledge
 
                     binding.btnCode.text = code
 
-                    if(level == "Silver")
+                    if(level == getString(R.string.silver))
                     {
                         binding.itemDiscount.visibility = View.GONE
                         binding.itemShipping.visibility = View.GONE
                         binding.itemVoucher.visibility = View.VISIBLE
 
-                    }else if(level == "Gold")
+                    }else if(level == getString(R.string.gold))
                     {
-                        binding.tvDiscount.text = "1.2x points"
+                        binding.tvDiscount.text = "1.2x " + getString(R.string.points)
                         binding.itemDiscount.visibility = View.VISIBLE
                         binding.itemShipping.visibility = View.GONE
                         binding.itemVoucher.visibility = View.VISIBLE
                     }else{
-                        binding.tvDiscount.text = "1.5x points"
+                        binding.tvDiscount.text = "1.5x " + getString(R.string.points)
                         binding.itemDiscount.visibility = View.VISIBLE
                         binding.itemShipping.visibility = View.VISIBLE
                         binding.itemVoucher.visibility = View.VISIBLE
@@ -149,7 +149,7 @@ class RedeemFragment : Fragment() {
 
             // Copy Text to the Clipboard
             copyToClipboard(context,id)
-            Toast.makeText(context, "Copied", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_LONG).show()
         }
 
         binding.btnLink.setOnClickListener() {
@@ -160,7 +160,7 @@ class RedeemFragment : Fragment() {
 
             // Copy Text to the Clipboard
             copyToClipboard(context,link)
-            Toast.makeText(context, "Copied", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_LONG).show()
         }
 
         return binding.root

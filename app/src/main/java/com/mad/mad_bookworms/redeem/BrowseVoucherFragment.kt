@@ -76,8 +76,8 @@ class BrowseVoucherFragment : Fragment() {
 
                     Handler(Looper.getMainLooper()).postDelayed({
 
-                        val title = "Sorry, You're not eligible for this Voucher"
-                        val content = "Earn more points to upgrade your level in-order to enjoy more benefits"
+                        val title = getString(R.string.level_not_eligible)
+                        val content = getString(R.string.earn_more_join_benefits)
 
                         if (level == "Silver" && (voucher.level == 2 || voucher.level == 3)) {
 
@@ -92,8 +92,8 @@ class BrowseVoucherFragment : Fragment() {
 
                         if(points!! < voucher.requiredPoint)
                         {
-                            val title = "Oh No..."
-                            val content = "You have not enough points to redeem it"
+                            val title = getString(R.string.oh_no)
+                            val content = getString(R.string.not_enough_points)
 
                             showMultiuseDialog(activity,3,title,content)
 
@@ -127,8 +127,8 @@ class BrowseVoucherFragment : Fragment() {
                             userVoucher_vm.set(v)
                             user_vm.updateUsablePoints(uid,points,-(voucher.requiredPoint))
 
-                            val title = "Voucher claim successfully !"
-                            val content = "Don't forget to use your voucher within 14 days."
+                            val title = getString(R.string.voucher_claim_successfully)
+                            val content = getString(R.string.use_within_14days)
 
                             showMultiuseDialog(activity,2,title,content)
 

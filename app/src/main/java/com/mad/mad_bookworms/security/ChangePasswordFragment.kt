@@ -48,22 +48,22 @@ class ChangePasswordFragment : Fragment() {
 
             if(password == null || password == "")
             {
-                showText("Password is required !")
+                showText(getString(R.string.password_required))
                 return@setOnClickListener
             }
             if(password.length < 6 )
             {
-                showText("Password must be at least 6 characters !")
+                showText(getString(R.string.password_minimum_6))
                 return@setOnClickListener
             }
             if(conPassword == null || conPassword == "")
             {
-                showText("Confirm Password is required !")
+                showText(getString(R.string.confirm_password_required))
                 return@setOnClickListener
             }
             if(password != conPassword)
             {
-                showText("Confirm Password does not match Password !")
+                showText(getString(R.string.conpassword_not_match))
                 return@setOnClickListener
             }
 
@@ -78,7 +78,7 @@ class ChangePasswordFragment : Fragment() {
                     if (task.isSuccessful) {
                         Log.d(TAG, "User password updated.")
 
-                        showEmailDialog(activity, 2, "Password changed")
+                        showEmailDialog(activity, 2, getString(R.string.password_changed))
                         binding.tvButton.setText("Change")
 
                         Handler(Looper.getMainLooper()).postDelayed({
@@ -94,11 +94,11 @@ class ChangePasswordFragment : Fragment() {
                     }else{
                         Log.d(TAG, "User password update unsuccessful.")
 
-                        val title = "Oh No..."
-                        val content = "password change unsuccessfully. Please try again later"
+                        val title = getString(R.string.oh_no)
+                        val content = getString(R.string.password_change_unsuccessful)
 
                         showMultiuseDialog(activity,3,title,content)
-                        binding.tvButton.setText("Change")
+                        binding.tvButton.setText(getString(R.string.change))
                     }
                 }
 

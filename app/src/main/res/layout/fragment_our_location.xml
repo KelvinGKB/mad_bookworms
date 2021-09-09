@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Our Location"
+                android:text="@string/our_location"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />

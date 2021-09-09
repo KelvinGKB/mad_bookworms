@@ -33,8 +33,8 @@ class ReferralFragment : Fragment() {
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
 
-        tabLayout.addTab(tabLayout.newTab().setText("Invited User"))
-        tabLayout.addTab(tabLayout.newTab().setText("History"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.invited_user)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.history)))
 
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         val adapter = ReferralAdapter(this, childFragmentManager,

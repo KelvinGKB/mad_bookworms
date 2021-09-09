@@ -284,7 +284,7 @@
                                 android:textColor="#020202"
                                 android:textSize="24sp"
                                 android:textStyle="bold"
-                                tools:text="Ways of Earning Points" />
+                                tools:text="@string/ways_of_earning_points" />
 
                         </LinearLayout>
 
@@ -325,7 +325,7 @@
                                     android:fontFamily="@font/roboto_medium"
                                     android:paddingTop="5sp"
                                     android:paddingBottom="5sp"
-                                    android:text="Purcharse Items"
+                                    android:text="@string/purcharse_items"
                                     android:textAlignment="center"
                                     android:textColor="#000000"
                                     android:textStyle="bold"
@@ -540,7 +540,7 @@
                                     android:layout_marginLeft="20sp"
                                     android:layout_marginTop="30sp"
                                     android:fontFamily="@font/roboto_medium"
-                                    android:text="My Voucher"
+                                    android:text="@string/my_voucher"
                                     android:textAllCaps="false"
                                     android:textSize="14sp"
                                     app:backgroundTint="@color/pink_700"
@@ -662,7 +662,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Discount"
+                            android:text="@string/discount"
                             android:textAlignment="center"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -688,7 +688,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Free Shipping"
+                            android:text="@string/free_shipping"
                             android:textAlignment="center"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -714,7 +714,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Voucher"
+                            android:text="@string/voucher"
                             android:textAlignment="center"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -732,7 +732,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Ways of Earning Points"
+                        android:text="@string/ways_of_earning_points"
                         android:textAlignment="center"
                         android:textColor="#020202"
                         android:textSize="24sp"
@@ -780,7 +780,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:paddingTop="5sp"
                             android:paddingBottom="5sp"
-                            android:text="Purcharse Items"
+                            android:text="@string/purcharse_items"
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textStyle="bold" />
@@ -790,7 +790,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Every purchase of the products will reward amount of points while. Gold or Platinum level will enjoy extra points on every purchase."
+                            android:text="@string/purchase_item_description"
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textSize="12sp" />
@@ -835,7 +835,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:paddingTop="5sp"
                             android:paddingBottom="5sp"
-                            android:text="Refer a Friend"
+                            android:text="@string/refer_a_friend"
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textStyle="bold" />
@@ -845,7 +845,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="register account with below referal code to earn more points."
+                            android:text="@string/refer_friends_description"
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textSize="12sp" />
@@ -877,7 +877,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:includeFontPadding="false"
-                                android:text="Copy Link"
+                                android:text="@string/copy_link"
                                 android:textColor="#000000"
                                 android:textSize="12sp"
                                 android:textStyle="bold"

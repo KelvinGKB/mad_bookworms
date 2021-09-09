@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -275,7 +275,7 @@
                     android:paddingTop="10sp"
                     android:paddingRight="10sp"
                     android:paddingBottom="10sp"
-                    android:text="Edit personal information "
+                    android:text="@string/edit_personal_information"
                     android:textColor="#636363"
                     android:textSize="14sp" />
             </LinearLayout>

@@ -79,7 +79,7 @@ class VerifyActivity : AppCompatActivity() {
                 override fun onTick(millisUntilFinished: Long) {
                     binding.tvResend.setText("Didn't not receive code ? Click resend after " + millisUntilFinished / 1000 + " seconds.")
                     binding.tvResend.isVisible = true
-                    binding.btnSend.setText("Resend")
+                    binding.btnSend.setText(getString(com.mad.mad_bookworms.R.string.resend))
                 }
 
                 override fun onFinish() {
@@ -94,7 +94,7 @@ class VerifyActivity : AppCompatActivity() {
         binding.btnVerify2.setOnClickListener()
         {
             binding.tvButton.startAnimation(animFadeIn)
-            binding.tvButton.setText("Verifying...");
+            binding.tvButton.setText(getString(com.mad.mad_bookworms.R.string.verifying));
 
             Handler(Looper.getMainLooper()).postDelayed({
                 verification(code,email,password)
@@ -133,13 +133,13 @@ class VerifyActivity : AppCompatActivity() {
         {
             Handler(Looper.getMainLooper()).postDelayed({
                 binding.tvButton.startAnimation(animFadeIn)
-                binding.tvButton.setText("Verified");
+                binding.tvButton.setText(getString(com.mad.mad_bookworms.R.string.verified));
             }, 1000)
 
             Registration(email,password)
         }else{
             binding.tvButton.startAnimation(animFadeIn)
-            binding.tvButton.setText("Incorrect Confirmation Code.");
+            binding.tvButton.setText(getString(com.mad.mad_bookworms.R.string.incorrect_confimration_code));
         }
     }
 
@@ -158,7 +158,7 @@ class VerifyActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
+                    Toast.makeText(baseContext, getString(com.mad.mad_bookworms.R.string.authentication_failed),
                         Toast.LENGTH_SHORT).show()
 //                    updateUI(null)
                 }

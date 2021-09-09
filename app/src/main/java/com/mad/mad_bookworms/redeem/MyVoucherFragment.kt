@@ -31,8 +31,8 @@ class MyVoucherFragment : Fragment() {
 
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
-        tabLayout.addTab(tabLayout.newTab().setText("Active Voucher"))
-        tabLayout.addTab(tabLayout.newTab().setText("Browse Voucher"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.active_voucher)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.browse_voucher)))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         val adapter = MyAdapter(this, childFragmentManager,
             tabLayout.tabCount)
