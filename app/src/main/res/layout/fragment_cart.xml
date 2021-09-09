@@ -158,9 +158,9 @@
                     <View
                         android:id="@+id/divider"
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="#9C9C9C" />
+                        android:background="@drawable/dotted_line" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -30,6 +30,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import android.R.attr.label
 import android.app.PendingIntent.getActivity
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 
@@ -58,6 +59,7 @@ fun showMultiuseDialog(activity: Activity?, type: Int, title:String, content :St
     dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
     val imgDialog = dialog.findViewById<ImageView>(R.id.imgDialog)
+    val imgDialog2 = dialog.findViewById<pl.droidsonroids.gif.GifImageView>(R.id.imgDialog2)
     val dialogTitle = dialog.findViewById<TextView>(R.id.dialogTitle)
     val dialogContent = dialog.findViewById<TextView>(R.id.dialogContent)
     val dialogBtn_remove = dialog.findViewById<Button>(R.id.btnOK)
@@ -74,8 +76,10 @@ fun showMultiuseDialog(activity: Activity?, type: Int, title:String, content :St
 
         imgDialog.setImageResource(R.drawable.reward_not_enough);
     }else if (type == 4){
-        imgDialog.startAnimation(animFadeIn)
-        imgDialog.setImageResource(R.drawable.check_in)
+        imgDialog.visibility = View.GONE
+        imgDialog2.visibility= View.VISIBLE
+        imgDialog2.startAnimation(animFadeIn)
+        imgDialog2.setImageResource(R.drawable.check_in)
     }
 
     dialogTitle.text = title
