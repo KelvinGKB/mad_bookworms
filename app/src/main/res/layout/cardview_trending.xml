@@ -70,15 +70,15 @@
 
         <Button
             android:id="@+id/btnShare"
-            android:layout_width="87dp"
+            android:layout_width="wrap_content"
             android:layout_height="39dp"
             android:layout_marginStart="52dp"
             android:layout_marginEnd="8dp"
             android:isScrollContainer="false"
-            android:text="@string/share"
+            android:text="Add To Cart"
             android:textSize="8sp"
             app:cornerRadius="10dp"
-            app:icon="@drawable/ic_baseline_share_24"
+            app:icon="@drawable/ic_baseline_shopping_cart_24"
             app:iconGravity="start"
             app:iconPadding="0dp"
             app:iconSize="24dp"

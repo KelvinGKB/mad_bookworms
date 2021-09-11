@@ -56,3 +56,26 @@ interface MyCartDao {
 //    @Query("DELETE FROM MyCartTable")
 //    suspend fun deleteAll()
 }
+
+@Dao
+interface MyFavouriteDao{
+    @Query("SELECT * FROM MyFavouriteTable")
+    fun getAll(): LiveData<List<MyFavouriteTable>>
+
+    @Query("SELECT * FROM MyFavouriteTable WHERE uid = :uid AND bookId = :bookId")
+    suspend fun get(uid: String, bookId: String): List<MyFavouriteTable>
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(f: MyFavouriteTable) // Long -> row id
+    // (fruits: List<Fruit>)  -> List<Long>
+    // (vararg fruits: Fruit) -> List<Long>
+
+    @Update
+    suspend fun update(f: MyFavouriteTable) // Int -> count
+
+    @Delete
+    suspend fun delete(f: MyFavouriteTable) // Int -> count
+
+    @Query("DELETE FROM MyFavouriteTable WHERE bookId = :bookId AND uid = :uid")
+    suspend fun deleteFavourite(uid:String, bookId: String)
+}

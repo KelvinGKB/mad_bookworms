@@ -14,7 +14,7 @@ import com.mad.mad_bookworms.MainActivity
 
 
 
-abstract class SwipeGesture(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+abstract class SwipeGesture(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT ){
 
     val deleteColor = ContextCompat.getColor(context, R.color.deletecolor)
     val archiveColor = ContextCompat.getColor(context, R.color.archiveColor)
@@ -50,8 +50,6 @@ abstract class SwipeGesture(context: Context) : ItemTouchHelper.SimpleCallback(0
         )
             .addSwipeLeftBackgroundColor(deleteColor)
             .addSwipeLeftActionIcon(deleteIcon)
-            .addSwipeRightBackgroundColor(archiveColor)
-            .addSwipeRightActionIcon(archiveIcon)
             .create()
             .decorate()
 

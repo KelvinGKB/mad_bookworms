@@ -31,6 +31,7 @@ import com.mad.mad_bookworms.databinding.FragmentCartBinding
 import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.BookViewModel
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
+import com.mad.mad_bookworms.viewModels.MyFavouriteViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.badge_menu_item.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -46,6 +47,7 @@ class CartFragment : Fragment() {
     private var prepareOrder: MutableList<PendingOrder> = arrayListOf()
     private val vm: BookViewModel by activityViewModels()
     private val cartVm: CartOrderViewModel by activityViewModels()
+    private val favouriteVm: MyFavouriteViewModel by activityViewModels()
     private var totalPrice: Double = 0.0
 
     override fun onCreateView(
@@ -216,18 +218,6 @@ class CartFragment : Fragment() {
 
                     }
 
-                    ItemTouchHelper.RIGHT -> {
-                        val achieveItem = data[viewHolder.adapterPosition]
-                        cartVm.delete(data[viewHolder.adapterPosition])
-                        data.removeAt(viewHolder.adapterPosition)
-                        data.add(achieveItem)
-                        cartVm.insert(achieveItem)
-                        adapter.submitList(data)
-//                        val achieveItemPos = viewHolder.adapterPosition
-//                        cartVm.delete(adapter.getOrderAt(viewHolder.adapterPosition))
-//                        cartVm.insert(achieveItem)
-//                        Toast.makeText(requireContext(), "swipe right", Toast.LENGTH_SHORT).show()
-                    }
 
 
                 }
