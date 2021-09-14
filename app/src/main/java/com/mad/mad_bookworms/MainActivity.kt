@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nullBadge: View
     private var count: Int = 0
     private val cartVm: CartOrderViewModel by viewModels()
+    private var r :String = ""
 
     override fun onStart() {
         super.onStart()
@@ -144,7 +145,7 @@ class MainActivity : AppCompatActivity() {
         val cartFragment = CartFragment()
         val redeemFragment = RedeemFragment()
         val profileFragment = ProfileFragment()
-
+        Log.d("TAG", "r = $r")
         if (r == "cart") {
             setCurrentFragment(cartFragment)
             findViewById<BottomNavigationView>(R.id.bottomNavigationView).getMenu().getItem(2)

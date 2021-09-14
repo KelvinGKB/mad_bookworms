@@ -151,6 +151,10 @@ class BookDetailActivity : AppCompatActivity() {
             intent.putExtra("cart", "cart")
             startActivity(intent)
         }
+        binding.btnHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.btnShare.setOnClickListener {
             val image: Bitmap? = getBitmapfromView(binding.imageBook)
