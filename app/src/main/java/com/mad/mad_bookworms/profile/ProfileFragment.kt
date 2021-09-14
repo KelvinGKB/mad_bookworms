@@ -75,9 +75,7 @@ class ProfileFragment : Fragment() {
                 "Change Password" -> setCurrentFragment(ChangePasswordFragment())
                 "Our Location" -> setCurrentFragment(OurLocationFragment())
                 "Referral History" -> setCurrentFragment(ReferralFragment())
-                "Purchase History" -> Toast.makeText(context, "Item One", Toast.LENGTH_SHORT).show()
-                "My Favourites" -> Toast.makeText(context, "Item Two", Toast.LENGTH_SHORT).show()
-                "Language" -> Toast.makeText(context, "Item Three", Toast.LENGTH_SHORT).show()
+                "Language" -> changeLanguage()
                 "Refer a Friend" ->  CoroutineScope(Dispatchers.IO).launch { referFriend() }
                 "Admin Panel" -> activity()
                 "Log Out" -> signOut()
@@ -89,6 +87,12 @@ class ProfileFragment : Fragment() {
         }
         return binding.root
 
+    }
+
+    private fun changeLanguage() {
+        val intent = Intent(requireContext(), ChangeLanguageActivity::class.java)
+
+        startActivity(intent)
     }
 
     private fun spinWheel() {

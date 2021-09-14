@@ -190,13 +190,20 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
                 holder.cvPayMethod.setCardBackgroundColor(Color.parseColor("#F5F1F1"))
             }
 
+            if (payMethod.PaymentName == "Paypal" ){
+                holder.tvCashbackMessage.text = getString(R.string.earn_more_10_cashback)
+            }
+            else if (payMethod.PaymentName == "RazorPay"){
+                holder.tvCashbackMessage.text = getString(R.string.earn_more_15_cashback)
+            }
+
 
             //Handle Button Clicking Events
             binding.btnPlaceOrder.setOnClickListener {
                 if(selectedPayMethod != ""){
                     processPayment(placeOrderAmt,selectedPayMethod)
                 }else{
-                    Toast.makeText(this,"Please select a payment method." , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,getString(R.string.please_select_a_payment_method) , Toast.LENGTH_SHORT).show()
                 }
 
 
@@ -335,8 +342,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
                             }
                         }
                         else{
-                            val title = "Not Enough Points!"
-                            val content = "Share BookWorm to more people and earn more points. "
+                            val title = getString(R.string.not_enough_point)
+                            val content = getString(R.string.share_bookworm_to_more_ppl)
 
                             showMultiuseDialog(this@PaymentActivity,3,title,content)
                         }
@@ -500,10 +507,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
                 }
             }
             else if (resultCode == Activity.RESULT_CANCELED){
-                Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.cancel), Toast.LENGTH_SHORT).show()
             }
             else if (resultCode == RESULT_EXTRAS_INVALID){
-                Toast.makeText(this, "Invalid", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.invalid), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -565,7 +572,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
                         var currentEarnPoint = u.earn_points.toInt()
                         var currentUsablePoint = u.usable_points.toInt()
                         var razorPayEarnPoint = 0
-                        Log.d("TAG","User NOT NULL")
+
                         if (u.level == "Silver"){
                             Log.d("TAG","User is silver")
                             razorPayEarnPoint = (placeOrderAmt * 0.1).toInt()

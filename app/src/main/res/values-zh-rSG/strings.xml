@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">bookworms</string>
+    <string name="title_explore">探索</string>
+    <string name="title_cart">购物车</string>
+    <string name="title_redeem">兑换</string>
+    <string name="title_profile">我的</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bookcover">书本封面</string>
+    <string name="share_this_book_to_gain_point">分享给你的朋友!</string>
+    <string name="share">分享</string>
+    <string name="sign_up">注册</string>
+    <string name="sign_in">登入</string>
+    <string name="have_an_account">已经有了账号 ?</string>
+    <string name="password_validation">* 密码错误</string>
+    <string name="referral_code_optional">推荐号 （可选择）</string>
+    <string name="password">密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="email">邮件</string>
+    <string name="username">用户名</string>
+    <string name="start_your_journey">开启你的阅读旅程！</string>
+    <string name="create_account">创建账户</string>
+    <string name="the_worms_miss_you">我们想你！</string>
+    <string name="welcome_back">欢迎回来！</string>
+    <string name="don_t_have_an_account">还没有账号？</string>
+    <string name="send">发送</string>
+    <string name="confirmation_code">确认代号</string>
+    <string name="verify">验证</string>
+    <string name="confirm_delete">确定删除？</string>
+    <string name="delete_confirmation_message">你确定你要删除这些物品吗？</string>
+    <string name="no_selected_any_item_message">你还没选择任何一个物品.</string>
+    <string name="change">更改</string>
+    <string name="added_cart_successfully_message">物品已成功添加至购物车</string>
+    <string name="shipping">邮寄</string>
+    <string name="profile">我的</string>
+    <string name="edit_personal_information">更改我的资料</string>
+    <string name="personal_info">我的资料</string>
+    <string name="shipping_and_contact_info">邮寄和联络资料</string>
+    <string name="full_name">全名</string>
+    <string name="phone_number">电话号码</string>
+    <string name="address">地址</string>
+    <string name="state">州属</string>
+    <string name="postal_code">邮政编码</string>
+    <string name="city">城市</string>
+    <string name="update">更新</string>
+    <string name="information_updated">资料已被更新</string>
+    <string name="updating">正在更新...</string>
+    <string name="username_required">- 用户名是必需的</string>
+    <string name="username_short">- 用户名太短.</string>
+    <string name="name_requried">- 名字是必须的.</string>
+    <string name="name_short">- 全名太短了.</string>
+    <string name="contact_required">- 电话号码是必须的.</string>
+    <string name="invaliad_contact">- 电话号码错误.</string>
+    <string name="address_required">- 地址是必须的.</string>
+    <string name="address_short">- 地址太短.</string>
+    <string name="state_required">- 州属是必须的.</string>
+    <string name="postal_requried">- 邮政编码是必须的.</string>
+    <string name="postal_invalid">- 邮政编码错误.</string>
+    <string name="city_required">- 城市是必须的.</string>
+    <string name="password_required">密码是必须的 !</string>
+    <string name="password_minimum_6">- 密码需至少6个字 !</string>
+    <string name="confirm_password_required">- 确认密码是必须的 !</string>
+    <string name="conpassword_not_match">- 确认密码与密码不相同 !</string>
+    <string name="password_changed">密码已被更改</string>
+    <string name="oh_no">Oh No...</string>
+    <string name="password_change_unsuccessful">密码更改错误！ 请稍后再尝试.</string>
+    <string name="change_password">更改密码</string>
+    <string name="our_location">我们的地址</string>
+    <string name="no_more_history">- 无任何记录 -</string>
+    <string name="_500_points">+ 500 分</string>
+    <string name="referral_history">介绍历史</string>
+    <string name="invited_user">已邀请用户</string>
+    <string name="history">历史</string>
+    <string name="my_voucher">我的证券</string>
+    <string name="discount">折扣</string>
+    <string name="free_shipping">免邮</string>
+    <string name="voucher">我的证券</string>
+    <string name="ways_of_earning_points">赚取分数的方法</string>
+    <string name="purcharse_items">购买货物</string>
+    <string name="purchase_item_description">每次购买产品将奖励的点数，同时。黄金或铂金级将享受额外积分每次购买.</string>
+    <string name="refer_a_friend">介绍给朋友</string>
+    <string name="refer_friends_description">用下面的推荐代码注册账户可以获得更多的积分.</string>
+    <string name="copy_link">复制链接</string>
+    <string name="usable_points">可用的分数</string>
+    <string name="privileges"> 享有特权</string>
+    <string name="earn_more">赚取更多 </string>
+    <string name="upgrade_gold"> points to upgrade Gold</string>
+    <string name="upgrade_platinum"> points to upgrade Platinum</string>
+    <string name="precious_member">您是我们宝贵的白金会员</string>
+    <string name="points">分数</string>
+    <string name="copied">已复制</string>
+    <string name="gold">黄金</string>
+    <string name="silver">白银</string>
+    <string name="active_voucher">现有证券</string>
+    <string name="browse_voucher">搜索证券</string>
+    <string name="no_more_voucher">- 已无证券 -</string>
+    <string name="level_not_eligible">对不起，您没有资格领取这张代金券</string>
+    <string name="earn_more_join_benefits">赚取更多点数来升级你的等级，以享受更多的好处</string>
+    <string name="not_enough_points">你没有足够的积分兑换它</string>
+    <string name="voucher_claim_successfully">成功兑换证券 !</string>
+    <string name="use_within_14days">别忘了在14天内使用证券.</string>
+    <string name="claim">兑换</string>
+    <string name="use">使用</string>
+    <string name="got_it">知道了 !</string>
+    <string name="verified">已验证</string>
+    <string name="incorrect_confimration_code">不正确的代码.</string>
+    <string name="authentication_failed">认证失败.</string>
+    <string name="verifying">正在认证...</string>
+    <string name="resend">重新发送</string>
+    <string name="alert_daily_reward_message">请不要错过日常打卡奖励!</string>
+    <string name="step_to_check_in_message"><![CDATA[前去我的-> 打卡 并完成领取打卡奖励!]]></string>
+    <string name="search_hint">搜索...</string>
+    <string name="add_to_cart">加入购物车</string>
+    <string name="book_detail">书本详情</string>
+    <string name="number_of_pages">页数</string>
+    <string name="languages">语言</string>
+    <string name="qty">数量</string>
+    <string name="my_cart">我的购物车</string>
+    <string name="total">总数 :</string>
+    <string name="check_out">确认订单</string>
+    <string name="delivery_address">送货地址</string>
+    <string name="select_payment_method">选择付款方式</string>
+    <string name="enter_voucher_code">输入证券码</string>
+    <string name="apply">使用</string>
+    <string name="payment_details">付款明细</string>
+    <string name="subtotal">小计</string>
+    <string name="voucher_code_discount">折扣券代码</string>
+    <string name="order_amount">订单总额</string>
+    <string name="place_order">确认下单</string>
+    <string name="shipping_fees">邮费</string>
+    <string name="earn_more_10_cashback">赚取额外10%的分数回馈奖励</string>
+    <string name="earn_more_15_cashback">赚取额外15%的分数回馈奖励</string>
+    <string name="please_select_a_payment_method">请选择一个付款方式.</string>
+    <string name="cancel">取消</string>
+    <string name="invalid">错误</string>
+    <string name="not_enough_point">分数不足!</string>
+    <string name="share_bookworm_to_more_ppl">\"分享BookWorm给更多人以赚取更多的分数！ \"</string>
+    <string name="english">英文</string>
+    <string name="chinese">华文</string>
+    <string name="change_language">更改语言</string>
+
+    <string-array name="array_profile">
+        <item>Daily Check In</item>
+        <item>Spin Lucky Wheel</item>
+        <item>Language</item>
+        <item>Change Password</item>
+        <item>Refer a Friend</item>
+        <item>Referral History</item>
+        <item>Our Location</item>
+        <item>Log Out</item>
+    </string-array>
+
+    <string-array name="admin_array_profile">
+        <item>Daily Check In</item>
+        <item>Language</item>
+        <item>Change Password</item>
+        <item>Refer a Friend</item>
+        <item>Referral History</item>
+        <item>Our Location</item>
+        <item>Admin Panel</item>
+        <item>Log Out</item>
+    </string-array>
+
+    <string-array name="category">
+        <item>Business</item>
+        <item>History</item>
+        <item>Romantic</item>
+        <item>Education</item>
+        <item>Technology</item>
+        <item>Motivation</item>
+    </string-array>
+
+
+    <string-array name="language">
+        <item>EN</item>
+        <item>CH</item>
+        <item>MY</item>
+    </string-array>
+
+</resources>
