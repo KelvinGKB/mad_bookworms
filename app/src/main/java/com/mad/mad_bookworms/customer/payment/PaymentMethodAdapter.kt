@@ -46,17 +46,13 @@ class PaymentMethodAdapter (
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder,  position: Int) {
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
         holder.tvPaymentName.text = item.PaymentName
         holder.imgPayIcon.setImageResource(item.PaymentIcon)
-        if (item.PaymentName == "Paypal" ){
-            holder.tvCashbackMessage.text = "Earn more 10% points cashback"
-        }
-        else if (item.PaymentName == "RazorPay"){
-            holder.tvCashbackMessage.text = "Earn more 15% points cashback"
-        }
+
 
 
 

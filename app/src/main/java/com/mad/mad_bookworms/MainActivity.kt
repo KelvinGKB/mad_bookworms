@@ -1,5 +1,7 @@
 package com.mad.mad_bookworms
 
+import android.app.NotificationChannel
+import android.os.Build
 import com.mad.mad_bookworms.profile.ProfileFragment
 import com.mad.mad_bookworms.redeem.RedeemFragment
 import android.os.Bundle
@@ -27,6 +29,18 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.app.NotificationManager
+import androidx.annotation.RequiresApi
+import com.paypal.android.sdk.cy.o
+import android.app.AlarmManager
+
+import android.app.PendingIntent
+import android.content.Context
+
+import android.content.Intent
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -53,8 +67,8 @@ class MainActivity : AppCompatActivity() {
                 val u = vm.get(uid)
 
                 if (u != null) {
-                    val title = "Don't miss out daily check in rewards!"
-                    val text = "Go to Profile -> Daily Check In to complete your check in!"
+                    val title = getString(R.string.alert_daily_reward_message)
+                    val text = getString(R.string.step_to_check_in_message)
 
                     //Check is this user already check in
                     if (u.checkInDate.before(today)) {
@@ -77,10 +91,51 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.show()
     }
 
+    //To set the base language of the system
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LoacalHelper.setLocale(newBase!!))
+    }
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Set alarm manager
+        notificationChannel()
+
+        val calendar = Calendar.getInstance()
+        calendar[Calendar.HOUR_OF_DAY] = 8
+        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.SECOND] = 0
+
+        if (Calendar.getInstance().after(calendar)) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        val intent = Intent(this@MainActivity, MemoBroadcast::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                pendingIntent
+            )
+        }
 
 
         val r = intent.getStringExtra("cart") ?: ""
@@ -129,6 +184,23 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun notificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name: CharSequence = "BookWorm"
+            val description = "Do not miss out your daily check-in reward!"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("Notification", name, importance)
+            channel.description = description
+            val notificationManager = getSystemService(
+                NotificationManager::class.java
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+
 
 
     private fun setCurrentFragment(fragment: Fragment) =
