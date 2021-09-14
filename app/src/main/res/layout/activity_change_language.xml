@@ -1,76 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.ChangeLanguageActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:text="@string/change_language"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar3"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="#BAB6B6">
+            android:layout_height="wrap_content"
+            android:background="#F7F7F7"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
-            <View
-                android:id="@+id/divider8"
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:layout_marginTop="80dp"
-                android:background="@color/deletecolor" />
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/eg_icon" />
 
             <TextView
                 android:id="@+id/tvEnglish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:clickable="true"
                 android:fontFamily="@font/roboto_medium"
+                android:paddingLeft="10dp"
                 android:text="@string/english"
-                android:textColor="#050505"
-                android:textSize="30sp"
+                android:textColor="#8A8A8A"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+        <View
+            android:id="@+id/divider8"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="80dp"
-            android:background="#BAB6B6">
+            android:layout_height="3dp"
+            android:background="#DFDFDF"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F7F7F7"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/zh_icon" />
 
             <TextView
                 android:id="@+id/tvChinese"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:clickable="true"
                 android:fontFamily="@font/roboto_medium"
+                android:paddingLeft="10dp"
                 android:text="@string/chinese"
-                android:textColor="#050505"
-                android:textSize="30sp"
+                android:textColor="#8A8A8A"
+                android:textSize="24sp"
                 android:textStyle="bold" />
-        </RelativeLayout>
-    </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/change_language"
-        android:textColor="#0C0C0C"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

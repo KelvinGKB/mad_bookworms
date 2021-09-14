@@ -25,7 +25,7 @@
     <string name="welcome_back">欢迎回来！</string>
     <string name="don_t_have_an_account">还没有账号？</string>
     <string name="send">发送</string>
-    <string name="confirmation_code">确认代号</string>
+    <string name="confirmation_code">确认验证码</string>
     <string name="verify">验证</string>
     <string name="confirm_delete">确定删除？</string>
     <string name="delete_confirmation_message">你确定你要删除这些物品吗？</string>
@@ -63,7 +63,7 @@
     <string name="confirm_password_required">- 确认密码是必须的 !</string>
     <string name="conpassword_not_match">- 确认密码与密码不相同 !</string>
     <string name="password_changed">密码已被更改</string>
-    <string name="oh_no">Oh No...</string>
+    <string name="oh_no">噢，不...</string>
     <string name="password_change_unsuccessful">密码更改错误！ 请稍后再尝试.</string>
     <string name="change_password">更改密码</string>
     <string name="our_location">我们的地址</string>
@@ -72,10 +72,10 @@
     <string name="referral_history">介绍历史</string>
     <string name="invited_user">已邀请用户</string>
     <string name="history">历史</string>
-    <string name="my_voucher">我的证券</string>
+    <string name="my_voucher">我的折扣券</string>
     <string name="discount">折扣</string>
     <string name="free_shipping">免邮</string>
-    <string name="voucher">我的证券</string>
+    <string name="voucher">我的折扣券</string>
     <string name="ways_of_earning_points">赚取分数的方法</string>
     <string name="purcharse_items">购买货物</string>
     <string name="purchase_item_description">每次购买产品将奖励的点数，同时。黄金或铂金级将享受额外积分每次购买.</string>
@@ -85,26 +85,26 @@
     <string name="usable_points">可用的分数</string>
     <string name="privileges"> 享有特权</string>
     <string name="earn_more">赚取更多 </string>
-    <string name="upgrade_gold"> points to upgrade Gold</string>
-    <string name="upgrade_platinum"> points to upgrade Platinum</string>
+    <string name="upgrade_gold">分以升级Gold</string>
+    <string name="upgrade_platinum"> 分以升级Platinum</string>
     <string name="precious_member">您是我们宝贵的白金会员</string>
     <string name="points">分数</string>
     <string name="copied">已复制</string>
     <string name="gold">黄金</string>
     <string name="silver">白银</string>
-    <string name="active_voucher">现有证券</string>
-    <string name="browse_voucher">搜索证券</string>
-    <string name="no_more_voucher">- 已无证券 -</string>
+    <string name="active_voucher">现有折扣券</string>
+    <string name="browse_voucher">搜索折扣券</string>
+    <string name="no_more_voucher">- 已无折扣券 -</string>
     <string name="level_not_eligible">对不起，您没有资格领取这张代金券</string>
     <string name="earn_more_join_benefits">赚取更多点数来升级你的等级，以享受更多的好处</string>
     <string name="not_enough_points">你没有足够的积分兑换它</string>
-    <string name="voucher_claim_successfully">成功兑换证券 !</string>
-    <string name="use_within_14days">别忘了在14天内使用证券.</string>
+    <string name="voucher_claim_successfully">成功兑换折扣券 !</string>
+    <string name="use_within_14days">别忘了在14天内使用折扣券.</string>
     <string name="claim">兑换</string>
     <string name="use">使用</string>
     <string name="got_it">知道了 !</string>
     <string name="verified">已验证</string>
-    <string name="incorrect_confimration_code">不正确的代码.</string>
+    <string name="incorrect_confimration_code">不正确的验证码.</string>
     <string name="authentication_failed">认证失败.</string>
     <string name="verifying">正在认证...</string>
     <string name="resend">重新发送</string>
@@ -121,7 +121,7 @@
     <string name="check_out">确认订单</string>
     <string name="delivery_address">送货地址</string>
     <string name="select_payment_method">选择付款方式</string>
-    <string name="enter_voucher_code">输入证券码</string>
+    <string name="enter_voucher_code">输入折扣券码</string>
     <string name="apply">使用</string>
     <string name="payment_details">付款明细</string>
     <string name="subtotal">小计</string>
@@ -148,17 +148,20 @@
         <item>Refer a Friend</item>
         <item>Referral History</item>
         <item>Our Location</item>
+        <item>Feedback</item>
         <item>Log Out</item>
     </string-array>
 
     <string-array name="admin_array_profile">
         <item>Daily Check In</item>
+        <item>Spin Lucky Wheel</item>
         <item>Language</item>
         <item>Change Password</item>
         <item>Refer a Friend</item>
         <item>Referral History</item>
         <item>Our Location</item>
         <item>Admin Panel</item>
+        <item>Feedback</item>
         <item>Log Out</item>
     </string-array>
 
