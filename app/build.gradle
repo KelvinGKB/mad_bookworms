@@ -127,4 +127,8 @@ dependencies {
     //Google Map
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+    //PDF
+    implementation 'com.itextpdf:itextg:5.5.10'
+
 }

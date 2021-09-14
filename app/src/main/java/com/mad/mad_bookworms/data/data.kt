@@ -111,3 +111,11 @@ data class Category (
     var name: String ="",
 )
 
+data class Feedback(
+    @DocumentId
+    var id   : String = "",
+    var rating: Int = 0,
+    var type: String = "",
+    var desc: String = "",
+)
+

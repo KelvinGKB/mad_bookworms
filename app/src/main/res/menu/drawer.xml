@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:checkable="true"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+
+    <group android:id="@+id/page">
+        <item
+            android:id="@+id/listFragment"
+            android:checkable="true"
+            android:title="Book Manager" />
+        <item
+            android:id="@+id/list2Fragment"
+            android:checkable="true"
+            android:title="Voucher Manager" />
+        <item
+            android:id="@+id/orderFragment"
+            android:checkable="true"
+            android:title="Order Manager" />
+    </group>
+
+    <item
+        android:id="@+id/custom"
+        android:title="Exit" />
+
+</menu>

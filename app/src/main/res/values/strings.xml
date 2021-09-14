@@ -107,6 +107,7 @@
     <string name="authentication_failed">Authentication failed.</string>
     <string name="verifying">Verifying...</string>
     <string name="resend">Resend</string>
+    <string name="FeedbackDesc">We would love to hear your thoughts, suggestions, concerns or problems with anything so we can improve!</string>
 
     <string-array name="array_profile">
         <item>Daily Check In</item>
@@ -118,11 +119,13 @@
         <item>Refer a Friend</item>
         <item>Referral History</item>
         <item>Our Location</item>
+        <item>Feedback</item>
         <item>Log Out</item>
     </string-array>
 
     <string-array name="admin_array_profile">
         <item>Daily Check In</item>
+        <item>Spin Lucky Wheel</item>
         <item>Purchase History</item>
         <item>My Favourites</item>
         <item>Language</item>
@@ -131,6 +134,7 @@
         <item>Referral History</item>
         <item>Our Location</item>
         <item>Admin Panel</item>
+        <item>Feedback</item>
         <item>Log Out</item>
     </string-array>
 

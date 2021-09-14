@@ -40,11 +40,11 @@ class Update2Fragment : Fragment() {
             if(checkedId == R.id.radShipping){
                 binding.edtDiscount.text.clear()
                 binding.edtDiscount.setEnabled(false)
-                Toast.makeText(context, "Changed to Shipping Voucher", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, " Shipping Voucher", Toast.LENGTH_SHORT).show()
             }
             if(checkedId == R.id.radDiscount){
                 binding.edtDiscount.setEnabled(true)
-                Toast.makeText(context, "Changed to Discount Voucher", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Discount Voucher", Toast.LENGTH_SHORT).show()
             }
         }
 
