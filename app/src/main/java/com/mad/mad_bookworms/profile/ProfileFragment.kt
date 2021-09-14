@@ -142,7 +142,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun activity(){
-        Toast.makeText(context, "admin apge", Toast.LENGTH_SHORT).show()
         val intent = Intent(getActivity(), AdminActivity::class.java)
         startActivity(intent)
     }

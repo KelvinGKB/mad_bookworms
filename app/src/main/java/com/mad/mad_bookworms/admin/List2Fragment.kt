@@ -60,7 +60,7 @@ class List2Fragment : Fragment() {
 
     private fun deleteAll() {
         // TODO: Delete all
-//        vm.deleteAll()
+        vm.deleteAll()
     }
 
     private fun delete(id: String) {

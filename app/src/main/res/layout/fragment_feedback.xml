@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Feedback"
+                android:text="@string/feedback"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -70,7 +70,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:fontFamily="@font/roboto_medium"
-                                android:text="We would love to hear your thoughts, suggestions, concerns or problems with anything so we can improve!"
+                                android:text="@string/feedback_title"
                                 android:textSize="20sp" />
 
                         </LinearLayout>
@@ -81,7 +81,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Rate Our Applicaion !"
+                            android:text="@string/rate_our_applicaion"
                             android:textSize="20sp" />
 
                         <LinearLayout
@@ -108,7 +108,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Feedback Type"
+                            android:text="@string/feedback_type"
                             android:gravity="center"
                             android:textSize="20sp" />
 
@@ -133,7 +133,7 @@
                                     android:layout_margin="5dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="Comment"
+                                    android:text="@string/comment"
                                     android:buttonTint="@color/background_color"/>
 
                                 <RadioButton
@@ -141,7 +141,7 @@
                                     android:layout_margin="5dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="Suggestion"
+                                    android:text="@string/suggestion"
                                     android:buttonTint="@color/background_color"/>
 
                                 <RadioButton
@@ -149,7 +149,7 @@
                                     android:layout_margin="5dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="Questions"
+                                    android:text="@string/questions"
                                     android:buttonTint="@color/background_color"/>
                             </RadioGroup>
 
@@ -177,7 +177,7 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/roboto_medium"
                             android:gravity="center"
-                            android:text="Describe Your Feedback:"
+                            android:text="@string/describe_your_feedback"
                             android:textSize="20sp" />
 
                         <LinearLayout
@@ -193,7 +193,7 @@
                                 android:layout_marginTop="8dp"
                                 android:background="#FFFFFF"
                                 android:ems="10"
-                                android:hint="Description"
+                                android:hint="@string/description"
                                 android:importantForAccessibility="no"
                                 android:importantForAutofill="no"
                                 android:maxLength="250"
@@ -247,7 +247,7 @@
                                     android:foregroundGravity="center_vertical"
                                     android:gravity="center"
                                     android:letterSpacing="0.1"
-                                    android:text="Submit"
+                                    android:text="@string/submit"
                                     android:textAppearance="@style/TextAppearanceTab"
                                     android:textColor="#FFFFFF"
                                     android:textSize="16sp"

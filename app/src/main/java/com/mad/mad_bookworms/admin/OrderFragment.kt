@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.databinding.FragmentOrderBinding
 import com.mad.mad_bookworms.viewModels.OrderViewModel
+import java.text.SimpleDateFormat
 
 
 class OrderFragment : Fragment() {
@@ -57,7 +58,7 @@ class OrderFragment : Fragment() {
             }
         })
 
-        binding.btnId.setOnClickListener { sort("id") }
+//        binding.btnId.setOnClickListener { sort("id") }
         binding.btnType.setOnClickListener { sort("paymentType") }
         binding.btnDate.setOnClickListener { sort("dateTime") }
         binding.btnAmount.setOnClickListener { sort("amount") }
@@ -71,7 +72,7 @@ class OrderFragment : Fragment() {
         val reverse = vm.sort(field)
 
         // TODO(27): Remove icon -> all buttons
-        binding.btnId.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+//        binding.btnId.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         binding.btnType.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         binding.btnDate.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         binding.btnAmount.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
@@ -80,7 +81,7 @@ class OrderFragment : Fragment() {
         val res = if (reverse) R.drawable.ic_down else R.drawable.ic_up
 
         when (field) {
-            "id"    -> binding.btnId.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
+//            "id"    -> binding.btnId.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
             "paymentType"  -> binding.btnType.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
             "dateTime"  -> binding.btnDate.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
             "amount" -> binding.btnAmount.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
@@ -91,5 +92,7 @@ class OrderFragment : Fragment() {
         // TODO: Delete
         vm.delete(id)
     }
+
+
 
 }

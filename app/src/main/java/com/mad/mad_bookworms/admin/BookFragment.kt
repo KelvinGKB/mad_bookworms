@@ -30,26 +30,11 @@ class BookFragment : Fragment() {
         binding.btnBook.setOnClickListener { nav.navigate(R.id.listFragment) }
         binding.btnVoucher.setOnClickListener { nav.navigate(R.id.list2Fragment) }
         binding.btnSales.setOnClickListener { nav.navigate(R.id.orderFragment) }
-        binding.btnRead.setOnClickListener { read() }
-        binding.btnSet.setOnClickListener { set() }
-        binding.btnUpdate.setOnClickListener { update() }
-        binding.btnDelete.setOnClickListener { delete() }
+        binding.btnFeedBack.setOnClickListener { nav.navigate(R.id.feedbackListFragment) }
 
         return binding.root
     }
 
-    private fun read() {
-        // TODO
-        Firebase.firestore
-            .collection("books")
-            .get()
-            .addOnSuccessListener { snap ->
-                val list = snap.toObjects<Book>()
-                var result = ""
-                list.forEach { f -> result += "${f.id} ${f.title} ${f.pages}\n" }
-                binding.txtResult.text = result
-            }
-    }
 
     private fun set() {
         // TODO

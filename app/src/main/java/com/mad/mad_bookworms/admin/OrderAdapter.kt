@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.data.Order
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
 class OrderAdapter (
     val fn: (ViewHolder, Order) -> Unit = { _, _ -> }
 ) : ListAdapter<Order, OrderAdapter.ViewHolder>(DiffCallback) {
 
     private val formatter = DecimalFormat("0.00")
+    private val format = SimpleDateFormat("yyyy.MM.dd")
 
     companion object DiffCallback : DiffUtil.ItemCallback<Order>() {
         override fun areItemsTheSame(a: Order, b: Order)    = a.id == b.id
@@ -44,7 +46,7 @@ class OrderAdapter (
 
         holder.txtId.text    = order.id
         holder.txtType.text  = order.paymentType
-        holder.txtDate.text  = order.dateTime.toString()
+        holder.txtDate.text  = format.format(order.dateTime).toString()
         holder.txtAmount.text  = formatter.format(order.amount)
 
         fn(holder, order)

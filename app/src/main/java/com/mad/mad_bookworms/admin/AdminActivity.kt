@@ -49,7 +49,7 @@ class AdminActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         abc = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.listFragment, R.id.list2Fragment, R.id.orderFragment),
+            setOf(R.id.homeFragment, R.id.listFragment, R.id.list2Fragment, R.id.orderFragment, R.id.feedbackListFragment),
             binding.drawerLayout
         )
 

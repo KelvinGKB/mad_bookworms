@@ -31,27 +31,15 @@
         android:id="@+id/sv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/search_background"
+        android:background="@drawable/circle"
         android:iconifiedByDefault="false"
         android:queryHint="Enter name"
-        app:layout_constraintEnd_toStartOf="@+id/spn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCount" >
+        app:layout_constraintTop_toBottomOf="@+id/txtCount">
 
     </SearchView>
-
-    <Spinner
-        android:id="@+id/spn"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/sv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sv"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
@@ -67,15 +55,15 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/btnId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Id"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sv" />
+<!--    <Button-->
+<!--        android:id="@+id/btnId"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:text="Id"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/sv" />-->
 
     <Button
         android:id="@+id/btnType"
@@ -83,8 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Payment"
-        app:layout_constraintStart_toEndOf="@+id/btnId"
-        app:layout_constraintTop_toTopOf="@+id/btnId" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv" />
 
     <Button
         android:id="@+id/btnDate"

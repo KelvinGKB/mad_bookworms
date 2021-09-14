@@ -139,6 +139,16 @@
     <string name="english">English</string>
     <string name="chinese">Chinese</string>
     <string name="change_language">Change Language</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_title">We would love to hear your thoughts, suggestions, concerns or problems with anything so we can improve!</string>
+    <string name="rate_our_applicaion">Rate Our Applicaion !</string>
+    <string name="feedback_type">Feedback Type</string>
+    <string name="comment">Comment</string>
+    <string name="suggestion">Suggestion</string>
+    <string name="questions">Questions</string>
+    <string name="describe_your_feedback">Describe Your Feedback:</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
 
     <string-array name="array_profile">
         <item>Daily Check In</item>

@@ -139,6 +139,16 @@
     <string name="english">英文</string>
     <string name="chinese">华文</string>
     <string name="change_language">更改语言</string>
+    <string name="feedback">反馈</string>
+    <string name="feedback_title">我们很乐意听到您的想法、建议、疑虑或任何问题，以便我们改进！</string>
+    <string name="rate_our_applicaion">评价我们的应用程序 !</string>
+    <string name="feedback_type">反馈类型</string>
+    <string name="comment">留言</string>
+    <string name="suggestion">建议</string>
+    <string name="questions">提问</string>
+    <string name="describe_your_feedback">描述你的反馈:</string>
+    <string name="description">描述</string>
+    <string name="submit">提交</string>
 
     <string-array name="array_profile">
         <item>Daily Check In</item>

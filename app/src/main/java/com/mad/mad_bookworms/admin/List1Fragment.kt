@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -29,8 +30,10 @@ class List1Fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
         binding = FragmentList1Binding.inflate(inflater, container, false)
 
+        vm.search("")
+
+
         binding.btnInsert.setOnClickListener { nav.navigate(R.id.insertFragment) }
-        binding.btnDeleteAll.setOnClickListener { deleteAll() }
 
         adapter = BookAdapter() { holder, book ->
             // Item click
@@ -48,13 +51,44 @@ class List1Fragment : Fragment() {
             binding.txtCount.text = "${list.size} book(s)"
         }
 
+        binding.sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(name: String) = true
+            override fun onQueryTextChange(name: String): Boolean {
+                // TODO(19): Search by [name] -> vm.search(...)
+                vm.search(name)
+                return true
+            }
+        })
+
+//        binding.btnId.setOnClickListener { sort("id") }
+        binding.btnId.setOnClickListener { sort("id") }
+        binding.btnName.setOnClickListener { sort("title") }
+        binding.btnPrice.setOnClickListener { sort("price") }
+
         return binding.root
     }
 
-    private fun deleteAll() {
-        // TODO: Delete all
-//        vm.deleteAll()
+    private fun sort(field: String) {
+        // TODO(26): Sort by [field] -> vm.sort(...)
+        val reverse = vm.sort(field)
+
+        // TODO(27): Remove icon -> all buttons
+//        binding.btnId.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        binding.btnId.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        binding.btnName.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        binding.btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+
+        // TODO(28): Set icon -> specific button
+        val res = if (reverse) R.drawable.ic_down else R.drawable.ic_up
+
+        when (field) {
+//            "id"    -> binding.btnId.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
+            "id"  -> binding.btnId.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
+            "title"  -> binding.btnName.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
+            "price" -> binding.btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
+        }
     }
+
 
     private fun delete(id: String) {
         // TODO: Delete

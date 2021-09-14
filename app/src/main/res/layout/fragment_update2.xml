@@ -45,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:hint="Discount Amount"
         android:ems="10"
         android:enabled="false"
         android:importantForAccessibility="no"
@@ -95,6 +96,7 @@
         android:importantForAccessibility="no"
         android:importantForAutofill="no"
         android:inputType="number"
+        android:hint="Required Points"
         android:maxLength="5"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -126,7 +128,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Submit"
+        android:text="Update"
         app:layout_constraintStart_toEndOf="@+id/btnReset"
         app:layout_constraintTop_toTopOf="@+id/btnReset" />
 

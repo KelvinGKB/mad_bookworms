@@ -47,6 +47,7 @@ import androidx.core.content.PermissionChecker
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
+import com.mad.mad_bookworms.viewModels.UserViewModel
 
 
 class OrderDetailFragment : Fragment() {
@@ -66,6 +67,7 @@ class OrderDetailFragment : Fragment() {
     private val vm: BookOrderViewModel by activityViewModels()
     private val bokkVm: BookViewModel by activityViewModels()
     private val orderVm: OrderViewModel by activityViewModels()
+    private val userVm: UserViewModel by activityViewModels()
 
     private val id by lazy { requireArguments().getString("id", "") }
 
@@ -109,33 +111,36 @@ class OrderDetailFragment : Fragment() {
         lifecycleScope.launch {
             vm.getOrder(id).observe(viewLifecycleOwner) { BookOrder ->
                 binding.tvTotal.text = "${BookOrder.size}"
-                binding.tvTotalPrice.text = "9"
-
                 adapter.submitList(BookOrder)
             }
 
             val f = orderVm.get(id)
 
-            binding.tvTotalPrice.text = f!!.amount.toString()
-
-
-        }
-
-
-
-        binding.btnPrint.setOnClickListener {
-            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
-                if(checkSelfPermission(requireContext() ,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PermissionChecker.PERMISSION_DENIED){
-                    val permision = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    requestPermissions(permision, STORAGE_CODE)
-                }
-                else{
-                    generatePDF()
-                }
-            }else{
-                generatePDF()
+            val u = userVm.get(f!!.uid)
+            if (u != null) {
+                binding.tvUserName.text = "${u.fullname}"
+                binding.tvDeliveryAddress.text = "-User Address-\n ${u.address} \n${u.city} \n${u.postal}, ${u.state}"
             }
+
+
+
         }
+
+
+
+//        binding.btnPrint.setOnClickListener {
+//            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
+//                if(checkSelfPermission(requireContext() ,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PermissionChecker.PERMISSION_DENIED){
+//                    val permision = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                    requestPermissions(permision, STORAGE_CODE)
+//                }
+//                else{
+//                    generatePDF()
+//                }
+//            }else{
+//                generatePDF()
+//            }
+//        }
 
         return binding.root
     }

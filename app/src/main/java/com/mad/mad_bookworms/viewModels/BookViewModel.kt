@@ -13,8 +13,20 @@ class BookViewModel : ViewModel() {
     private val col = Firebase.firestore.collection("books")
     private val books = MutableLiveData<List<Book>>()
 
+    private var list = listOf<Book>() // Original data
+    private var name = ""       // Search
+    private var field = ""      // Sort
+    private var reverse = false // Sort
+
+
     init {
-        col.addSnapshotListener {snap, _ -> books.value = snap?.toObjects() }
+        col.addSnapshotListener {snap, _ ->
+            if (snap == null) return@addSnapshotListener
+
+            books.value = snap?.toObjects()
+            list = snap.toObjects<Book>()
+
+        }
     }
 
     suspend fun get(id: String): Book? {
@@ -91,6 +103,41 @@ class BookViewModel : ViewModel() {
 
         return e
     }
+
+    private fun updateResult() {
+        var list = this.list
+
+        // TODO(23): Search + filter
+        list = list.filter { f ->
+            f.title.contains(name, true)
+        }
+
+        // TODO(24): Sort
+        list = when (field) {
+            "id"    -> list.sortedBy { f -> f.id }
+            "title"  -> list.sortedBy { f -> f.title }
+            "price"  -> list.sortedBy { f -> f.price }
+            else    -> list
+        }
+
+        if (reverse) list = list.reversed()
+
+        books.value = list
+    }
+
+    fun search(name: String) {
+        this.name = name
+        updateResult()
+    }
+
+    fun sort(field: String): Boolean {
+        reverse = if (this.field == field) !reverse else false
+        this.field = field
+        updateResult()
+
+        return reverse
+    }
+
 
 
 }

@@ -57,4 +57,11 @@
         android:label="Order"
         tools:layout="@layout/fragment_order_detail" />
 
+
+    <fragment
+        android:id="@+id/feedbackListFragment"
+        android:name="com.mad.mad_bookworms.admin.FeedbackListFragment"
+        android:label="Feedback"
+        tools:layout="@layout/fragment_feedback_list" />
+
 </navigation>

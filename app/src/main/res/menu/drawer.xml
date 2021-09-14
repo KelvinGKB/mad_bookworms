@@ -23,6 +23,11 @@
             android:id="@+id/orderFragment"
             android:checkable="true"
             android:title="Order Manager" />
+        <item
+            android:id="@+id/feedbackListFragment"
+            android:checkable="true"
+            android:title="Feedback from User" />
+
     </group>
 
     <item

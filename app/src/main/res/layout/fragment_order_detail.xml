@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Book"
+            android:text="Book Type -"
             android:textColor="#000000"
             android:textSize="18dp"
             android:textStyle="normal"
@@ -31,7 +31,7 @@
             android:layout_marginTop="14dp"
             android:fontFamily="@font/roboto_medium"
             android:textColor="#373737"
-            android:textSize="16sp"
+            android:textSize="18dp"
             app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="(XX)" />
@@ -103,7 +103,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Total : "
+                            android:text="Recipient  : "
                             android:textColor="#000000"
                             android:textSize="18dp"
                             android:textStyle="normal" />
@@ -116,24 +116,14 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView19"
+                            android:id="@+id/tvUserName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="RM"
+                            android:text="Goh KB"
                             android:textColor="#000000"
                             android:textSize="18dp" />
 
-                        <TextView
-                            android:id="@+id/tvTotalPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="bottom"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="0.00"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            android:textStyle="normal" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -149,7 +139,6 @@
                         android:id="@+id/divider"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:layout_marginTop="20dp"
                         android:background="@drawable/dotted_line" />
                 </LinearLayout>
 
@@ -160,12 +149,24 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/btnPrint"
-                        android:layout_width="305dp"
-                        android:layout_height="50dp"
-                        android:text="Print"
-                        app:cornerRadius="20dp" />
+
+                    <TextView
+                        android:id="@+id/tvDeliveryAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="#000000"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="left"
+                        android:inputType="textLongMessage|textMultiLine"
+                        android:minLines="1"
+                        android:singleLine="false"
+                        android:textSize="15dp"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toBottomOf="@+id/textView26"
+                        tools:text="-User Address-\n5, Jalan Pulai 78,\nTaman Pulai Utama, \n81300, Skudai,Johor" />
+
                 </LinearLayout>
 
             </LinearLayout>
