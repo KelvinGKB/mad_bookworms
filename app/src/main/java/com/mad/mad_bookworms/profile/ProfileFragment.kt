@@ -77,6 +77,7 @@ class ProfileFragment : Fragment() {
                 "Referral History" -> setCurrentFragment(ReferralFragment())
                 "Language" -> changeLanguage()
                 "Refer a Friend" ->  CoroutineScope(Dispatchers.IO).launch { referFriend() }
+                "Feedback" -> setCurrentFragment(FeedbackFragment())
                 "Admin Panel" -> activity()
                 "Log Out" -> signOut()
             }

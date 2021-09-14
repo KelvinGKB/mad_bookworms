@@ -70,7 +70,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:fontFamily="@font/roboto_medium"
-                                android:text="@string/FeedbackDesc"
+                                android:text="We would love to hear your thoughts, suggestions, concerns or problems with anything so we can improve!"
                                 android:textSize="20sp" />
 
                         </LinearLayout>
@@ -205,7 +205,8 @@
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusBottomStart="15dp"
                                 app:boxCornerRadiusTopEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp" />
+                                app:boxCornerRadiusTopStart="15dp"
+                                tools:ignore="TextContrastCheck" />
 
                         </LinearLayout>
 
