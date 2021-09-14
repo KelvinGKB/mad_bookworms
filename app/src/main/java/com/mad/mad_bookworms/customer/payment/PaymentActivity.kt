@@ -21,6 +21,7 @@ import org.json.JSONException
 
 import android.R.attr.data
 import android.app.Activity
+import android.content.Context
 import android.os.strictmode.IntentReceiverLeakedViolation
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
@@ -41,6 +42,11 @@ import kotlin.collections.ArrayList
 
 
 class PaymentActivity : AppCompatActivity(), PaymentResultListener {
+
+    //To set the base language of the system
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LoacalHelper.setLocale(newBase!!))
+    }
 
     /// Hide Action Bar
     override fun onResume() {

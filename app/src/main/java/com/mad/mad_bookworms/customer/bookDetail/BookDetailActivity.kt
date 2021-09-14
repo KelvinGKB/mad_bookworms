@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.mad.mad_bookworms.R
 import com.mad.mad_bookworms.databinding.ActivityBookDetailBinding
 import android.widget.Toast
 
@@ -31,14 +30,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.mad.mad_bookworms.MainActivity
+import com.mad.mad_bookworms.*
 import com.mad.mad_bookworms.customer.payment.RazorPaySuccess
 import com.mad.mad_bookworms.data.Book
 import com.mad.mad_bookworms.data.LocalDB
 import com.mad.mad_bookworms.data.MyCartDao
 import com.mad.mad_bookworms.data.MyCartTable
-import com.mad.mad_bookworms.showMultiuseDialog
-import com.mad.mad_bookworms.toBitmap
 import com.mad.mad_bookworms.viewModels.CartOrderViewModel
 import com.mad.mad_bookworms.viewModels.UserViewModel
 import com.mad.mad_bookworms.viewModels.UserVoucherViewModel
@@ -73,6 +70,11 @@ class BookDetailActivity : AppCompatActivity() {
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+
+    //To set the base language of the system
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LoacalHelper.setLocale(newBase!!))
+    }
 
     /// Hide Action Bar
     override fun onResume() {
